@@ -11,7 +11,6 @@ import * as Animatable from "react-native-animatable";
 
 export default class LoginScreen extends React.Component {
     render (){
-        const { navigate } = this.props.navigation;
         return(
             <View style={externalStyle.container}>
       <View style={externalStyle.containerLogo}>
@@ -44,7 +43,7 @@ export default class LoginScreen extends React.Component {
       <View style={externalStyle.containerSignin}>
         <Text style={{ marginBottom: 20, textAlign: "center" }}>
           <Text>Forgot Password ?{"    "}</Text>
-          <Text style={{ color: "#5F7BB6" }} onPress={() => navigate('RegisterScreen')}>
+          <Text style={{ color: "#5F7BB6" }} onPress={() => alert('KUY RAI SUS')}>
             Sign Up Now ?
           </Text>
         </Text>
