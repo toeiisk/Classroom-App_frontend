@@ -20,7 +20,8 @@ export default class RegisterScreen extends Component {
     super(props);
     
     this.state = {
-      name: "",
+      firstname: "",
+      lastname: "",
       username: "",
       email: "",
       roles: ["STUDENT"],
@@ -28,7 +29,8 @@ export default class RegisterScreen extends Component {
     };
 
     this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeName1 = this.onChangeName1.bind(this);
+    this.onChangeName2 = this.onChangeName2.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -37,9 +39,14 @@ export default class RegisterScreen extends Component {
 
   
  
-  onChangeName = (inputText) => {
+  onChangeName1 = (inputText) => {
     this.setState({
-      name: inputText,
+      firstname: inputText,
+    });
+  };
+  onChangeName2 = (inputText) => {
+    this.setState({
+      lastname: inputText,
     });
   };
   onChangeUsername = (inputText) => {
@@ -59,18 +66,26 @@ export default class RegisterScreen extends Component {
   };
  
   onSubmit = () => {
-
+  
     const user = this.state;
+    console.log(user)
     axios
       .post("http://103.13.231.22:3000/api/auth/signup", user)
-      .then((res) => console.log(res.data) );
-
-    this.setState({
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-    });
+      .then((res) => {
+        console.log(res.data)
+        console.log('User registered successfully!')
+        this.setState({
+          firstname: "",
+          lastname: "",
+          username: "",
+          email: "",
+          password: "",
+        });    
+        this.props.navigation.navigate('LoginScreen')
+      });
+    
+    
+    
 
   };
   
@@ -96,10 +111,17 @@ export default class RegisterScreen extends Component {
           <View style={externalStyle.containerSignin}>
             <TextInput
               style={externalStyle.textinput}
-              placeholder="Name"
+              placeholder="Firstname"
               placeholderTextColor="#000000"
               autoCapitalize="none"
-              onChangeText={this.onChangeName}
+              onChangeText={this.onChangeName1}
+            />
+            <TextInput
+              style={externalStyle.textinput}
+              placeholder="Lastname"
+              placeholderTextColor="#000000"
+              autoCapitalize="none"
+              onChangeText={this.onChangeName2}
             />
             <TextInput
               style={externalStyle.textinput}
@@ -123,7 +145,7 @@ export default class RegisterScreen extends Component {
               onChangeText={this.onChangePassword}
             />
             <View style={externalStyle.containerSignin}>
-                <TouchableOpacity style={externalStyle.buttonSignin} onPress = {this.onSubmit}>
+                <TouchableOpacity style={externalStyle.buttonSignin} onPress = {() => this.onSubmit()}>
                   <Text style={externalStyle.textStyle}>SIGN IN</Text>
                 </TouchableOpacity>
             </View>
