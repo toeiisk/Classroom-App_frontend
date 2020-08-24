@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
+  Alert 
 } from "react-native";
 import axios from "axios";
 import { Image, Text } from "react-native-elements";
@@ -13,13 +14,29 @@ import * as Animatable from "react-native-animatable";
 import { render } from "react-dom";
 
 export default class RegisterScreen extends Component {
-  state = {
-    name: "",
-    username: "",
-    email: "",
-    roles: ["STUDENT"],
-    password: "",
-  };
+
+
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      name: "",
+      username: "",
+      email: "",
+      roles: ["STUDENT"],
+      password: "",
+    };
+
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
+  }
+
+  
+ 
   onChangeName = (inputText) => {
     this.setState({
       name: inputText,
@@ -40,11 +57,13 @@ export default class RegisterScreen extends Component {
       password: inputText,
     });
   };
+ 
   onSubmit = () => {
+
     const user = this.state;
     axios
       .post("http://103.13.231.22:3000/api/auth/signup", user)
-      .then((res) => console.log(res.data));
+      .then((res) => console.log(res.data) );
 
     this.setState({
       name: "",
@@ -52,7 +71,9 @@ export default class RegisterScreen extends Component {
       email: "",
       password: "",
     });
+
   };
+  
   render() {
     return (
       <View style={styles.container}>
@@ -88,7 +109,6 @@ export default class RegisterScreen extends Component {
               onChangeText={this.onChangeEmail}
             />
             <TextInput
-              secureTextEntry={true}
               style={externalStyle.textinput}
               placeholder="Username"
               placeholderTextColor="#000000"
@@ -103,9 +123,9 @@ export default class RegisterScreen extends Component {
               onChangeText={this.onChangePassword}
             />
             <View style={externalStyle.containerSignin}>
-              <TouchableOpacity style={externalStyle.buttonSignin} onPress = {this.onSubmit}>
-                <Text style={externalStyle.textStyle}>SIGN IN</Text>
-              </TouchableOpacity>
+                <TouchableOpacity style={externalStyle.buttonSignin} onPress = {this.onSubmit}>
+                  <Text style={externalStyle.textStyle}>SIGN IN</Text>
+                </TouchableOpacity>
             </View>
           </View>
         </Animatable.View>

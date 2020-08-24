@@ -9,8 +9,7 @@ import externalStyle from "../style/externalStyle";
 import { Image, Text } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 
-export default class LoginScreen extends React.Component {
-    render (){
+const  LoginScreen  = ( { navigation } ) => {
         return(
             <View style={externalStyle.container}>
       <View style={externalStyle.containerLogo}>
@@ -43,7 +42,7 @@ export default class LoginScreen extends React.Component {
       <View style={externalStyle.containerSignin}>
         <Text style={{ marginBottom: 20, textAlign: "center" }}>
           <Text>Forgot Password ?{"    "}</Text>
-          <Text style={{ color: "#5F7BB6" }} onPress={() => alert('KUY RAI SUS')}>
+          <Text style={{ color: "#5F7BB6" }} onPress={() => navigation.navigate('Register')}>
             Sign Up Now ?
           </Text>
         </Text>
@@ -70,5 +69,7 @@ export default class LoginScreen extends React.Component {
       </View>
     </View>
         );
-    }
+    
 }
+
+export default LoginScreen
