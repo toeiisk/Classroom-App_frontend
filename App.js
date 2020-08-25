@@ -1,41 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './components/LoginScreen';
-import RegisterScreen from './components/RegisterScreen';
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import ReduxThunk from 'redux-thunk'
-import AppReducer from './store/reducers/index'
-import {Provider} from 'react-redux';
-import { 
-    createStore,
-    applyMiddleware
-} from 'redux'
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import LoadingScreen from "./components/LoadingScreen";
+import LoginScreen from "./components/LoginScreen";
+import SplashScreen from "./components/SplashScreen";
+import RegisterScreen from "./components/RegisterScreen";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import ReduxThunk from "redux-thunk";
+import AppReducer from "./store/reducers/index";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
 
-import {
-    AppRegistry,
-  } from 'react-native';
+import { AppRegistry } from "react-native";
 
-const store = createStore(AppReducer, applyMiddleware(ReduxThunk))
+const store = createStore(AppReducer, applyMiddleware(ReduxThunk));
 const Stack = createStackNavigator();
 
-const App = () =>{
+// <Stack.Screen component={LoadingScreen} name="LoadingScreen"/>
+
+const App = () => {
   return (
-    <Provider store = {store}>
+    <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="LoginScreen"
-            component= {LoginScreen}
-          />
-          <Stack.Screen component = {RegisterScreen} name="Register" />
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen component={RegisterScreen} name="Register" />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
-  )
-}
+  );
+};
 
-
-export default App
+export default App;
