@@ -11,9 +11,12 @@ import axios from "axios";
 import { Image, Text } from "react-native-elements";
 import externalStyle from "../style/externalStyle";
 import * as Animatable from "react-native-animatable";
-import { render } from "react-dom";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {createNewUser} from "../store/actions/auth.actions";
 
-export default class RegisterScreen extends Component {
+
+class RegisterScreen extends Component {
 
 
   constructor(props) {
@@ -64,33 +67,66 @@ export default class RegisterScreen extends Component {
       password: inputText,
     });
   };
- 
-  onSubmit = () => {
   
-    const user = this.state;
-    console.log(user)
-    axios
-      .post("http://103.13.231.22:3000/api/auth/signup", user)
-      .then((res) => {
-        console.log(res.data)
-        console.log('User registered successfully!')
-        this.setState({
-          firstname: "",
-          lastname: "",
-          username: "",
-          email: "",
-          password: "",
-        });    
-        this.props.navigation.navigate('LoginScreen')
-      });
-    
-    
-    
 
-  };
+  createNewUser = async (values) =>{
+    try{
+      const response = this.props.dispatch(createNewUser(values));
+      // this.props.navigation.navigate('LoginScreen')
+        Alert.alert(
+          "สมัครข้อมูลสำเร็จ",
+          "ยืนยัน",
+          [
+            {
+              text: "ตกลง",
+              onPress: () =>this.props.navigation.navigate('LoginScreen'),
+              style: "ok"
+            },
+          ],
+          { cancelable: false }
+        );
+      
+    }catch{
+      const newError = new ErrorUtils(error, "Signup Error");
+          newError.showAlert();
+    }
+  }
+
+  onSubmit = (values) => {
+      this.createNewUser(values)
+      this.setState({
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
+        password: "",
+      });     
+  }
+
+
+  // onSubmit = () => {
+  
+  //   const user = this.state;
+  //   axios
+  //     .post("http://103.13.231.22:3000/api/auth/signup", user)
+  //     .then(() => {
+  //       console.log('User registered successfully!')
+  //       this.setState({
+  //         firstname: "",
+  //         lastname: "",
+  //         username: "",
+  //         email: "",
+  //         password: "",
+  //       });    
+  //       this.props.navigation.navigate('LoginScreen')
+  //     });
+  // };
   
   render() {
+
+    const {createUser} = this.props;
     return (
+      
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.containerLogo}>
@@ -145,7 +181,7 @@ export default class RegisterScreen extends Component {
               onChangeText={this.onChangePassword}
             />
             <View style={externalStyle.containerSignin}>
-                <TouchableOpacity style={externalStyle.buttonSignin} onPress = {() => this.onSubmit()}>
+                <TouchableOpacity style={externalStyle.buttonSignin} onPress = {() => {this.onSubmit(this.state)}}>
                   <Text style={externalStyle.textStyle}>SIGN IN</Text>
                 </TouchableOpacity>
             </View>
@@ -154,7 +190,7 @@ export default class RegisterScreen extends Component {
       </View>
     );
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -187,3 +223,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+mapStateToProps = (state) => ({
+  createUser: state.authReducer.createUser
+})
+
+mapDispatchToProps = (dispatch) => ({
+  dispatch
+});
+
+
+export default compose(connect(mapStateToProps, mapDispatchToProps, null)(RegisterScreen));
