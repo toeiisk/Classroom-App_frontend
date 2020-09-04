@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import LoadingScreen from "./components/LoadingScreen";
 import LoginScreen from "./components/LoginScreen";
 import SplashScreen from "./components/SplashScreen";
@@ -25,9 +24,10 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen component={RegisterScreen} name="Register" />
+          <Stack.Screen component={LoadingScreen} name="Loading" />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createNewUser = (payload) => {
-    return  (dispatch) => {
+    return  async (dispatch) => {
         
         try{
             dispatch({
@@ -10,7 +10,6 @@ export const createNewUser = (payload) => {
             axios
             .post('http://103.13.231.22:3000/api/auth/signup', payload)
             .then(() =>{
-                console.log("Register Complete")
                 dispatch({
                     type: "CREAT_USER_SUCCESS"
                 })
@@ -29,7 +28,34 @@ export const createNewUser = (payload) => {
             });
             return er;
         }
-        
-       
+               
     }
 }
+
+export const UserLogin = (payload) => {
+    console.log(payload)
+    return async (dispatch) =>{
+        try{
+            axios
+            .post('http://103.13.231.22:3000/api/auth/signin', payload)
+            .then(() =>{
+                dispatch({
+                    type: "AUTH_LOGIN_SUCCES"
+                })
+            })
+            .catch(() => {
+                dispatch({
+                    type: "AUTH_LOGIN_FAIL"
+                })
+            })
+        }catch (er){
+            console.log(er.message)
+            dispatch({
+                type: "AUTH_LOGIN_FAIL"
+            })
+        }
+    }
+    
+}
+
+ 

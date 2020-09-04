@@ -4,16 +4,15 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
   Alert 
 } from "react-native";
-import axios from "axios";
 import { Image, Text } from "react-native-elements";
 import externalStyle from "../style/externalStyle";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {createNewUser} from "../store/actions/auth.actions";
+
 
 
 class RegisterScreen extends Component {
@@ -71,7 +70,7 @@ class RegisterScreen extends Component {
 
   createNewUser = async (values) =>{
     try{
-      const response = this.props.dispatch(createNewUser(values));
+      this.props.dispatch(createNewUser(values));
       // this.props.navigation.navigate('LoginScreen')
         Alert.alert(
           "สมัครข้อมูลสำเร็จ",
@@ -101,33 +100,12 @@ class RegisterScreen extends Component {
         email: "",
         password: "",
       });     
-  }
-
-
-  // onSubmit = () => {
-  
-  //   const user = this.state;
-  //   axios
-  //     .post("http://103.13.231.22:3000/api/auth/signup", user)
-  //     .then(() => {
-  //       console.log('User registered successfully!')
-  //       this.setState({
-  //         firstname: "",
-  //         lastname: "",
-  //         username: "",
-  //         email: "",
-  //         password: "",
-  //       });    
-  //       this.props.navigation.navigate('LoginScreen')
-  //     });
-  // };
-  
+  }  
   render() {
-
-    const {createUser} = this.props;
+    
     return (
-      
       <View style={styles.container}>
+
         <View style={styles.header}>
           <View style={styles.containerLogo}>
             <Animatable.Image
@@ -225,7 +203,7 @@ const styles = StyleSheet.create({
 });
 
 mapStateToProps = (state) => ({
-  createUser: state.authReducer.createUser
+  AuthReducer: state.authReducer.AuthReducer
 })
 
 mapDispatchToProps = (dispatch) => ({

@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   logoText: {
     color: "#FFF",
     fontSize: 30,
-    fontFamily: "sans-serif-medium",
     marginTop: height * 0.1,
     fontWeight: "300",
   },

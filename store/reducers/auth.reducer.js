@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 
-const createUser = (state = {}, action) => {
+
+const AuthReducer  = (state = {}, action) => {
     switch (action.type) {
 
-      case "CREATE_USER_LOADING":
+        case "CREATE_USER_LOADING":
           return {
               isLoading: true,
               isError: false,
@@ -12,7 +13,7 @@ const createUser = (state = {}, action) => {
 
           }
 
-      case "CREAT_USER_SUCCESS":
+        case "CREAT_USER_SUCCESS":
           return {
               isLoading: false,
               isError: false,
@@ -20,7 +21,7 @@ const createUser = (state = {}, action) => {
               errors: null
           }
 
-      case "CREAT_USER_FAIL":
+        case "CREAT_USER_FAIL":
           return {
               isLoading: false,
               isError: true,
@@ -33,7 +34,31 @@ const createUser = (state = {}, action) => {
     }
 }
 
+const UserLogin = (state = {}, action) =>{
+    switch (action.type) {
+        case "AUTH_LOGIN_SUCCES":
+            console.log('success')
+            return{
+                isLoading: false,
+                isError: true,
+                isSuccess: true,
+                errors: action.payload
+                
+            }
+        case "AUTH_LOGIN_FAIL":
+            console.log('faile')
+            return{
+                isLoading: false,
+                isError: true,
+                isSuccess: false,
+                errors: action.payload
+            }
+        default:
+            return state
+    }
+}
 
 export default combineReducers({
-    createUser,
+    AuthReducer,
+    UserLogin
   });
