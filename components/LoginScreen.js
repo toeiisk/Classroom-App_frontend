@@ -11,7 +11,7 @@ import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
-
+import TestScreen from './LoadingScreen'
 
 class  LoginScreen  extends Component {
 
@@ -57,6 +57,9 @@ class  LoginScreen  extends Component {
   }
 
   render() {
+    const {UserLogin} = this.props
+    
+    if(UserLogin.isSuccess) return <TestScreen />
     return(
       <View style={externalStyle.container}>
       <View style={externalStyle.containerLogo}>
@@ -87,7 +90,7 @@ class  LoginScreen  extends Component {
       </View>
 <View style={externalStyle.containerSignin}>
   <TouchableOpacity style={externalStyle.buttonSignin} onPress = {() => {this.onSubmit(this.state)}}>
-    <Text style={externalStyle.textStyle}>SIGN IN</Text>
+    <Text style={externalStyle.textStyle}>SIGN IN </Text>
   </TouchableOpacity>
 </View>
 

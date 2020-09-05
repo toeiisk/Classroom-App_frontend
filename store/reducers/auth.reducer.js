@@ -36,6 +36,14 @@ const AuthReducer  = (state = {}, action) => {
 
 const UserLogin = (state = {}, action) =>{
     switch (action.type) {
+
+        case "AUTH_LOADING":
+            return{
+                isLoading: true,
+                isError: false,
+                isSuccess: false,
+                errors: action.payload   
+            }
         case "AUTH_LOGIN_SUCCES":
             console.log('success')
             return{

@@ -36,6 +36,9 @@ export const UserLogin = (payload) => {
     console.log(payload)
     return async (dispatch) =>{
         try{
+            dispatch({
+                type: "AUTH_LOADING"
+            });
             axios
             .post('http://103.13.231.22:3000/api/auth/signin', payload)
             .then(() =>{
