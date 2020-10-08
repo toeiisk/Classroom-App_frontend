@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
+  Alert
 } from "react-native";
 import externalStyle from "../style/externalStyle";
 import { Image, Text } from "react-native-elements";
@@ -11,7 +12,8 @@ import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
-import TestScreen from './testScreen'
+import TestScreen from './testScreen';
+import * as Facebook from 'expo-facebook';
 
 class  LoginScreen  extends Component {
 
@@ -52,10 +54,52 @@ class  LoginScreen  extends Component {
     this.UserLogin(value)
     this.setState({
       username: "",
-      password: ""
+      password: "",
+      loginstatus: false,
+      userdata: ''
     })
   }
+  
+  facebookLogIn = async () => {
+    try {
+      await Facebook.initializeAsync({
+        appId: '2990678831035937',
+      });
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        Alert.alert('Logged in!');
+        // Get the user's name using Facebook's Graph API
+        fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,picture.height(500)`)
+          .then(response => response.json())
+          .then(data => {
+            this.setState({
+              loginstatus: true,
+              userdata: data
+            })
+          })
+          .catch(e => console.log(e))
+        console.log(this.state.userdata)
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
+  }
 
+  // logout = () => {
+  //   setLoggedinStatus(false);
+  //   setUserData(null);
+  //   setImageLoadStatus(false);
+  // }
   render() {
     const {UserLogin} = this.props
     
@@ -108,7 +152,7 @@ class  LoginScreen  extends Component {
 
 <View style={externalStyle.containerSignin}>
   <View style={externalStyle.containerSigninLogo}>
-    <TouchableHighlight style={externalStyle.SigninLogo}>
+    <TouchableHighlight style={externalStyle.SigninLogo} onPress={() => this.facebookLogIn()}>
       <Image
         source={require("../assets/icon-facebook.png")}
         style={{ height: 60, width: 60 }}
