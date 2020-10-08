@@ -11,7 +11,7 @@ import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
-import TestScreen from './LoadingScreen'
+import TestScreen from './testScreen'
 
 class  LoginScreen  extends Component {
 
