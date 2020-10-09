@@ -50,7 +50,7 @@ const UserLogin = (state = {}, action) =>{
                 isLoading: false,
                 isError: true,
                 isSuccess: true,
-                errors: action.payload
+                errors: action.payload,
                 
             }
         case "AUTH_LOGIN_FAIL":
@@ -59,7 +59,7 @@ const UserLogin = (state = {}, action) =>{
                 isLoading: false,
                 isError: true,
                 isSuccess: false,
-                errors: action.payload
+                errors: action.payload,
             }
         default:
             return state

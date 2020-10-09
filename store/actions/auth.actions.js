@@ -33,7 +33,6 @@ export const createNewUser = (payload) => {
 }
 
 export const UserLogin = (payload) => {
-    console.log(payload)
     return async (dispatch) =>{
         try{
             dispatch({

@@ -21,7 +21,9 @@ class  LoginScreen  extends Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      userdata: null,
+      loginstatus: false,
     }
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -54,9 +56,7 @@ class  LoginScreen  extends Component {
     this.UserLogin(value)
     this.setState({
       username: "",
-      password: "",
-      loginstatus: false,
-      userdata: ''
+      password: ""
     })
   }
   
@@ -72,9 +72,10 @@ class  LoginScreen  extends Component {
         permissions,
         declinedPermissions,
       } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ['public_profile'],
+        permissions: ['public_profile', 'email'],
       });
       if (type === 'success') {
+        
         Alert.alert('Logged in!');
         // Get the user's name using Facebook's Graph API
         fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,picture.height(500)`)
@@ -84,9 +85,9 @@ class  LoginScreen  extends Component {
               loginstatus: true,
               userdata: data
             })
+            console.log(this.state.userdata)
           })
           .catch(e => console.log(e))
-        console.log(this.state.userdata)
       } else {
         // type === 'cancel'
       }
@@ -129,8 +130,8 @@ class  LoginScreen  extends Component {
         placeholderTextColor="#000000"
         onChangeText={this.onChangePassword}
         value={this.state.password}
-
       />
+      {UserLogin.isError ? <Text style={{color: 'red'}}>Username หรือ Password ผิดพลาด</Text>: null}
       </View>
 <View style={externalStyle.containerSignin}>
   <TouchableOpacity style={externalStyle.buttonSignin} onPress = {() => {this.onSubmit(this.state)}}>
