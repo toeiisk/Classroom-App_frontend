@@ -1,18 +1,18 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import {
   View,
+  StyleSheet,
+  StatusBar,
+  Dimensions,
+  Text,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
-  Alert
+  SafeAreaView,
 } from "react-native";
-import externalStyle from "../style/externalStyle";
-import { Image, Text } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
-import TestScreen from './testScreen';
 import * as Facebook from 'expo-facebook';
 
 class  LoginScreen  extends Component {
@@ -53,7 +53,8 @@ class  LoginScreen  extends Component {
   }
 
   onSubmit = (value) =>{
-    this.UserLogin(value)
+    // this.UserLogin(value)
+    console.log(value)
     this.setState({
       username: "",
       password: ""
@@ -106,69 +107,95 @@ class  LoginScreen  extends Component {
     
     if(UserLogin.isSuccess) return <TestScreen />
     return(
-      <View style={externalStyle.container}>
-      <View style={externalStyle.containerLogo}>
-      <Animatable.Image
-        animation="bounceIn"
+      <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.header}>
+        <Animatable.Image
+          animation="bounceIn"
+          duration={1500}
+          source={require("../assets/logo.png")}
+          style={styles.logo}
+          resizeMode={"stretch"}
+        />
+      </View>
+      <Animatable.View
+        style={styles.footer}
+        animation="fadeInUpBig"
         duration={1500}
-        source={require("../assets/logo-classroom.png")}
-        style={externalStyle.Logo}
-      />
-      </View>
-      <View style={externalStyle.containerSignin}>
-      <TextInput
-        style={externalStyle.textinput}
-        placeholder="Username"
-        placeholderTextColor="#000000"
-        onChangeText={this.onChangeUsername}
-        value={this.state.username}
-      />
-      <TextInput
-        secureTextEntry={true}
-        style={externalStyle.textinput}
-        placeholder="Password"
-        placeholderTextColor="#000000"
-        onChangeText={this.onChangePassword}
-        value={this.state.password}
-      />
-      {UserLogin.isError ? <Text style={{color: 'red'}}>Username หรือ Password ผิดพลาด</Text>: null}
-      </View>
-<View style={externalStyle.containerSignin}>
-  <TouchableOpacity style={externalStyle.buttonSignin} onPress = {() => {this.onSubmit(this.state)}}>
-    <Text style={externalStyle.textStyle}>SIGN IN </Text>
-  </TouchableOpacity>
-</View>
-
-<View style={externalStyle.containerSignin}>
-  <Text style={{ marginBottom: 20, textAlign: "center" }}>
-    <Text>Forgot Password ?{"    "}</Text>
-    <Text style={{ color: "#5F7BB6" }} onPress={() => this.props.navigation.navigate('Register')}>
-      Sign Up Now ?
-    </Text>
-  </Text>
-  <View style={{ flexDirection: "row", alignItems: "center" }}>
-    <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
-  </View>
-</View>
-
-<View style={externalStyle.containerSignin}>
-  <View style={externalStyle.containerSigninLogo}>
-    <TouchableHighlight style={externalStyle.SigninLogo} onPress={() => this.facebookLogIn()}>
-      <Image
-        source={require("../assets/icon-facebook.png")}
-        style={{ height: 60, width: 60 }}
-      />
-    </TouchableHighlight>
-    <TouchableHighlight style={externalStyle.SigninLogo}>
-      <Image
-        source={require("../assets/icon-google.png")}
-        style={{ height: 60, width: 60 }}
-      />
-    </TouchableHighlight>
-  </View>
-</View>
-</View>
-  );
+      >
+        <View style={{ alignItems: "center" }}>
+          <Text style={styles.text_title}>LOGIN</Text>
+        </View>
+        <Text style={styles.text_label}>Username</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            numberOfLines={1}
+            placeholder={"Username"}
+            placeholderTextColor="#fff"
+            onChangeText={this.onChangeUsername}
+            value={this.state.username}
+          />
+        </View>
+        <Text style={styles.text_label}>Password</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            numberOfLines={1}
+            placeholder={"Password"}
+            placeholderTextColor="#fff"
+            secureTextEntry={true}
+            onChangeText={this.onChangePassword}
+            value={this.state.password}
+          />
+          {UserLogin.isError ? <Text style={{color: 'red'}}>Username หรือ Password ผิดพลาด</Text>: null}
+        </View>
+        <View style={styles.button}>
+          <TouchableOpacity style={styles.signin} onPress = {() => {this.onSubmit(this.state)}}>
+            <Text style={styles.text_button}>Sign In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.facebookLogIn()}
+            style={[
+              styles.signin,
+              { backgroundColor: "#3A559F", marginTop: 10 },
+            ]}
+          >
+            <Text style={styles.text_button}>Login with Facebook</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.signin,
+              { backgroundColor: "#FFF", marginTop: 10 },
+            ]}
+          >
+            <Text style={[styles.text_button, { color: "#000" }]}>
+              Login with Google
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            marginTop: 20,
+          }}
+        />
+        <View style={styles.button_forgot}>
+          <TouchableOpacity>
+            <Text style={[styles.text_forgot, { color: "#FF0000" }]}>
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
+            <Text style={[styles.text_forgot, { color: "#0578FF" }]}>
+              Register Now?
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Animatable.View>
+    </SafeAreaView>
+    );
   }
     
 }
@@ -182,3 +209,80 @@ mapDispatchToProps = (dispatch) => ({
 })
 
 export default  compose(connect(mapStateToProps, mapDispatchToProps, null)(LoginScreen));
+
+const { height } = Dimensions.get("screen");
+const height_logo = height * 0.5 * 0.4;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#2D232E",
+  },
+  header: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footer: {
+    flex: 3,
+    backgroundColor: "#E0DDCF",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    // paddingVertical: 10,
+    justifyContent: "center",
+    paddingHorizontal: 30,
+  },
+  logo: {
+    width: height_logo,
+    height: height_logo,
+  },
+  text_title: {
+    color: "#000",
+    fontWeight: "400",
+    fontSize: 30,
+    marginBottom: 10,
+  },
+  text_label: {
+    color: "#000",
+    fontWeight: "500",
+    marginTop: 10,
+  },
+  inputContainer: {
+    marginTop: 5,
+    marginBottom: 10,
+    borderRadius: 3,
+    flexDirection: "row",
+    backgroundColor: "#0000009c",
+  },
+  input: {
+    flex: 1,
+    padding: 8,
+    color: "#fff",
+    fontWeight: "500",
+  },
+  button: {
+    alignItems: "center",
+    marginTop: 15,
+  },
+  signin: {
+    width: "100%",
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
+    backgroundColor: "#474448",
+  },
+  text_button: {
+    fontSize: 16,
+    fontWeight: "400",
+    color: "#FFF",
+  },
+  button_forgot: {
+    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  text_forgot: {
+    fontWeight: "400",
+    fontSize: 14,
+  },
+});

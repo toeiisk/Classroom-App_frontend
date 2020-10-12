@@ -17,14 +17,12 @@ import { AppRegistry } from "react-native";
 const store = createStore(AppReducer, applyMiddleware(ReduxThunk));
 const Stack = createStackNavigator();
 
-// <Stack.Screen component={LoadingScreen} name="LoadingScreen"/>
 
 const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen component={RegisterScreen} name="Register" />
           <Stack.Screen component={LoadingScreen} name="Loading" />

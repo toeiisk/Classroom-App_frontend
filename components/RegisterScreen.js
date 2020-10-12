@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
+  StatusBar,
+  Dimensions,
+  Text,
   TextInput,
   TouchableOpacity,
-  Alert 
+  SafeAreaView,
+  ScrollView,
+  Alert
 } from "react-native";
-import { Image, Text } from "react-native-elements";
-import externalStyle from "../style/externalStyle";
-import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {createNewUser} from "../store/actions/auth.actions";
@@ -25,9 +27,11 @@ class RegisterScreen extends Component {
       firstname: "",
       lastname: "",
       username: "",
-      email: "",
-      roles: ["STUDENT"],
       password: "",
+      confirmpass:"",
+      email: "",
+      studentid: "",
+      checkpass: false
     };
 
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -36,6 +40,8 @@ class RegisterScreen extends Component {
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeConPassword = this.onChangeConPassword.bind(this);
+    this.onChangestudentId = this.onChangestudentId.bind(this)
 
   }
 
@@ -51,6 +57,11 @@ class RegisterScreen extends Component {
       lastname: inputText,
     });
   };
+  onChangestudentId = (inputText) => {
+    this.setState({
+      studentid: inputText
+    })
+  }
   onChangeUsername = (inputText) => {
     this.setState({
       username: inputText,
@@ -66,13 +77,15 @@ class RegisterScreen extends Component {
       password: inputText,
     });
   };
+  onChangeConPassword = (inputText) => {
+    this.setState({
+      confirmpass: inputText,
+    });
+  };
   
 
   createNewUser = async (values) =>{
-    try{
-      this.props.dispatch(createNewUser(values));
-      // this.props.navigation.navigate('LoginScreen')
-        Alert.alert(
+         Alert.alert(
           "สมัครข้อมูลสำเร็จ",
           "ยืนยัน",
           [
@@ -84,121 +97,213 @@ class RegisterScreen extends Component {
           ],
           { cancelable: false }
         );
+    // try{
+    //   this.props.dispatch(createNewUser(values));
+    //     Alert.alert(
+    //       "สมัครข้อมูลสำเร็จ",
+    //       "ยืนยัน",
+    //       [
+    //         {
+    //           text: "ตกลง",
+    //           onPress: () =>this.props.navigation.navigate('LoginScreen'),
+    //           style: "ok"
+    //         },
+    //       ],
+    //       { cancelable: false }
+    //     );
       
-    }catch{
-      const newError = new ErrorUtils(error, "Signup Error");
-          newError.showAlert();
-    }
+    // }catch{
+    //   const newError = new ErrorUtils(error, "Signup Error");
+    //       newError.showAlert();
+    // }
   }
 
-  onSubmit = (values) => {
-      this.createNewUser(values)
-      this.setState({
-        firstname: "",
-        lastname: "",
-        username: "",
-        email: "",
-        password: "",
-      });     
+  onSubmit = () => {
+      if(this.state.password === this.state.confirmpass){
+        const senddata = {
+          username: this.state.username,
+          firstname: this.state.firstname
+        }
+        this.createNewUser(senddata)
+        this.setState({
+          firstname: "",
+          lastname: "",
+          username: "",
+          email: "",
+          password: "",
+          studentid: "",
+          checkpass: false
+        });     
+      }else{
+        this.setState({
+          checkpass: true
+        })
+      }
+      
   }  
   render() {
     
     return (
-      <View style={styles.container}>
-
-        <View style={styles.header}>
-          <View style={styles.containerLogo}>
-            <Animatable.Image
-              animation="fadeIn"
-              duration={1500}
-              source={require("../assets/logo-classroom.png")}
-              style={externalStyle.Logo}
-            />
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" />
+        <ScrollView>
+          <View style={{ marginTop: 20, alignItems: "center" }}>
+            <Text style={styles.text_title}>REGISTER</Text>
           </View>
-        </View>
-        <Animatable.View
-          style={styles.footer}
-          animation="fadeInUp"
-          duration={1500}
-        >
-          <Text style={styles.text_Footer}>REGISTER</Text>
-          <View style={externalStyle.containerSignin}>
-            <TextInput
-              style={externalStyle.textinput}
-              placeholder="Firstname"
-              placeholderTextColor="#000000"
-              autoCapitalize="none"
-              onChangeText={this.onChangeName1}
-            />
-            <TextInput
-              style={externalStyle.textinput}
-              placeholder="Lastname"
-              placeholderTextColor="#000000"
-              autoCapitalize="none"
-              onChangeText={this.onChangeName2}
-            />
-            <TextInput
-              style={externalStyle.textinput}
-              placeholder="E-mail"
-              placeholderTextColor="#000000"
-              autoCapitalize="none"
-              onChangeText={this.onChangeEmail}
-            />
-            <TextInput
-              style={externalStyle.textinput}
-              placeholder="Username"
-              placeholderTextColor="#000000"
-              autoCapitalize="none"
-              onChangeText={this.onChangeUsername}
-            />
-            <TextInput
-              secureTextEntry={true}
-              style={externalStyle.textinput}
-              placeholder="Password"
-              placeholderTextColor="#000000"
-              onChangeText={this.onChangePassword}
-            />
-            <View style={externalStyle.containerSignin}>
-                <TouchableOpacity style={externalStyle.buttonSignin} onPress = {() => {this.onSubmit(this.state)}}>
-                  <Text style={externalStyle.textStyle}>SIGN IN</Text>
+          <View style={styles.content}>
+            <Text style={styles.text_label}>Firstname</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                numberOfLines={1}
+                placeholder={"Firstname"}
+                placeholderTextColor="#fff"
+                onChangeText={this.onChangeName1}
+              />
+            </View>
+            <Text style={styles.text_label}>Lastname</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                numberOfLines={1}
+                placeholder={"Lastname"}
+                placeholderTextColor="#fff"
+                onChangeText={this.onChangeName2}
+              />
+            </View>
+            <Text style={styles.text_label}>Username</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                numberOfLines={1}
+                placeholder={"Username"}
+                placeholderTextColor="#fff"
+                onChangeText={this.onChangeUsername}
+              />
+            </View>
+            <Text style={styles.text_label}>Password</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                numberOfLines={1}
+                placeholder={"Password"}
+                placeholderTextColor="#fff"
+                secureTextEntry={true}
+                onChangeText={this.onChangePassword}
+              />
+            </View>
+            <Text style={styles.text_label}>Confirm Password</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                numberOfLines={1}
+                placeholder={"Confirm Password"}
+                placeholderTextColor="#fff"
+                secureTextEntry={true}
+                onChangeText={this.onChangeConPassword}
+              />
+            </View>
+            {this.state.checkpass ? <Text style={{color: 'red', textAlign:'center'}}>Password does match</Text> : null}
+            <Text style={styles.text_label}>Email</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                numberOfLines={1}
+                placeholder={"Email"}
+                placeholderTextColor="#fff"
+                onChangeText={this.onChangeEmail}
+              />
+            </View>
+            <Text style={styles.text_label}>Student ID</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                numberOfLines={1}
+                placeholder={"Student ID"}
+                placeholderTextColor="#fff"
+                onChangeText={this.onChangestudentId}
+              />
+            </View>
+            <View style={styles.button}>
+              <TouchableOpacity style={styles.signin} onPress = {() => {this.onSubmit()}}>
+                <Text style={styles.text_button}>Register</Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{ alignItems: "center", marginTop: 15, marginBottom: 20 }}
+            >
+              <Text style={[styles.text_forgot, { color: "#323232" }]}>
+                Already have an account?{" "}
+                <TouchableOpacity onPress={() =>this.props.navigation.navigate('LoginScreen')}>
+                  <Text style={[styles.text_forgot, { color: "#247CFF" }]}>
+                    Login
+                  </Text>
                 </TouchableOpacity>
+              </Text>
             </View>
           </View>
-        </Animatable.View>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
+
     );
   }
 };
 
+const { height } = Dimensions.get("screen");
+const height_logo = height * 0.5 * 0.4;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#111b36",
+    backgroundColor: "#E0DDCF",
   },
-  header: {
-    flex: 1,
-    justifyContent: "flex-end",
-    paddingHorizontal: 20,
-    paddingBottom: 50,
-  },
-  footer: {
-    flex: 3,
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-    alignItems: "center",
-  },
-  text_Footer: {
-    color: "#000",
-    fontSize: 30,
-    fontWeight: "bold",
-  },
-  containerLogo: {
-    marginTop: 50,
-    alignItems: "center",
+  content: {
+    paddingHorizontal: 30,
     justifyContent: "center",
+  },
+  text_title: {
+    color: "#000",
+    fontWeight: "400",
+    fontSize: 30,
+    marginBottom: 10,
+  },
+  text_label: {
+    color: "#000",
+    fontWeight: "500",
+    marginTop: 5,
+  },
+  inputContainer: {
+    marginTop: 5,
+    marginBottom: 10,
+    borderRadius: 3,
+    flexDirection: "row",
+    backgroundColor: "#0000009c",
+  },
+  input: {
+    flex: 1,
+    padding: 8,
+    color: "#fff",
+    fontWeight: "300",
+  },
+  button: {
+    alignItems: "center",
+    marginTop: 15,
+  },
+  signin: {
+    width: "100%",
+    padding: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
+    backgroundColor: "#474448",
+  },
+  text_button: {
+    fontSize: 16,
+    fontWeight: "400",
+    color: "#FFF",
+  },
+  text_forgot: {
+    fontWeight: "400",
+    fontSize: 14,
   },
 });
 
