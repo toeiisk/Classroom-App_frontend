@@ -12,7 +12,6 @@ import AppReducer from "./store/reducers/index";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 
-import { AppRegistry } from "react-native";
 
 const store = createStore(AppReducer, applyMiddleware(ReduxThunk));
 const Stack = createStackNavigator();

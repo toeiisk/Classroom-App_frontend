@@ -2,23 +2,7 @@ import { combineReducers } from 'redux';
 import { AsyncStorage } from 'react-native';
 
 
-
-const user = AsyncStorage.getItem('token')
-if(user === null){
-  console.log('null')
-  initialState = {
-    isLoggedin: false,
-    isSuccess: false
-  }
-}else{
-  console.log('not null')
-  initialState = {
-    isLoggedin: true,
-    isSuccess: false
-  }
-}
-
-const AuthReducer  = (state = initialState, action) => {
+const AuthReducer  = (state = {}, action) => {
     switch (action.type) {
 
         case "CREATE_USER_LOADING":
@@ -47,7 +31,8 @@ const AuthReducer  = (state = initialState, action) => {
     }
 }
 
-const UserLogin = (state = initialState, action) =>{
+const UserLogin = (state = {}, action) =>{
+
     switch (action.type) {
 
         case "AUTH_LOADING":
@@ -55,8 +40,6 @@ const UserLogin = (state = initialState, action) =>{
                 isSuccess: false,
             }
         case "AUTH_LOGIN_SUCCES":
-            console.log('success')
-            console.log(user)
             return{
                 ...state,
                 isLoggedin: false,

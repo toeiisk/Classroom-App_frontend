@@ -33,17 +33,19 @@ export const createNewUser = (payload) => {
 }
 
 export const UserLogin = (payload) => {
-    console.log(payload)
     return async (dispatch) =>{
         try{
-            dispatch({
-                type: "AUTH_LOADING"
-            });
             axios
             .post('http://103.13.231.22:3000/api/auth/signin', payload)
-            .then(async (res) =>{            
-                await AsyncStorage.setItem('token', res.data.accessToken)
-                
+            .then(async (res) =>{
+
+                if(res.status == 200) {
+                    const token = res.data.accessToken
+                    await AsyncStorage.setItem('token', token)
+                    dispatch({
+                        type: "AUTH_LOGIN_SUCCES",
+                    })
+                }
                 dispatch({
                     type: "AUTH_LOGIN_SUCCES",
        
