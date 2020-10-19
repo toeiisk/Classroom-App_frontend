@@ -9,8 +9,7 @@ export const createNewUser = (payload) => {
             });
             await axios
             .post('http://103.13.231.22:3000/api/auth/signup', payload)
-            .then((res) =>{
-                console.log(res.data.jwt)
+            .then(() =>{
                 dispatch({
                         type: "CREAT_USER_SUCCESS"
                     })
@@ -42,10 +41,12 @@ export const UserLogin = (payload) => {
             });
             axios
             .post('http://103.13.231.22:3000/api/auth/signin', payload)
-            .then((res) =>{            
-                AsyncStorage.setItem('token', res.data.accessToken)
+            .then(async (res) =>{            
+                await AsyncStorage.setItem('token', res.data.accessToken)
+                
                 dispatch({
-                    type: "AUTH_LOGIN_SUCCES"
+                    type: "AUTH_LOGIN_SUCCES",
+       
                 })
             })
             .catch(() => {

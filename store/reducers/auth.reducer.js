@@ -1,37 +1,45 @@
 import { combineReducers } from 'redux';
+import { AsyncStorage } from 'react-native';
 
 
-const AuthReducer  = (state = {}, action) => {
+
+const user = AsyncStorage.getItem('token')
+if(user === null){
+  console.log('null')
+  initialState = {
+    isLoggedin: false,
+    isSuccess: false
+  }
+}else{
+  console.log('not null')
+  initialState = {
+    isLoggedin: true,
+    isSuccess: false
+  }
+}
+
+const AuthReducer  = (state = initialState, action) => {
     switch (action.type) {
 
         case "CREATE_USER_LOADING":
           return {
-           
-
-            //   isLoading: true,
-            isError: false,
+            ...state,
             isSuccess: false,
-            //   errors: null,
-
           }
         
 
         case "CREAT_USER_SUCCESS":
           return {
-         
-
-            //   isLoading: false,
-            isError: false,
+            ...state,
+            isLoggedin: false,
             isSuccess: true,
-            //   errors: null
           }
 
         case "CREAT_USER_FAIL":
           return {
-            //   isLoading: false,
-            isError: true,
+            ...state,
+            isLoggedin: false,
             isSuccess: false,
-            //   errors: action.payload
           }
 
       default:
@@ -39,34 +47,27 @@ const AuthReducer  = (state = {}, action) => {
     }
 }
 
-const UserLogin = (state = {}, action) =>{
+const UserLogin = (state = initialState, action) =>{
     switch (action.type) {
 
         case "AUTH_LOADING":
             return{
-                // isLoading: true,
-                // isError: false,
                 isSuccess: false,
-                // errors: action.payload   
             }
         case "AUTH_LOGIN_SUCCES":
             console.log('success')
+            console.log(user)
             return{
-
-                // isLoading: false,
-                // isError: true,
-                isSuccess: true,
-                // errors: action.payload,
-                
+                ...state,
+                isLoggedin: false,
+                isSuccess: true,                
             }
         case "AUTH_LOGIN_FAIL":
             console.log('faile')
             return{
-
-                // isLoading: false,
-                // isError: true,
+                ...state,
+                isLoggedin: false,
                 isSuccess: false,
-                // errors: action.payload,
             }
         default:
             return state

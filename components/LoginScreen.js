@@ -8,13 +8,17 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  ActivityIndicator,
+  ActivityIndicatorBase
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
 import * as Facebook from 'expo-facebook';
-import TestScreen from './testScreen'
+import TestScreen from './testScreen';
+import { AsyncStorage } from 'react-native';
+
 
 
 class  LoginScreen  extends Component {
@@ -107,9 +111,10 @@ class  LoginScreen  extends Component {
   //   setUserData(null);
   //   setImageLoadStatus(false);
   // }
+  
   render() {
     const {UserLogin} = this.props
-    if(UserLogin.isSuccess) return <TestScreen />
+    if(UserLogin.isSuccess || UserLogin.isLoggedin) return <TestScreen />
     return(
       <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
