@@ -1,18 +1,19 @@
 import axios from "axios";
+import { AsyncStorage } from 'react-native';
 
 export const createNewUser = (payload) => {
-    return  async (dispatch) => {
-        
+    return async (dispatch) => {        
         try{
             dispatch({
                 type: "CREATE_USER_LOADING"
             });
-            axios
+            await axios
             .post('http://103.13.231.22:3000/api/auth/signup', payload)
-            .then(() =>{
+            .then((res) =>{
+                console.log(res.data.jwt)
                 dispatch({
-                    type: "CREAT_USER_SUCCESS"
-                })
+                        type: "CREAT_USER_SUCCESS"
+                    })
             })
             .catch((er) =>{
                 dispatch({
@@ -33,6 +34,7 @@ export const createNewUser = (payload) => {
 }
 
 export const UserLogin = (payload) => {
+    console.log(payload)
     return async (dispatch) =>{
         try{
             dispatch({
@@ -40,7 +42,8 @@ export const UserLogin = (payload) => {
             });
             axios
             .post('http://103.13.231.22:3000/api/auth/signin', payload)
-            .then(() =>{
+            .then((res) =>{            
+                AsyncStorage.setItem('token', res.data.accessToken)
                 dispatch({
                     type: "AUTH_LOGIN_SUCCES"
                 })

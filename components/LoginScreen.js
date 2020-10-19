@@ -14,6 +14,8 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
 import * as Facebook from 'expo-facebook';
+import TestScreen from './testScreen'
+
 
 class  LoginScreen  extends Component {
 
@@ -52,9 +54,12 @@ class  LoginScreen  extends Component {
     }
   }
 
-  onSubmit = (value) =>{
-    // this.UserLogin(value)
-    console.log(value)
+  onSubmit = () =>{
+    const user = {
+      "username": this.state.username,
+      "password": this.state.password
+    }
+    this.UserLogin(user)
     this.setState({
       username: "",
       password: ""
@@ -104,7 +109,6 @@ class  LoginScreen  extends Component {
   // }
   render() {
     const {UserLogin} = this.props
-    
     if(UserLogin.isSuccess) return <TestScreen />
     return(
       <SafeAreaView style={styles.container}>
@@ -151,7 +155,7 @@ class  LoginScreen  extends Component {
           {UserLogin.isError ? <Text style={{color: 'red'}}>Username หรือ Password ผิดพลาด</Text>: null}
         </View>
         <View style={styles.button}>
-          <TouchableOpacity style={styles.signin} onPress = {() => {this.onSubmit(this.state)}}>
+          <TouchableOpacity style={styles.signin} onPress = {() => {this.onSubmit()}}>
             <Text style={styles.text_button}>Sign In</Text>
           </TouchableOpacity>
           <TouchableOpacity

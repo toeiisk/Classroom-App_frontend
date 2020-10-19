@@ -14,7 +14,7 @@ import {
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {createNewUser} from "../store/actions/auth.actions";
-
+// import {Actions} from 'react-native-router-flux';
 
 
 class RegisterScreen extends Component {
@@ -31,7 +31,8 @@ class RegisterScreen extends Component {
       confirmpass:"",
       email: "",
       studentid: "",
-      checkpass: false
+      checkpass: false,
+      roles: 'student'
     };
 
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -45,7 +46,9 @@ class RegisterScreen extends Component {
 
   }
 
-  
+  goBack() {
+    Actions.pop();
+}
  
   onChangeName1 = (inputText) => {
     this.setState({
@@ -84,47 +87,41 @@ class RegisterScreen extends Component {
   };
   
 
-  createNewUser = async (values) =>{
-         Alert.alert(
-          "สมัครข้อมูลสำเร็จ",
-          "ยืนยัน",
-          [
-            {
-              text: "ตกลง",
-              onPress: () =>this.props.navigation.navigate('LoginScreen'),
-              style: "ok"
-            },
-          ],
-          { cancelable: false }
-        );
-    // try{
-    //   this.props.dispatch(createNewUser(values));
-    //     Alert.alert(
-    //       "สมัครข้อมูลสำเร็จ",
-    //       "ยืนยัน",
-    //       [
-    //         {
-    //           text: "ตกลง",
-    //           onPress: () =>this.props.navigation.navigate('LoginScreen'),
-    //           style: "ok"
-    //         },
-    //       ],
-    //       { cancelable: false }
-    //     );
+  // createNewUser = async (values) =>{
+  //   try{
+  //     this.props.dispatch(createNewUser(values));
+  //       Alert.alert(
+  //         "สมัครข้อมูลสำเร็จ",
+  //         "ยืนยัน",
+  //         [
+  //           {
+  //             text: "ตกลง",
+  //             onPress: () =>this.props.navigation.navigate('LoginScreen'),
+  //             style: "ok"
+  //           },
+  //         ],
+  //         { cancelable: false }
+  //       );
       
-    // }catch{
-    //   const newError = new ErrorUtils(error, "Signup Error");
-    //       newError.showAlert();
-    // }
-  }
+  //   }catch{
+  //     console.log('cant register')
+  //     const newError = new ErrorUtils(error, "Signup Error");
+  //         newError.showAlert();
+  //   }
+  // }
 
   onSubmit = () => {
       if(this.state.password === this.state.confirmpass){
         const senddata = {
+          firstname: this.state.firstname,
+          lastname: this.state.lastname,
           username: this.state.username,
-          firstname: this.state.firstname
+          email: this.state.email,
+          password: this.state.password,
+          sid: this.state.studentid,
+          roles: this.state.roles
         }
-        this.createNewUser(senddata)
+         this.props.createNewUser(senddata)
         this.setState({
           firstname: "",
           lastname: "",
@@ -132,7 +129,9 @@ class RegisterScreen extends Component {
           email: "",
           password: "",
           studentid: "",
-          checkpass: false
+          checkpass: false,
+          confirmpass: ""
+          
         });     
       }else{
         this.setState({
@@ -142,7 +141,23 @@ class RegisterScreen extends Component {
       
   }  
   render() {
-    
+    const {AuthReducer}  = this.props 
+    console.log(AuthReducer.isSuccess)
+    if (AuthReducer.isSuccess && !AuthReducer.isError){
+        Alert.alert(
+          "สมัครข้อมูลสำเร็จ",
+          "ยืนยัน",
+          [
+            {
+              text: "ตกลง",
+              onPress: () =>this.props.navigation.navigate('LoginScreen'),
+              style: "ok",
+            
+            },
+          ],
+          { cancelable: false }
+        );
+    }
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -159,6 +174,7 @@ class RegisterScreen extends Component {
                 placeholder={"Firstname"}
                 placeholderTextColor="#fff"
                 onChangeText={this.onChangeName1}
+                value={this.state.firstname}
               />
             </View>
             <Text style={styles.text_label}>Lastname</Text>
@@ -169,6 +185,7 @@ class RegisterScreen extends Component {
                 placeholder={"Lastname"}
                 placeholderTextColor="#fff"
                 onChangeText={this.onChangeName2}
+                value={this.state.lastname}
               />
             </View>
             <Text style={styles.text_label}>Username</Text>
@@ -179,6 +196,8 @@ class RegisterScreen extends Component {
                 placeholder={"Username"}
                 placeholderTextColor="#fff"
                 onChangeText={this.onChangeUsername}
+                value={this.state.username}
+
               />
             </View>
             <Text style={styles.text_label}>Password</Text>
@@ -190,6 +209,8 @@ class RegisterScreen extends Component {
                 placeholderTextColor="#fff"
                 secureTextEntry={true}
                 onChangeText={this.onChangePassword}
+                value={this.state.password}
+
               />
             </View>
             <Text style={styles.text_label}>Confirm Password</Text>
@@ -201,6 +222,7 @@ class RegisterScreen extends Component {
                 placeholderTextColor="#fff"
                 secureTextEntry={true}
                 onChangeText={this.onChangeConPassword}
+                value={this.state.confirmpass}
               />
             </View>
             {this.state.checkpass ? <Text style={{color: 'red', textAlign:'center'}}>Password does match</Text> : null}
@@ -212,6 +234,8 @@ class RegisterScreen extends Component {
                 placeholder={"Email"}
                 placeholderTextColor="#fff"
                 onChangeText={this.onChangeEmail}
+                value={this.state.email}
+
               />
             </View>
             <Text style={styles.text_label}>Student ID</Text>
@@ -222,6 +246,8 @@ class RegisterScreen extends Component {
                 placeholder={"Student ID"}
                 placeholderTextColor="#fff"
                 onChangeText={this.onChangestudentId}
+                value={this.state.studentid}
+
               />
             </View>
             <View style={styles.button}>
@@ -233,7 +259,7 @@ class RegisterScreen extends Component {
               style={{ alignItems: "center", marginTop: 15, marginBottom: 20 }}
             >
               <Text style={[styles.text_forgot, { color: "#323232" }]}>
-                Already have an account?{" "}
+                {/* <TouchableOpacity onPress={this.goBack}>Already have an account?</TouchableOpacity> */}
                 <TouchableOpacity onPress={() =>this.props.navigation.navigate('LoginScreen')}>
                   <Text style={[styles.text_forgot, { color: "#247CFF" }]}>
                     Login
@@ -311,9 +337,11 @@ mapStateToProps = (state) => ({
   AuthReducer: state.authReducer.AuthReducer
 })
 
-mapDispatchToProps = (dispatch) => ({
-  dispatch
-});
+mapDispatchToProps = (dispatch) => {
+  return {
+    createNewUser:  (newUser) => dispatch( createNewUser(newUser))
+  }
+}
 
 
 export default compose(connect(mapStateToProps, mapDispatchToProps, null)(RegisterScreen));
