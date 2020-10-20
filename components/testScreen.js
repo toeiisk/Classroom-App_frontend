@@ -12,9 +12,14 @@ import * as Animatable from "react-native-animatable";
 import axios from 'axios'
 
 class TestScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.onLogout = this.onLogout.bind(this);
+  }
 
   onLogout = () => {
     console.log("Logout")
+    this.props.navigation.navigate('LoginScreen')
   }
 
   render() {
