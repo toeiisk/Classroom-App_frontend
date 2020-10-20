@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
   ActivityIndicator,
   ActivityIndicatorBase
 } from "react-native";
