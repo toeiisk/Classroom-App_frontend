@@ -113,7 +113,9 @@ class  LoginScreen  extends Component {
   //   setImageLoadStatus(false);
   // }
 
-  async _getValue() {
+
+
+  async componentDidMount() {
     var token = await AsyncStorage.getItem('token')
     axios.get('http://103.13.231.22:3000/api/test/user/', {
       headers: {
@@ -129,11 +131,9 @@ class  LoginScreen  extends Component {
     })
     .catch((er) => console.log(er.message))
   }
-  
+
   render() {
-    const {UserLogin} = this.props
-    this._getValue()
-    
+    const {UserLogin} = this.props    
     if(UserLogin.isSuccess || this.state.loggedin) return <TestScreen />
     return(
       <SafeAreaView style={styles.container}>
