@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Animated, Dimensions, Image } from "react-native";
-import { Text } from "react-native-elements";
+import { View, StyleSheet, Animated, Dimensions, Image, Text } from "react-native";
 
 class SplashScreen extends Component {
   state = {

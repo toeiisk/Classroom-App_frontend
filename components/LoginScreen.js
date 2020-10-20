@@ -16,9 +16,10 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
 import * as Facebook from 'expo-facebook';
-import TestScreen from './testScreen';
 import { AsyncStorage } from 'react-native';
 import axios from "axios";
+import Testscreen from './testScreen'
+import TestScreen from "./testScreen";
 
 
 
@@ -114,27 +115,9 @@ class  LoginScreen  extends Component {
   // }
 
 
-
-  async componentDidMount() {
-    var token = await AsyncStorage.getItem('token')
-    axios.get('http://103.13.231.22:3000/api/test/user/', {
-      headers: {
-        'x-access-token': token
-      }
-    })
-    .then((res) => {
-      if(res.status == 200){
-        this.setState({
-          loggedin: true
-        })
-      }
-    })
-    .catch((er) => console.log(er.message))
-  }
-
   render() {
     const {UserLogin} = this.props    
-    if(UserLogin.isSuccess || this.state.loggedin) return <TestScreen />
+    // if(UserLogin.isSuccess || this.state.loggedin) return <TestScreen />
     return(
       <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -229,11 +212,11 @@ class  LoginScreen  extends Component {
     
 }
 
-mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
   UserLogin: state.authReducer.UserLogin
 })
 
-mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatch
 })
 

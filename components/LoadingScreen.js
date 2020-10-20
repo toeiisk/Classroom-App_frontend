@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Animated, StyleSheet, MaskedViewIOS } from "react-native";
+import { View, Animated, StyleSheet, MaskedViewIOS, Text } from "react-native";
 import externalStyle from "../style/externalStyle";
-import { Image, Text } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import MaskedView from "@react-native-community/masked-view";
 

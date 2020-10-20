@@ -333,11 +333,11 @@ const styles = StyleSheet.create({
   },
 });
 
-mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
   AuthReducer: state.authReducer.AuthReducer
 })
 
-mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     createNewUser:  (newUser) => dispatch( createNewUser(newUser))
   }

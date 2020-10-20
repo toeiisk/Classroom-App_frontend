@@ -4,9 +4,9 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Alert 
+  Alert ,
+  Text
 } from "react-native";
-import { Image, Text } from "react-native-elements";
 import externalStyle from "../style/externalStyle";
 import * as Animatable from "react-native-animatable";
 import axios from 'axios'
