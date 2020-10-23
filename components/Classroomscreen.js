@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
   SafeAreaView,
   FlatList,
   ScrollView,
@@ -71,20 +72,27 @@ export default class classroomnoenroll extends React.Component {
                 date: "Monday 08.45 - 12.45",
                 author: "Paramet Kongjaroen",
               },
-              
             ]}
             renderItem={({ item }) => (
-              <View style={styles.card}>
-                <Text style={styles.title}>
-                  {item.id} - {item.title}
-                </Text>
-                <Text style={styles.date}>
-                  {item.date}
-                </Text>
-                <Text style={styles.author}>
-                  {item.author}
-                </Text>
-              </View>
+              <TouchableOpacity>
+                <ImageBackground
+                  source={{
+                    uri:
+                      "https://image.freepik.com/free-vector/health-insurance-vector-illustration_159144-57.jpg",
+                  }}
+                  imageStyle={{ borderRadius: 15 }}
+                  opacity={0.2}
+                  style={styles.card}
+                >
+                  {/* <View style={{ backgroundColor: "rgba(255,0,0,0.5)" }}> */}
+                  <Text style={styles.title}>
+                    {item.id} - {item.title}
+                  </Text>
+                  <Text style={styles.date}>{item.date}</Text>
+                  <Text style={styles.author}>{item.author}</Text>
+                  {/* </View> */}
+                </ImageBackground>
+              </TouchableOpacity>
             )}
             ItemSeparatorComponent={this.renderSeparator}
           />
@@ -117,18 +125,21 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   title: {
-    color: "white",
+    color: "black",
+    opacity: 1,
     fontSize: 18,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   date: {
-    color: "white",
+    color: "black",
+    opacity: 1,
     fontSize: 14,
-    marginBottom: 30
+    marginBottom: 30,
   },
   author: {
-    color: "white",
+    color: "black",
+    opacity: 1,
     fontSize: 14,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 });
