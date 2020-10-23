@@ -32,6 +32,14 @@ export const createNewUser = (payload) => {
     }
 }
 
+export const UserLogout = () =>{
+    return  (dispatch) => {
+        AsyncStorage.clear()
+        dispatch({
+            type: "LOGOUT_SUCCESS"
+        })
+    }
+}
 export const UserLogin = (payload) => {
     return async (dispatch) =>{
         try{

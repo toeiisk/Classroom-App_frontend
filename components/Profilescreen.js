@@ -13,15 +13,18 @@ import {
   ScrollView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-export default class profilescreen extends React.Component {
+import {UserLogout} from "../store/actions/auth.actions"
+import {connect} from "react-redux";
+class Profilescreen extends React.Component {
   render() {
+    const {UserLogout} = this.props
     return (
       <SafeAreaView style={styles.container}>
         {/* <View style={styles.title_header}>
           <Text style={styles.name_title}>WAYNE ROONEY</Text>
         </View> */}
         <View style={styles.layoutbutton}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={UserLogout}>
             <Text style={[styles.title, {color: "white"}]}>LOGOUT</Text>
           </TouchableOpacity>
         </View>
@@ -29,6 +32,14 @@ export default class profilescreen extends React.Component {
     );
   }
 }
+
+const mapDispathtoProps = (dispatch) =>{
+  return {
+    UserLogout: () => dispatch(UserLogout())
+  }
+}
+
+export default connect(null, mapDispathtoProps)(Profilescreen)
 
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.5 * 0.4;

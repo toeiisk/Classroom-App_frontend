@@ -52,6 +52,17 @@ const UserLogin = (state = {}, action) =>{
                 isLoggedin: false,
                 isSuccess: false,
             }
+        case "LOGOUT_SUCCESS":
+            return{
+              ...state,
+              isLoggedin: false,
+              isSuccess: false,
+            }
+        case "LOGOUT_ERROR":
+            return{
+              ...state,
+              logErr: action.err
+            }
         default:
             return state
     }
