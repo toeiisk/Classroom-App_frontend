@@ -3,8 +3,8 @@ import React from "react";
 import Classroom from "../components/Classroomscreen";
 import Attendance from "../components/Attendancescreen";
 import Profile from "../components/Profilescreen";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+import Chat from "../components/testScreen";
+import { Image } from "react-native";
 const Tab = createMaterialBottomTabNavigator();
 
 const Usernavigator = (navigation) => (
@@ -16,29 +16,90 @@ const Usernavigator = (navigation) => (
     <Tab.Screen
       name="Classroom"
       component={Classroom}
-      //   options={{
-      //     tabBarIcon: ({ color }) => (
-      //       <MaterialCommunityIcons name="home" color={color} size={26} />
-      //     ),
-      //   }}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <Image
+            source={
+              focused
+                ? require("../assets/resources/icon/dashboard2.png")
+                : require("../assets/resources/icon/dashboard.png")
+            }
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        ),
+        tabBarLabel: () => {
+          return null;
+        },
+      }}
     />
     <Tab.Screen
       name="Attendance"
       component={Attendance}
-      //   options={{
-      //     tabBarIcon: ({ color }) => (
-      //       <MaterialCommunityIcons name="ev-plug-chademo" color={color} size={26} />
-      //     ),
-      //   }}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <Image
+            source={
+              focused
+                ? require("../assets/resources/icon/attendance2.png")
+                : require("../assets/resources/icon/attendance.png")
+            }
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        ),
+        tabBarLabel: () => {
+          return null;
+        },
+      }}
+    />
+    <Tab.Screen
+      name="Chat"
+      component={Chat}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <Image
+            source={
+              focused
+                ? require("../assets/resources/icon/chat2.png")
+                : require("../assets/resources/icon/chat.png")
+            }
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        ),
+        tabBarLabel: () => {
+          return null;
+        },
+      }}
     />
     <Tab.Screen
       name="Profile"
       component={Profile}
-      //   options={{
-      //     tabBarIcon: ({ color }) => (
-      //       <MaterialCommunityIcons name="book-open-variant" color={color} size={26} />
-      //     ),
-      //   }}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <Image
+            source={
+              focused
+                ? require("../assets/resources/icon/profile2.png")
+                : require("../assets/resources/icon/profile.png")
+            }
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        ),
+        tabBarLabel: () => {
+          return null;
+        },
+      }}
     />
   </Tab.Navigator>
 );
