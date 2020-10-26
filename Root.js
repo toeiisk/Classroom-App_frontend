@@ -30,9 +30,6 @@ const RootApp = (props) => {
     .then((res) => {
       if(res.status == 200){
         setIslogin(true)
-        console.log('status' + res.status)
-        console.log(isLogin)
-        // App(isLogin)
       }
     })
     .catch((er) => console.log(er.message))

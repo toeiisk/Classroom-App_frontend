@@ -9,18 +9,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Alert,
-  ActivityIndicator,
-  ActivityIndicatorBase
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
+import {FacebookLogin} from "../store/actions/auth.actions"
 import * as Facebook from 'expo-facebook';
-import { AsyncStorage } from 'react-native';
-import axios from "axios";
-import Testscreen from './testScreen'
-import TestScreen from "./testScreen";
+
 
 
 
@@ -32,7 +28,6 @@ class  LoginScreen  extends Component {
       username: "",
       password: "",
       userdata: null,
-      loggedin: false,
     }
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -55,6 +50,15 @@ class  LoginScreen  extends Component {
   UserLogin = async (value) =>{
     try{
       this.props.dispatch(UserLogin(value))
+    }catch{
+      const newError = new ErrorUtils(error, "Signup Error");
+      newError.showAlert();
+    }
+  }
+
+  FacebookLogin = async (value) =>{
+    try{
+      this.props.dispatch(FacebookLogin(value))
     }catch{
       const newError = new ErrorUtils(error, "Signup Error");
       newError.showAlert();
@@ -88,17 +92,14 @@ class  LoginScreen  extends Component {
         permissions: ['public_profile', 'email'],
       });
       if (type === 'success') {
-        
-        Alert.alert('Logged in!');
-        // Get the user's name using Facebook's Graph API
+                // Get the user's name using Facebook's Graph API
         fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,picture.height(500)`)
           .then(response => response.json())
           .then(data => {
             this.setState({
-              loginstatus: true,
               userdata: data
             })
-            console.log(this.state.userdata)
+            this.FacebookLogin(this.state.userdata)
           })
           .catch(e => console.log(e))
       } else {
@@ -109,11 +110,6 @@ class  LoginScreen  extends Component {
     }
   }
 
-  // logout = () => {
-  //   setLoggedinStatus(false);
-  //   setUserData(null);
-  //   setImageLoadStatus(false);
-  // }
 
 
   render() {

@@ -40,13 +40,13 @@ const UserLogin = (state = {}, action) =>{
                 isSuccess: false,
             }
         case "AUTH_LOGIN_SUCCES":
+            console.log('login username')
             return{
                 ...state,
                 isLoggedin: false,
                 isSuccess: true,                
             }
         case "AUTH_LOGIN_FAIL":
-            console.log('faile')
             return{
                 ...state,
                 isLoggedin: false,
