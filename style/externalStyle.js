@@ -12,7 +12,7 @@ const externalStyle = StyleSheet.create({
     padding: 20,
   },
   text_title: {
-    color: "black",
+    color: "white",
     fontWeight: "600",
     fontSize: 30,
   },

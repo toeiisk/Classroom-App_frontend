@@ -12,20 +12,15 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
+import Externalstyle from "../style/externalStyle";
 import * as Animatable from "react-native-animatable";
 export default class classroomnoenroll extends React.Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.title_header}>
-          <Text style={styles.text_title}>Classroom</Text>
-          <View
-            style={{
-              borderBottomColor: "white",
-              borderBottomWidth: 5,
-              marginTop: 10,
-            }}
-          />
+      <SafeAreaView style={Externalstyle.container}>
+        <View style={Externalstyle.title_header}>
+          <Text style={Externalstyle.text_title}>Classroom</Text>
+          <View style={Externalstyle.line_title}/>
         </View>
         <ScrollView>
           <FlatList
@@ -82,13 +77,13 @@ export default class classroomnoenroll extends React.Component {
                   }}
                   imageStyle={{ borderRadius: 15 }}
                   opacity={0.2}
-                  style={styles.card}
+                  style={Externalstyle.classroom_card}
                 >
-                  <Text style={styles.title}>
+                  <Text style={Externalstyle.classroom_title}>
                     {item.id} - {item.title}
                   </Text>
-                  <Text style={styles.date}>{item.date}</Text>
-                  <Text style={styles.author}>{item.author}</Text>
+                  <Text style={Externalstyle.classroom_date}>{item.date}</Text>
+                  <Text style={Externalstyle.classroom_author}>{item.author}</Text>
                 </ImageBackground>
               </TouchableOpacity>
             )}
@@ -100,44 +95,3 @@ export default class classroomnoenroll extends React.Component {
   }
 }
 
-const { height } = Dimensions.get("screen");
-const height_logo = height * 0.5 * 0.4;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#2D232E",
-  },
-  title_header: {
-    padding: 20,
-  },
-  text_title: {
-    color: "#FFF",
-    fontWeight: "600",
-    fontSize: 30,
-  },
-  card: {
-    backgroundColor: "#7B7C7C",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 15,
-  },
-  title: {
-    color: "black",
-    opacity: 1,
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  date: {
-    color: "black",
-    opacity: 1,
-    fontSize: 14,
-    marginBottom: 30,
-  },
-  author: {
-    color: "black",
-    opacity: 1,
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-});

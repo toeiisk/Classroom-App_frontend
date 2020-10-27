@@ -20,13 +20,7 @@ export default class attendancescreen extends React.Component {
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
           <Text style={Externalstyle.text_title}>My Attendance</Text>
-          <View
-            style={{
-              borderBottomColor: "white",
-              borderBottomWidth: 5,
-              marginTop: 10,
-            }}
-          />
+          <View style={Externalstyle.line_title} />
         </View>
         <ScrollView>
           <FlatList
@@ -77,7 +71,8 @@ export default class attendancescreen extends React.Component {
                     </View>
                     <View style={Externalstyle.text_attendance}>
                       <Text style={Externalstyle.title}>
-                        {item.day}, {item.date} - {item.timestamp}{"\n"}
+                        {item.day}, {item.date} - {item.timestamp}
+                        {"\n"}
                       </Text>
                       <Text style={Externalstyle.titlesub}>
                         SUBJECT: {item.subject}
