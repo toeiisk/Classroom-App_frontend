@@ -1,89 +1,208 @@
 import { StyleSheet, Dimensions } from "react-native";
-
-const { width: WIDTH } = Dimensions.get("window");
-const { height: HEIGHT } = Dimensions.get("window");
+import Color from "../assets/resources/constants/color";
+const { height } = Dimensions.get("screen");
+const height_logo = height * 0.5 * 0.4;
 
 const externalStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#009387",
+    backgroundColor: Color.background,
   },
-  Logo: {
-    resizeMode: "stretch",
-    marginTop: 50,
-    width: HEIGHT * 0.20,
-    height: HEIGHT * 0.20,
+  title_header: {
+    padding: 20,
   },
-  containerLogo: {
-    padding: 15,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textinput: {
-    fontSize: 16,
+  text_title: {
+    color: "black",
     fontWeight: "600",
-    backgroundColor: "#D7D7D7",
-    borderRadius: 10,
-    width: WIDTH - 55,
-    padding: 10,
-    marginVertical: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 0.65,
-    elevation: 4,
+    fontSize: 30,
   },
-  containerSignin: {
-    marginTop: 20,
-    alignItems: "center",
-    justifyContent: "center",
+  title: {
+    color: "black",
+    opacity: 1,
+    fontSize: 14,
+    fontWeight: "bold",
   },
-  buttonSignin: {
-    width: WIDTH - 55,
-    borderRadius: 15,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 0.65,
-    elevation: 4,
-    backgroundColor: "#02AF8E",
+  titlesub: {
+    color: "black",
+    opacity: 1,
+    fontSize: 14,
+    fontWeight: "500",
   },
-  textStyle: {
-    alignSelf: "center",
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
-    paddingTop: 10,
-    paddingBottom: 10,
+  line_title: {
+    borderBottomColor: "white",
+    borderBottomWidth: 5,
+    marginTop: 10,
   },
-  containerSigninLogo: {
-    marginVertical: 10,
+  text_title_primary: {
+    color: "black",
+    fontWeight: "400",
+    fontSize: 30,
+    marginBottom: 10,
+  },
+  inputContainer: {
+    marginTop: 5,
+    marginBottom: 10,
+    borderRadius: 3,
     flexDirection: "row",
-    alignItems: "center",
+    backgroundColor: Color.background_layout_input,
+  },
+  text_button: {
+    fontSize: 16,
+    fontWeight: "400",
+    color: "white",
+  },
+
+  //Attendance
+  card: {
+    backgroundColor: Color.background_card,
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 15,
+  },
+  boxattendance: {
+    backgroundColor: Color.background_box_attendance,
+    borderRadius: 15,
+    padding: 20,
     justifyContent: "center",
   },
-  SigninLogo: {
-      paddingHorizontal: 50
+  text_attendance: {
+    padding: 18,
+    justifyContent: "center",
   },
-  header: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center'
+  button: {
+    alignItems: "center",
+    backgroundColor: Color.background_button_attendance,
+    padding: 10,
+    borderRadius: 25,
   },
-  footer:{
+  layoutbutton: {
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+  },
+
+  //Classroom
+  classroom_title: {
+    color: "black",
+    opacity: 1,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  classroom_card: {
+    backgroundColor: Color.background_card,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 15,
+  },
+  classroom_date: {
+    color: "black",
+    opacity: 1,
+    fontSize: 14,
+    marginBottom: 30,
+  },
+  classroom_author: {
+    color: "black",
+    opacity: 1,
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+
+  //Login
+  login_header: {
     flex: 1,
-    backgroundColor: "#FFF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  login_footer: {
+    flex: 3,
+    backgroundColor: Color.background_footer,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 50,
-    paddingHorizontal: 30
-  }
+    justifyContent: "center",
+    paddingHorizontal: 30,
+  },
+  login_logo: {
+    width: height_logo,
+    height: height_logo,
+  },
+  login_text_label: {
+    color: "black",
+    fontWeight: "500",
+    marginTop: 10,
+  },
+  login_input: {
+    flex: 1,
+    padding: 8,
+    color: "black",
+    fontWeight: "500",
+  },
+  login_button: {
+    alignItems: "center",
+    marginTop: 15,
+  },
+  login_signin: {
+    width: "100%",
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
+    backgroundColor: Color.background_button_signin,
+  },
+  login_button_forgot: {
+    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  login_text_forgot: {
+    fontWeight: "400",
+    fontSize: 14,
+  },
+
+  //Profile
+  profile_container: {
+    flex: 1,
+    backgroundColor: Color.background,
+    alignContent: "center",
+    justifyContent: "center",
+  },
+
+  //Register
+  register_container: {
+    flex: 1,
+    backgroundColor: Color.background_footer,
+  },
+  register_content: {
+    paddingHorizontal: 30,
+    justifyContent: "center",
+  },
+  register_text_label: {
+    color: "black",
+    fontWeight: "500",
+    marginTop: 5,
+  },
+  register_input: {
+    flex: 1,
+    padding: 8,
+    color: "black",
+    fontWeight: "300",
+  },
+  register_button: {
+    alignItems: "center",
+    marginTop: 15,
+  },
+  register_signin: {
+    width: "100%",
+    padding: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
+    backgroundColor: Color.background_button_signin,
+  },
+  register_text_forgot: {
+    fontWeight: "400",
+    fontSize: 14,
+  },
 });
 
 export default externalStyle;

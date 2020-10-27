@@ -84,13 +84,11 @@ export default class classroomnoenroll extends React.Component {
                   opacity={0.2}
                   style={styles.card}
                 >
-                  {/* <View style={{ backgroundColor: "rgba(255,0,0,0.5)" }}> */}
                   <Text style={styles.title}>
                     {item.id} - {item.title}
                   </Text>
                   <Text style={styles.date}>{item.date}</Text>
                   <Text style={styles.author}>{item.author}</Text>
-                  {/* </View> */}
                 </ImageBackground>
               </TouchableOpacity>
             )}

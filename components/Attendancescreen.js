@@ -13,12 +13,13 @@ import {
   ScrollView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
+import Externalstyle from "../style/externalStyle";
 export default class attendancescreen extends React.Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.title_header}>
-          <Text style={styles.text_title}>My Attendance</Text>
+      <SafeAreaView style={Externalstyle.container}>
+        <View style={Externalstyle.title_header}>
+          <Text style={Externalstyle.text_title}>My Attendance</Text>
           <View
             style={{
               borderBottomColor: "white",
@@ -68,25 +69,21 @@ export default class attendancescreen extends React.Component {
                   }}
                   imageStyle={{ borderRadius: 15 }}
                   opacity={0.2}
-                  style={styles.card}
+                  style={Externalstyle.card}
                 >
                   <View style={{ flexDirection: "row" }}>
-                    <View style={styles.boxattendance}>
-                      <Text style={styles.title}>RATE</Text>
+                    <View style={Externalstyle.boxattendance}>
+                      <Text style={Externalstyle.title}>RATE</Text>
                     </View>
-                    {/* <View style={{ backgroundColor: "rgba(255,0,0,0.5)" }}> */}
-                    <View
-                      style={{ flexDirection: "column", marginHorizontal: 10,}}
-                    >
-                      <Text style={styles.title}>
-                        {item.day}, {item.date} - {item.timestamp}
+                    <View style={Externalstyle.text_attendance}>
+                      <Text style={Externalstyle.title}>
+                        {item.day}, {item.date} - {item.timestamp}{"\n"}
                       </Text>
-                      <Text style={styles.titlesub}>
+                      <Text style={Externalstyle.titlesub}>
                         SUBJECT: {item.subject}
                       </Text>
                     </View>
                   </View>
-                  {/* </View> */}
                 </ImageBackground>
               </TouchableOpacity>
             )}
@@ -97,45 +94,3 @@ export default class attendancescreen extends React.Component {
     );
   }
 }
-
-const { height } = Dimensions.get("screen");
-const height_logo = height * 0.5 * 0.4;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#2D232E",
-  },
-  title_header: {
-    padding: 20,
-  },
-  text_title: {
-    color: "#FFF",
-    fontWeight: "600",
-    fontSize: 30,
-  },
-  card: {
-    backgroundColor: "#7B7C7C",
-    padding: 10,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 15,
-  },
-  title: {
-    color: "black",
-    opacity: 1,
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  titlesub: {
-    color: "black",
-    opacity: 1,
-    fontSize: 14,
-    fontWeight: "500",
-  },
-  boxattendance: {
-    backgroundColor: "rgba(255,0,0,0.6)",
-    borderRadius: 15,
-    padding: 20,
-    justifyContent: "center",
-  },
-});

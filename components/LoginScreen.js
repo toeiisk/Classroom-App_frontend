@@ -8,7 +8,6 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
-  Alert,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
@@ -16,9 +15,7 @@ import {compose} from "redux";
 import {UserLogin} from "../store/actions/auth.actions";
 import {FacebookLogin} from "../store/actions/auth.actions"
 import * as Facebook from 'expo-facebook';
-
-
-
+import Externalstyle from "../style/externalStyle";
 
 class  LoginScreen  extends Component {
 
@@ -85,9 +82,6 @@ class  LoginScreen  extends Component {
       const {
         type,
         token,
-        expires,
-        permissions,
-        declinedPermissions,
       } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ['public_profile', 'email'],
       });
@@ -113,32 +107,32 @@ class  LoginScreen  extends Component {
 
 
   render() {
-    const {UserLogin} = this.props    
+    // const {UserLogin} = this.props    
     // if(UserLogin.isSuccess || this.state.loggedin) return <TestScreen />
     return(
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={Externalstyle.container}>
       <StatusBar barStyle="light-content" />
-      <View style={styles.header}>
+      <View style={Externalstyle.login_header}>
         <Animatable.Image
           animation="bounceIn"
           duration={1500}
           source={require("../assets/logo.png")}
-          style={styles.logo}
+          style={Externalstyle.login_logo}
           resizeMode={"stretch"}
         />
       </View>
       <Animatable.View
-        style={styles.footer}
+        style={Externalstyle.login_footer}
         animation="fadeInUpBig"
         duration={1500}
       >
         <View style={{ alignItems: "center" }}>
-          <Text style={styles.text_title}>LOGIN</Text>
+          <Text style={Externalstyle.text_title_primary}>LOGIN</Text>
         </View>
-        <Text style={styles.text_label}>Username</Text>
-        <View style={styles.inputContainer}>
+        <Text style={Externalstyle.login_text_label}>Username</Text>
+        <View style={Externalstyle.inputContainer}>
           <TextInput
-            style={styles.input}
+            style={Externalstyle.login_input}
             numberOfLines={1}
             placeholder={"Username"}
             placeholderTextColor="#fff"
@@ -146,10 +140,10 @@ class  LoginScreen  extends Component {
             value={this.state.username}
           />
         </View>
-        <Text style={styles.text_label}>Password</Text>
-        <View style={styles.inputContainer}>
+        <Text style={Externalstyle.login_text_label}>Password</Text>
+        <View style={Externalstyle.inputContainer}>
           <TextInput
-            style={styles.input}
+            style={Externalstyle.login_input}
             numberOfLines={1}
             placeholder={"Password"}
             placeholderTextColor="#fff"
@@ -159,26 +153,26 @@ class  LoginScreen  extends Component {
           />
           {UserLogin.isError ? <Text style={{color: 'red'}}>Username หรือ Password ผิดพลาด</Text>: null}
         </View>
-        <View style={styles.button}>
-          <TouchableOpacity style={styles.signin} onPress = {() => {this.onSubmit()}}>
-            <Text style={styles.text_button}>Sign In</Text>
+        <View style={Externalstyle.login_button}>
+          <TouchableOpacity style={Externalstyle.login_signin} onPress = {() => {this.onSubmit()}}>
+            <Text style={Externalstyle.text_button}>Sign In</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.facebookLogIn()}
             style={[
-              styles.signin,
+              Externalstyle.login_signin,
               { backgroundColor: "#3A559F", marginTop: 10 },
             ]}
           >
-            <Text style={styles.text_button}>Login with Facebook</Text>
+            <Text style={Externalstyle.text_button}>Login with Facebook</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
-              styles.signin,
+              Externalstyle.login_signin,
               { backgroundColor: "#FFF", marginTop: 10 },
             ]}
           >
-            <Text style={[styles.text_button, { color: "#000" }]}>
+            <Text style={[Externalstyle.text_button, { color: "#000" }]}>
               Login with Google
             </Text>
           </TouchableOpacity>
@@ -190,14 +184,14 @@ class  LoginScreen  extends Component {
             marginTop: 20,
           }}
         />
-        <View style={styles.button_forgot}>
+        <View style={Externalstyle.login_button_forgot}>
           <TouchableOpacity>
-            <Text style={[styles.text_forgot, { color: "#FF0000" }]}>
+            <Text style={[Externalstyle.login_text_forgot, { color: "#FF0000" }]}>
               Forgot Password?
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
-            <Text style={[styles.text_forgot, { color: "#0578FF" }]}>
+            <Text style={[Externalstyle.login_text_forgot, { color: "#0578FF" }]}>
               Register Now?
             </Text>
           </TouchableOpacity>
@@ -219,79 +213,78 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default  compose(connect(mapStateToProps, mapDispatchToProps, null)(LoginScreen));
 
-const { height } = Dimensions.get("screen");
-const height_logo = height * 0.5 * 0.4;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#2D232E",
-  },
-  header: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  footer: {
-    flex: 3,
-    backgroundColor: "#E0DDCF",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    // paddingVertical: 10,
-    justifyContent: "center",
-    paddingHorizontal: 30,
-  },
-  logo: {
-    width: height_logo,
-    height: height_logo,
-  },
-  text_title: {
-    color: "#000",
-    fontWeight: "400",
-    fontSize: 30,
-    marginBottom: 10,
-  },
-  text_label: {
-    color: "#000",
-    fontWeight: "500",
-    marginTop: 10,
-  },
-  inputContainer: {
-    marginTop: 5,
-    marginBottom: 10,
-    borderRadius: 3,
-    flexDirection: "row",
-    backgroundColor: "#0000009c",
-  },
-  input: {
-    flex: 1,
-    padding: 8,
-    color: "#fff",
-    fontWeight: "500",
-  },
-  button: {
-    alignItems: "center",
-    marginTop: 15,
-  },
-  signin: {
-    width: "100%",
-    height: 35,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 3,
-    backgroundColor: "#474448",
-  },
-  text_button: {
-    fontSize: 16,
-    fontWeight: "400",
-    color: "#FFF",
-  },
-  button_forgot: {
-    marginTop: 15,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  text_forgot: {
-    fontWeight: "400",
-    fontSize: 14,
-  },
-});
+// const { height } = Dimensions.get("screen");
+// const height_logo = height * 0.5 * 0.4;
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#2D232E",
+//   },
+//   header: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+  // footer: {
+  //   flex: 3,
+  //   backgroundColor: "#E0DDCF",
+  //   borderTopLeftRadius: 30,
+  //   borderTopRightRadius: 30,
+  //   justifyContent: "center",
+  //   paddingHorizontal: 30,
+  // },
+  // logo: {
+  //   width: height_logo,
+  //   height: height_logo,
+  // },
+  // text_title: {
+  //   color: "#000",
+  //   fontWeight: "400",
+  //   fontSize: 30,
+  //   marginBottom: 10,
+  // },
+  // text_label: {
+  //   color: "#000",
+  //   fontWeight: "500",
+  //   marginTop: 10,
+  // },
+  // inputContainer: {
+  //   marginTop: 5,
+  //   marginBottom: 10,
+  //   borderRadius: 3,
+  //   flexDirection: "row",
+  //   backgroundColor: "#0000009c",
+  // },
+  // input: {
+  //   flex: 1,
+  //   padding: 8,
+  //   color: "#fff",
+  //   fontWeight: "500",
+  // },
+  // button: {
+  //   alignItems: "center",
+  //   marginTop: 15,
+  // },
+  // signin: {
+  //   width: "100%",
+  //   height: 35,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   borderRadius: 3,
+  //   backgroundColor: "#474448",
+  // },
+  // text_button: {
+  //   fontSize: 16,
+  //   fontWeight: "400",
+  //   color: "#FFF",
+  // },
+  // button_forgot: {
+  //   marginTop: 15,
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  // },
+  // text_forgot: {
+  //   fontWeight: "400",
+  //   fontSize: 14,
+  // },
+// });
