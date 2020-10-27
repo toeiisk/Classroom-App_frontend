@@ -17,19 +17,20 @@ import {UserLogin} from "./store/actions/auth.actions";
 
 
 const RootApp = (props) => {
-  const {UserLogin} = props
-  // console.log(isLogin)
-  const [isLogin, setIslogin] = useState(null)
+  const {UserLogin, dispatch} = props
+  const [isLogin, setIslogin] = useState(false)
   async function CheckLogin() {
     var token = await AsyncStorage.getItem('token')
-    axios.get('http://103.13.231.22:3000/api/test/user/', {
+    await axios.get('http://103.13.231.22:3000/api/test/user/', {
       headers: {
         'x-access-token': token
       }
     })
     .then((res) => {
       if(res.status == 200){
-        setIslogin(token)
+        dispatch({type : 'AUTH_LOGIN_SUCCES'})
+      }else{
+        dispatch({type : 'AUTH_LOGIN_FAIL'})
       }
     })
     .catch((er) => console.log(er.message))
@@ -40,7 +41,7 @@ const RootApp = (props) => {
   },[])
   return (
       <NavigationContainer>
-        {(isLogin !== null) || UserLogin.isSuccess ? <Userscreens /> : <Rootscreens />}
+        {UserLogin.isSuccess ? <Userscreens /> : <Rootscreens />}
       </NavigationContainer>
   );
 };
@@ -51,4 +52,7 @@ const RootApp = (props) => {
 const mapStateToProps = (state) => ({
   UserLogin: state.authReducer.UserLogin
 })
-export default  compose(connect(mapStateToProps,null , null)(RootApp));
+const mapDispatchToProps = (dispatch) => ({
+  dispatch
+})
+export default  compose(connect(mapStateToProps,mapDispatchToProps , null)(RootApp));

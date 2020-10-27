@@ -31,6 +31,7 @@ const AuthReducer  = (state = {}, action) => {
     }
 }
 
+
 const UserLogin = (state = {}, action) =>{
 
     switch (action.type) {
@@ -47,6 +48,7 @@ const UserLogin = (state = {}, action) =>{
                 isSuccess: true,                
             }
         case "AUTH_LOGIN_FAIL":
+          console.log('loginfail')
             return{
                 ...state,
                 isLoggedin: false,
@@ -70,5 +72,5 @@ const UserLogin = (state = {}, action) =>{
 
 export default combineReducers({
     AuthReducer,
-    UserLogin
+    UserLogin,
   });

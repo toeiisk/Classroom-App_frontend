@@ -35,12 +35,12 @@ export const createNewUser = (payload) => {
 export const UserLogout = () =>{
     return async (dispatch) => {
         await AsyncStorage.clear()
-        
         dispatch({
             type: "LOGOUT_SUCCESS"
         })
     }
 }
+
 
 export const FacebookLogin = (payload) => {
     return async (dispatch) => {
@@ -74,14 +74,12 @@ export const FacebookLogin = (payload) => {
         }
     }
 }
-
 export const UserLogin = (payload) => {
     return async (dispatch) =>{
         try{
             axios
             .post('http://103.13.231.22:3000/api/auth/signin', payload)
             .then(async (res) =>{
-                console.log(res.status)
                 if(res.status == 200) {
                     console.log(res.status)
                     const token = res.data.accessToken
