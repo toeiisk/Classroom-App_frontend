@@ -134,7 +134,7 @@ const externalStyle = StyleSheet.create({
   login_input: {
     flex: 1,
     padding: 8,
-    color: "black",
+    color: "white",
     fontWeight: "500",
   },
   login_button: {
