@@ -19,7 +19,7 @@ import {UserLogin} from "./store/actions/auth.actions";
 const RootApp = (props) => {
   const {UserLogin} = props
   // console.log(isLogin)
-  const [isLogin, setIslogin] = useState(false)
+  const [isLogin, setIslogin] = useState(null)
   async function CheckLogin() {
     var token = await AsyncStorage.getItem('token')
     axios.get('http://103.13.231.22:3000/api/test/user/', {
@@ -29,7 +29,7 @@ const RootApp = (props) => {
     })
     .then((res) => {
       if(res.status == 200){
-        setIslogin(true)
+        setIslogin(token)
       }
     })
     .catch((er) => console.log(er.message))
@@ -40,7 +40,7 @@ const RootApp = (props) => {
   },[])
   return (
       <NavigationContainer>
-        {isLogin || UserLogin.isSuccess ? <Userscreens /> : <Rootscreens />}
+        {(isLogin !== null) || UserLogin.isSuccess ? <Userscreens /> : <Rootscreens />}
       </NavigationContainer>
   );
 };
