@@ -14,8 +14,35 @@ import {
 } from "react-native";
 import Externalstyle from "../style/externalStyle";
 import * as Animatable from "react-native-animatable";
+import { FloatingAction } from "react-native-floating-action";
 export default class classroomnoenroll extends React.Component {
   render() {
+    const actions = [
+      {
+        text: "Accessibility",
+        icon: require("../assets/logo.png"),
+        name: "bt_accessibility",
+        position: 2,
+      },
+      {
+        text: "Language",
+        icon: require("../assets/logo.png"),
+        name: "bt_language",
+        position: 1,
+      },
+      {
+        text: "Location",
+        icon: require("../assets/logo.png"),
+        name: "bt_room",
+        position: 3,
+      },
+      {
+        text: "Video",
+        icon: require("../assets/logo.png"),
+        name: "bt_videocam",
+        position: 4,
+      },
+    ];
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
@@ -90,6 +117,12 @@ export default class classroomnoenroll extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </ScrollView>
+        <FloatingAction
+          actions={actions}
+          onPressItem={(name) => {
+            console.log(`selected button: ${name}`);
+          }}
+        />
       </SafeAreaView>
     );
   }
