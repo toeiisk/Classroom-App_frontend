@@ -11,36 +11,35 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+  Modal,
+  TouchableHighlight,
 } from "react-native";
 import Externalstyle from "../style/externalStyle";
 import * as Animatable from "react-native-animatable";
 import { FloatingAction } from "react-native-floating-action";
 export default class classroomnoenroll extends React.Component {
+  state = {
+    modalVisible: false
+  }
+  setModalVisible = (visible) =>{
+    this.setState({
+      modalVisible : visible
+    })
+  }
   render() {
+    const { modalVisible } = this.state;
     const actions = [
       {
-        text: "Accessibility",
+        text: "Create Classroom",
         icon: require("../assets/logo.png"),
         name: "bt_accessibility",
         position: 2,
       },
       {
-        text: "Language",
+        text: "Join Classroom",
         icon: require("../assets/logo.png"),
         name: "bt_language",
         position: 1,
-      },
-      {
-        text: "Location",
-        icon: require("../assets/logo.png"),
-        name: "bt_room",
-        position: 3,
-      },
-      {
-        text: "Video",
-        icon: require("../assets/logo.png"),
-        name: "bt_videocam",
-        position: 4,
       },
     ];
     return (
@@ -117,14 +116,77 @@ export default class classroomnoenroll extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Join Classroom !!</Text>
+              <TextInput
+                numberOfLines={1}
+                placeholder={"Password Classroom"}
+                placeholderTextColor="black"
+                style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50}}
+                />
+
+              <TouchableHighlight
+                style={{ ...styles.openButton, backgroundColor: "#2196F3", marginTop: 20 }}
+                onPress={() => {
+                  this.setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
         <FloatingAction
           actions={actions}
-          onPressItem={(name) => {
-            console.log(`selected button: ${name}`);
-          }}
+          onPressItem={() => {this.setModalVisible(true)}}
         />
       </SafeAreaView>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    width: '80%',
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
+});
