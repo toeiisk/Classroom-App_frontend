@@ -14,40 +14,15 @@ import {
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Externalstyle from "../style/externalStyle";
-import { FloatingAction } from "react-native-floating-action";
 export default class attendancescreen extends React.Component {
   render() {
-    const actions = [
-      {
-        text: "Accessibility",
-        icon: require("../assets/logo.png"),
-        name: "bt_accessibility",
-        position: 2,
-      },
-      {
-        text: "Language",
-        icon: require("../assets/logo.png"),
-        name: "bt_language",
-        position: 1,
-      },
-      {
-        text: "Location",
-        icon: require("../assets/logo.png"),
-        name: "bt_room",
-        position: 3,
-      },
-      {
-        text: "Video",
-        icon: require("../assets/logo.png"),
-        name: "bt_videocam",
-        position: 4,
-      },
-    ];
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
           <Text style={Externalstyle.text_title}>My Attendance</Text>
-          <View style={Externalstyle.line_title} />
+          <View
+            style={Externalstyle.line_title}
+          />
         </View>
         <ScrollView>
           <FlatList
@@ -98,8 +73,7 @@ export default class attendancescreen extends React.Component {
                     </View>
                     <View style={Externalstyle.text_attendance}>
                       <Text style={Externalstyle.title}>
-                        {item.day}, {item.date} - {item.timestamp}
-                        {"\n"}
+                        {item.day}, {item.date} - {item.timestamp}{"\n"}
                       </Text>
                       <Text style={Externalstyle.titlesub}>
                         SUBJECT: {item.subject}
@@ -112,12 +86,6 @@ export default class attendancescreen extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </ScrollView>
-        <FloatingAction
-          actions={actions}
-          onPressItem={(name) => {
-            console.log(`selected button: ${name}`);
-          }}
-        />
       </SafeAreaView>
     );
   }

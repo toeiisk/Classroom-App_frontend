@@ -6,6 +6,8 @@ export default {
   background_footer: "#E0DDCF",
   background_layout_input: "#0000009c",
   background_button_signin: "#474448",
+  background_button_logout: "#FF002E",
+  text_profile: "#D7D7D7",
   text_forgot: "#323232",
   text_forgot_login: "#247CFF",
   primary: "#f7287b",

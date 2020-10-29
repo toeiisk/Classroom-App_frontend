@@ -3,7 +3,7 @@ import React from "react";
 import Classroom from "../components/Classroomscreen";
 import Attendance from "../components/Attendancescreen";
 import Profile from "../components/Profilescreen";
-import Chat from "../components/testScreen";
+import Chat from "../components/Chatlist";
 import { Image } from "react-native";
 const Tab = createMaterialBottomTabNavigator();
 

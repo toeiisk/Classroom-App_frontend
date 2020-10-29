@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 import Color from "../assets/resources/constants/color";
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.5 * 0.4;
+const height_logo_profile = height * 0.35 * 0.2;
 
 const externalStyle = StyleSheet.create({
   container: {
@@ -107,6 +108,58 @@ const externalStyle = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
   },
+  classroom_centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  classroom_modalView: {
+    width: "80%",
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  classroom_openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  classroom_textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  classroom_modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  classroom_modal_input: {
+    borderColor: "gray",
+    borderWidth: 0.5,
+    width: "100%",
+    textAlign: "center",
+    height: 50,
+  },
+  classroom_modal_input2: {
+    borderColor: "gray",
+    borderWidth: 0.5,
+    width: "100%",
+    textAlign: "center",
+    height: 50,
+    marginTop: 10,
+  },
 
   //Login
   login_header: {
@@ -164,7 +217,59 @@ const externalStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.background,
     alignContent: "center",
+  },
+  layout_header: {
+    margin: 20,
+    textAlign: "center",
+    alignItems: "center",
+  },
+  layout_detail: {
+    margin: 10,
+    paddingHorizontal: "20%",
+    textAlign: "center",
+  },
+  layout_button: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "flex-end",
+    margin: 10,
+  },
+  profile_button: {
+    width: "80%",
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_logout,
     justifyContent: "center",
+    alignItems: "center",
+  },
+  profile_button_edit: {
+    width: "80%",
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_signin,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  profile_image: {
+    width: height_logo,
+    height: height_logo,
+    borderRadius: 100,
+    borderColor: "white",
+    borderWidth: 5,
+  },
+  profile_logo: {
+    width: height_logo_profile,
+    height: height_logo_profile,
+  },
+
+  profile_title: {
+    color: Color.text_profile,
+    padding: 20,
+    opacity: 1,
+    fontSize: 16,
+    fontWeight: "300",
   },
 
   //Register
@@ -202,6 +307,32 @@ const externalStyle = StyleSheet.create({
   register_text_forgot: {
     fontWeight: "400",
     fontSize: 14,
+  },
+
+  //Chat
+  chat_inputContainer: {
+    marginTop: 15,
+    marginBottom: 5,
+    borderRadius: 3,
+    flexDirection: "row",
+    backgroundColor: "white",
+  },
+  chat_login_input: {
+    flex: 1,
+    padding: 15,
+    fontWeight: "500",
+  },
+  chat_title: {
+    color: Color.text_profile,
+    opacity: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  chat_titlesub: {
+    color: Color.text_profile,
+    opacity: 1,
+    fontSize: 14,
+    fontWeight: "300",
   },
 });
 

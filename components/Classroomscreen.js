@@ -14,23 +14,23 @@ import {
   Modal,
   TouchableHighlight,
 } from "react-native";
-import Externalstyle from "../style/externalStyle";
-import * as Animatable from "react-native-animatable";
 import { FloatingAction } from "react-native-floating-action";
+import * as Animatable from "react-native-animatable";
+import Color from "../assets/resources/constants/color";
+import Externalstyle from "../style/externalStyle";
 export default class classroomnoenroll extends React.Component {
   state = {
     modalVisible: false,
-    nameselect: ''
-  }
-  setModalVisible = (visible, name) =>{
+    nameselect: "",
+  };
+  setModalVisible = (visible, name) => {
     this.setState({
-      modalVisible : visible,
-      nameselect : name
-    })
-  }
+      modalVisible: visible,
+      nameselect: name,
+    });
+  };
   render() {
-    const {modalVisible, nameselect} = this.state
-    console.log('render', nameselect)
+    const { modalVisible, nameselect } = this.state;
     const actions = [
       {
         text: "Create Classroom",
@@ -49,7 +49,7 @@ export default class classroomnoenroll extends React.Component {
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
           <Text style={Externalstyle.text_title}>Classroom</Text>
-          <View style={Externalstyle.line_title}/>
+          <View style={Externalstyle.line_title} />
         </View>
         <ScrollView>
           <FlatList
@@ -112,122 +112,99 @@ export default class classroomnoenroll extends React.Component {
                     {item.id} - {item.title}
                   </Text>
                   <Text style={Externalstyle.classroom_date}>{item.date}</Text>
-                  <Text style={Externalstyle.classroom_author}>{item.author}</Text>
+                  <Text style={Externalstyle.classroom_author}>
+                    {item.author}
+                  </Text>
                 </ImageBackground>
               </TouchableOpacity>
             )}
             ItemSeparatorComponent={this.renderSeparator}
           />
         </ScrollView>
-        {nameselect == 'CreateClass' ? 
-           <Modal
-           animationType="slide"
-           transparent={true}
-           visible={modalVisible}
-         >
-           <View style={styles.centeredView}>
-             <View style={styles.modalView}>
-               <Text style={styles.modalText}>Create Classroom !!</Text>
-               <TextInput
-                 numberOfLines={1}
-                 placeholder={"Name"}
-                 placeholderTextColor="black"
-                 style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50}}
-                 />
-                 <TextInput
-                 numberOfLines={1}
-                 placeholder={"Description"}
-                 placeholderTextColor="black"
-                 style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50, marginTop: 10}}
-                 />
+        {nameselect == "CreateClass" ? (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+          >
+            <View style={Externalstyle.classroom_centeredView}>
+              <View style={Externalstyle.classroom_modalView}>
+                <Text style={Externalstyle.classroom_modalText}>
+                  Create Classroom !!
+                </Text>
+                <TextInput
+                  numberOfLines={1}
+                  placeholder={"Name"}
+                  placeholderTextColor="black"
+                  style={Externalstyle.classroom_modal_input}
+                />
+                <TextInput
+                  numberOfLines={1}
+                  placeholder={"Description"}
+                  placeholderTextColor="black"
+                  style={Externalstyle.classroom_modal_input2}
+                />
 
-               <TouchableHighlight
-                 style={{ ...styles.openButton, backgroundColor: "#2196F3", marginTop: 20 }}
-                 onPress={() => {
-                   this.setModalVisible(!modalVisible);
-                 }}
-               >
-                 <Text style={styles.textStyle}>Hide Modal</Text>
-               </TouchableHighlight>
-             </View>
-           </View>
-         </Modal>
-        :
-        nameselect == 'JoinClass' ?
-        <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Join Classroom !!</Text>
-            <TextInput
-              numberOfLines={1}
-              placeholder={"Password Classroom"}
-              placeholderTextColor="black"
-              style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50}}
-              />
+                <TouchableHighlight
+                  style={{
+                    ...Externalstyle.classroom_openButton,
+                    backgroundColor: Color.background_button_signin,
+                    marginTop: 20,
+                  }}
+                  onPress={() => {
+                    this.setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={Externalstyle.classroom_textStyle}>
+                    Hide Modal
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+        ) : nameselect == "JoinClass" ? (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+          >
+            <View style={Externalstyle.classroom_centeredView}>
+              <View style={Externalstyle.classroom_modalView}>
+                <Text style={Externalstyle.classroom_modalText}>
+                  Join Classroom !!
+                </Text>
+                <TextInput
+                  numberOfLines={1}
+                  placeholder={"Password Classroom"}
+                  placeholderTextColor="black"
+                  style={Externalstyle.classroom_modal_input}
+                />
 
-            <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: "#2196F3", marginTop: 20 }}
-              onPress={() => {
-                this.setModalVisible(!modalVisible);
-              }}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      </Modal>
-        :
-        null
-        }
+                <TouchableHighlight
+                  style={{
+                    ...Externalstyle.classroom_openButton,
+                    backgroundColor: Color.background_button_signin,
+                    marginTop: 20,
+                  }}
+                  onPress={() => {
+                    this.setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={Externalstyle.classroom_textStyle}>
+                    Hide Modal
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+        ) : null}
         <FloatingAction
           actions={actions}
-          onPressItem={(name) => {this.setModalVisible(true, name)}}
+          onPressItem={(name) => {
+            this.setModalVisible(true, name);
+          }}
         />
       </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    width: '80%',
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
-});
