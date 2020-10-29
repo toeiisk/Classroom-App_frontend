@@ -19,26 +19,29 @@ import * as Animatable from "react-native-animatable";
 import { FloatingAction } from "react-native-floating-action";
 export default class classroomnoenroll extends React.Component {
   state = {
-    modalVisible: false
+    modalVisible: false,
+    nameselect: ''
   }
-  setModalVisible = (visible) =>{
+  setModalVisible = (visible, name) =>{
     this.setState({
-      modalVisible : visible
+      modalVisible : visible,
+      nameselect : name
     })
   }
   render() {
-    const { modalVisible } = this.state;
+    const {modalVisible, nameselect} = this.state
+    console.log('render', nameselect)
     const actions = [
       {
         text: "Create Classroom",
         icon: require("../assets/logo.png"),
-        name: "bt_accessibility",
+        name: "CreateClass",
         position: 2,
       },
       {
         text: "Join Classroom",
         icon: require("../assets/logo.png"),
-        name: "bt_language",
+        name: "JoinClass",
         position: 1,
       },
     ];
@@ -116,35 +119,73 @@ export default class classroomnoenroll extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </ScrollView>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Join Classroom !!</Text>
-              <TextInput
-                numberOfLines={1}
-                placeholder={"Password Classroom"}
-                placeholderTextColor="black"
-                style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50}}
-                />
+        {nameselect == 'CreateClass' ? 
+           <Modal
+           animationType="slide"
+           transparent={true}
+           visible={modalVisible}
+         >
+           <View style={styles.centeredView}>
+             <View style={styles.modalView}>
+               <Text style={styles.modalText}>Create Classroom !!</Text>
+               <TextInput
+                 numberOfLines={1}
+                 placeholder={"Name"}
+                 placeholderTextColor="black"
+                 style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50}}
+                 />
+                 <TextInput
+                 numberOfLines={1}
+                 placeholder={"Description"}
+                 placeholderTextColor="black"
+                 style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50, marginTop: 10}}
+                 />
 
-              <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3", marginTop: 20 }}
-                onPress={() => {
-                  this.setModalVisible(!modalVisible);
-                }}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
+               <TouchableHighlight
+                 style={{ ...styles.openButton, backgroundColor: "#2196F3", marginTop: 20 }}
+                 onPress={() => {
+                   this.setModalVisible(!modalVisible);
+                 }}
+               >
+                 <Text style={styles.textStyle}>Hide Modal</Text>
+               </TouchableHighlight>
+             </View>
+           </View>
+         </Modal>
+        :
+        nameselect == 'JoinClass' ?
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Join Classroom !!</Text>
+            <TextInput
+              numberOfLines={1}
+              placeholder={"Password Classroom"}
+              placeholderTextColor="black"
+              style={{borderColor: 'gray', borderWidth: 0.5, width:'100%', textAlign:'center', height: 50}}
+              />
+
+            <TouchableHighlight
+              style={{ ...styles.openButton, backgroundColor: "#2196F3", marginTop: 20 }}
+              onPress={() => {
+                this.setModalVisible(!modalVisible);
+              }}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </TouchableHighlight>
           </View>
-        </Modal>
+        </View>
+      </Modal>
+        :
+        null
+        }
         <FloatingAction
           actions={actions}
-          onPressItem={() => {this.setModalVisible(true)}}
+          onPressItem={(name) => {this.setModalVisible(true, name)}}
         />
       </SafeAreaView>
     );
