@@ -18,10 +18,17 @@ import { FloatingAction } from "react-native-floating-action";
 import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
+import axios from "axios";
+import { AsyncStorage } from 'react-native';
+
+
 export default class classroomnoenroll extends React.Component {
   state = {
     modalVisible: false,
     nameselect: "",
+    description: '',
+    name: '',
+    classroom : []
   };
   setModalVisible = (visible, name) => {
     this.setState({
@@ -29,6 +36,47 @@ export default class classroomnoenroll extends React.Component {
       nameselect: name,
     });
   };
+  
+  creatClassroom = async () => {
+    var token = await AsyncStorage.getItem('token')
+    const data = {
+      'name' : this.state.name,
+      'description' : this.state.description
+    }
+    await axios.post('http://103.13.231.22:3000/api/classroom/create', data, {
+      headers: {
+        'x-access-token': token
+      }
+    }).then(() =>{
+      this.setState({
+        name : '',
+        description : ''
+      })
+    }).catch((er) => console.log(er.message))
+
+  }
+
+  async componentDidMount(){
+    var token = await AsyncStorage.getItem('token')
+    try{
+      axios.get('http://103.13.231.22:3000/api/classroom/get/all/classroombyuser', {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((res) =>{
+        this.setState({
+          classroom: res.data.classrooms
+        })
+      })
+      .catch((er) => console.log(er.message))
+    }catch (er) {
+      return er
+    }
+  }
+  
+ 
+
   render() {
     const { modalVisible, nameselect } = this.state;
     const actions = [
@@ -53,50 +101,7 @@ export default class classroomnoenroll extends React.Component {
         </View>
         <ScrollView>
           <FlatList
-            data={[
-              {
-                id: "06016325",
-                title: "SERVICE-ORIENTED PROGRAMMING",
-                date: "Monday 08.45 - 12.45",
-                author: "Paramet Kongjaroen",
-              },
-              {
-                id: "06016326",
-                title: "SERVICE-ORIENTED PROGRAMMING",
-                date: "Monday 08.45 - 12.45",
-                author: "Paramet Kongjaroen",
-              },
-              {
-                id: "06016327",
-                title: "SERVICE-ORIENTED PROGRAMMING",
-                date: "Monday 08.45 - 12.45",
-                author: "Paramet Kongjaroen",
-              },
-              {
-                id: "06016328",
-                title: "SERVICE-ORIENTED PROGRAMMING",
-                date: "Monday 08.45 - 12.45",
-                author: "Paramet Kongjaroen",
-              },
-              {
-                id: "06016329",
-                title: "SERVICE-ORIENTED PROGRAMMING",
-                date: "Monday 08.45 - 12.45",
-                author: "Paramet Kongjaroen",
-              },
-              {
-                id: "06016330",
-                title: "SERVICE-ORIENTED PROGRAMMING",
-                date: "Monday 08.45 - 12.45",
-                author: "Paramet Kongjaroen",
-              },
-              {
-                id: "06016331",
-                title: "SERVICE-ORIENTED PROGRAMMING",
-                date: "Monday 08.45 - 12.45",
-                author: "Paramet Kongjaroen",
-              },
-            ]}
+            data={this.state.classroom}
             renderItem={({ item }) => (
               <TouchableOpacity>
                 <ImageBackground
@@ -109,11 +114,11 @@ export default class classroomnoenroll extends React.Component {
                   style={Externalstyle.classroom_card}
                 >
                   <Text style={Externalstyle.classroom_title}>
-                    {item.id} - {item.title}
+                    {item.name}
                   </Text>
-                  <Text style={Externalstyle.classroom_date}>{item.date}</Text>
+                  <Text style={Externalstyle.classroom_date}>asdasdasdsad</Text>
                   <Text style={Externalstyle.classroom_author}>
-                    {item.author}
+                    {item.description}
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
@@ -137,12 +142,14 @@ export default class classroomnoenroll extends React.Component {
                   placeholder={"Name"}
                   placeholderTextColor="black"
                   style={Externalstyle.classroom_modal_input}
+                  onChangeText={(e) => {this.setState({name : e})}}
                 />
                 <TextInput
                   numberOfLines={1}
                   placeholder={"Description"}
                   placeholderTextColor="black"
                   style={Externalstyle.classroom_modal_input2}
+                  onChangeText={(e) => {this.setState({description : e})}}
                 />
 
                 <TouchableHighlight
@@ -152,11 +159,12 @@ export default class classroomnoenroll extends React.Component {
                     marginTop: 20,
                   }}
                   onPress={() => {
+                    this.creatClassroom()
                     this.setModalVisible(!modalVisible);
                   }}
                 >
                   <Text style={Externalstyle.classroom_textStyle}>
-                    Hide Modal
+                    OK
                   </Text>
                 </TouchableHighlight>
               </View>

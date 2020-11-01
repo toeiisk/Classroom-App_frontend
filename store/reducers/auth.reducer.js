@@ -45,7 +45,7 @@ const UserLogin = (state = {}, action) =>{
             return{
                 ...state,
                 isLoggedin: false,
-                isSuccess: true,                
+                isSuccess: true,                 
             }
         case "AUTH_LOGIN_FAIL":
           console.log('loginfail')

@@ -49,7 +49,6 @@ export const FacebookLogin = (payload) => {
             .post('http://103.13.231.22:3000/api/auth/facebook', payload)
             .then(async (res) => {
                 if(res.status == 200) {
-                    console.log(res.status)
                     const token = res.data.accessToken
                     await AsyncStorage.setItem('token', token)
                     dispatch({
@@ -81,7 +80,6 @@ export const UserLogin = (payload) => {
             .post('http://103.13.231.22:3000/api/auth/signin', payload)
             .then(async (res) =>{
                 if(res.status == 200) {
-                    console.log(res.status)
                     const token = res.data.accessToken
                     await AsyncStorage.setItem('token', token)
                     dispatch({

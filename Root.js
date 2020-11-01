@@ -1,8 +1,5 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
-import ReduxThunk from "redux-thunk";
-import AppReducer from "./store/reducers/index";
-import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { AsyncStorage } from 'react-native';
 import axios from "axios";
@@ -18,7 +15,6 @@ import {UserLogin} from "./store/actions/auth.actions";
 
 const RootApp = (props) => {
   const {UserLogin, dispatch} = props
-  const [isLogin, setIslogin] = useState(false)
   async function CheckLogin() {
     var token = await AsyncStorage.getItem('token')
     await axios.get('http://103.13.231.22:3000/api/test/user/', {

@@ -90,6 +90,7 @@ class  LoginScreen  extends Component {
         fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,picture.height(500)`)
           .then(response => response.json())
           .then(data => {
+            console.log(data)
             this.setState({
               userdata: data
             })
