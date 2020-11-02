@@ -68,18 +68,36 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
   },
   text_attendance: {
-    padding: 18,
+    padding: 10,
     justifyContent: "center",
   },
   button: {
     alignItems: "center",
     backgroundColor: Color.background_button_attendance,
+    width: "80%",
     padding: 10,
     borderRadius: 25,
+  },
+  atten_layout_button: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
   },
   layoutbutton: {
     paddingHorizontal: 30,
     paddingVertical: 10,
+  },
+  attend_header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  attend_text_title: {
+    color: "white",
+    fontWeight: "400",
+    fontSize: 25,
+  },
+  attend_title_header: {
+    marginHorizontal: 20
   },
 
   //Classroom
