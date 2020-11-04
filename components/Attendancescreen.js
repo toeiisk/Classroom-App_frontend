@@ -12,17 +12,31 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
+import { FloatingAction } from "react-native-floating-action";
 import * as Animatable from "react-native-animatable";
+import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
 export default class attendancescreen extends React.Component {
   render() {
+    const actions = [
+      {
+        text: "Manage Attend",
+        icon: require("../assets/logo.png"),
+        name: "ManageAttend",
+        position: 2,
+      },
+      {
+        text: "Attend",
+        icon: require("../assets/logo.png"),
+        name: "Attend",
+        position: 1,
+      },
+    ];
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
           <Text style={Externalstyle.text_title}>My Attendance</Text>
-          <View
-            style={Externalstyle.line_title}
-          />
+          <View style={Externalstyle.line_title} />
         </View>
         <ScrollView>
           <FlatList
@@ -73,7 +87,8 @@ export default class attendancescreen extends React.Component {
                     </View>
                     <View style={Externalstyle.text_attendance}>
                       <Text style={Externalstyle.title}>
-                        {item.day}, {item.date} - {item.timestamp}{"\n"}
+                        {item.day}, {item.date} - {item.timestamp}
+                        {"\n"}
                       </Text>
                       <Text style={Externalstyle.titlesub}>
                         SUBJECT: {item.subject}
@@ -86,6 +101,20 @@ export default class attendancescreen extends React.Component {
             ItemSeparatorComponent={this.renderSeparator}
           />
         </ScrollView>
+        {/* <View style={Externalstyle.atten_layout_button}>
+          <TouchableOpacity style={Externalstyle.button}>
+            <Text style={[Externalstyle.title, { color: "white" }]}>
+              Attend
+            </Text>
+          </TouchableOpacity>
+        </View> */}
+        <FloatingAction
+          actions={actions}
+          onPressItem={(name) => {
+            console.log(`selected button: ${name}`);
+          }}
+          color={Color.background_button_attendance}
+        />
       </SafeAreaView>
     );
   }

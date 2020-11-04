@@ -4,7 +4,6 @@ import {
   StyleSheet,
   StatusBar,
   Dimensions,
-  Text,
   TextInput,
   TouchableOpacity,
   ImageBackground,
@@ -14,21 +13,21 @@ import {
   Modal,
   TouchableHighlight,
 } from "react-native";
+import { Text } from "react-native-elements";
 import { FloatingAction } from "react-native-floating-action";
 import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
 import axios from "axios";
-import { AsyncStorage } from 'react-native';
-
+import { AsyncStorage } from "react-native";
 
 export default class classroomnoenroll extends React.Component {
   state = {
     modalVisible: false,
     nameselect: "",
-    description: '',
-    name: '',
-    classroom : []
+    description: "",
+    name: "",
+    classroom: [],
   };
   setModalVisible = (visible, name) => {
     this.setState({
@@ -36,46 +35,50 @@ export default class classroomnoenroll extends React.Component {
       nameselect: name,
     });
   };
-  
+
   creatClassroom = async () => {
-    var token = await AsyncStorage.getItem('token')
+    var token = await AsyncStorage.getItem("token");
     const data = {
-      'name' : this.state.name,
-      'description' : this.state.description
-    }
-    await axios.post('http://103.13.231.22:3000/api/classroom/create', data, {
-      headers: {
-        'x-access-token': token
-      }
-    }).then(() =>{
-      this.setState({
-        name : '',
-        description : ''
-      })
-    }).catch((er) => console.log(er.message))
-
-  }
-
-  async componentDidMount(){
-    var token = await AsyncStorage.getItem('token')
-    try{
-      axios.get('http://103.13.231.22:3000/api/classroom/get/all/classroombyuser', {
+      name: this.state.name,
+      description: this.state.description,
+    };
+    await axios
+      .post("http://103.13.231.22:3000/api/classroom/create", data, {
         headers: {
-          'x-access-token': token
-        }
+          "x-access-token": token,
+        },
       })
-      .then((res) =>{
+      .then(() => {
         this.setState({
-          classroom: res.data.classrooms
-        })
+          name: "",
+          description: "",
+        });
       })
-      .catch((er) => console.log(er.message))
-    }catch (er) {
-      return er
+      .catch((er) => console.log(er.message));
+  };
+
+  async componentDidMount() {
+    var token = await AsyncStorage.getItem("token");
+    try {
+      axios
+        .get(
+          "http://103.13.231.22:3000/api/classroom/get/all/classroombyuser",
+          {
+            headers: {
+              "x-access-token": token,
+            },
+          }
+        )
+        .then((res) => {
+          this.setState({
+            classroom: res.data.classrooms,
+          });
+        })
+        .catch((er) => console.log(er.message));
+    } catch (er) {
+      return er;
     }
   }
-  
- 
 
   render() {
     const { modalVisible, nameselect } = this.state;
@@ -113,9 +116,7 @@ export default class classroomnoenroll extends React.Component {
                   opacity={0.2}
                   style={Externalstyle.classroom_card}
                 >
-                  <Text style={Externalstyle.classroom_title}>
-                    {item.name}
-                  </Text>
+                  <Text style={Externalstyle.classroom_title}>{item.name}</Text>
                   <Text style={Externalstyle.classroom_date}>asdasdasdsad</Text>
                   <Text style={Externalstyle.classroom_author}>
                     {item.description}
@@ -134,37 +135,54 @@ export default class classroomnoenroll extends React.Component {
           >
             <View style={Externalstyle.classroom_centeredView}>
               <View style={Externalstyle.classroom_modalView}>
-                <Text style={Externalstyle.classroom_modalText}>
-                  Create Classroom !!
+                <Text h4 style={Externalstyle.classroom_modalText}>
+                  Create Classroom
                 </Text>
-                <TextInput
-                  numberOfLines={1}
-                  placeholder={"Name"}
-                  placeholderTextColor="black"
-                  style={Externalstyle.classroom_modal_input}
-                  onChangeText={(e) => {this.setState({name : e})}}
-                />
-                <TextInput
-                  numberOfLines={1}
-                  placeholder={"Description"}
-                  placeholderTextColor="black"
-                  style={Externalstyle.classroom_modal_input2}
-                  onChangeText={(e) => {this.setState({description : e})}}
-                />
-
+                <View style={Externalstyle.inputContainer}>
+                  <TextInput
+                    style={Externalstyle.classroom_modal_input}
+                    numberOfLines={1}
+                    placeholder={"Name"}
+                    placeholderTextColor="white"
+                    onChangeText={(e) => {
+                      this.setState({ name: e });
+                    }}
+                  />
+                </View>
+                <View style={Externalstyle.inputContainer}>
+                  <TextInput
+                    style={Externalstyle.classroom_modal_input}
+                    numberOfLines={1}
+                    placeholder={"Description"}
+                    placeholderTextColor="white"
+                    onChangeText={(e) => {
+                      this.setState({ description: e });
+                    }}
+                  />
+                </View>
                 <TouchableHighlight
                   style={{
-                    ...Externalstyle.classroom_openButton,
-                    backgroundColor: Color.background_button_signin,
-                    marginTop: 20,
+                    ...Externalstyle.profile_button_edit,
                   }}
                   onPress={() => {
-                    this.creatClassroom()
+                    this.creatClassroom();
                     this.setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text style={Externalstyle.classroom_textStyle}>
-                    OK
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    Create
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={{
+                    ...Externalstyle.profile_button,
+                  }}
+                  onPress={() => {
+                    this.setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    Hide Modal
                   </Text>
                 </TouchableHighlight>
               </View>
@@ -178,27 +196,39 @@ export default class classroomnoenroll extends React.Component {
           >
             <View style={Externalstyle.classroom_centeredView}>
               <View style={Externalstyle.classroom_modalView}>
-                <Text style={Externalstyle.classroom_modalText}>
-                  Join Classroom !!
+                <Text h4 style={Externalstyle.classroom_modalText}>
+                  Join Classroom
                 </Text>
-                <TextInput
-                  numberOfLines={1}
-                  placeholder={"Password Classroom"}
-                  placeholderTextColor="black"
-                  style={Externalstyle.classroom_modal_input}
-                />
-
+                <View style={Externalstyle.inputContainer}>
+                  <TextInput
+                    style={Externalstyle.classroom_modal_input}
+                    numberOfLines={1}
+                    placeholder={"Password Classroom"}
+                    placeholderTextColor="white"
+                  />
+                </View>
                 <TouchableHighlight
                   style={{
-                    ...Externalstyle.classroom_openButton,
-                    backgroundColor: Color.background_button_signin,
-                    marginTop: 20,
+                    ...Externalstyle.profile_button_edit,
+                  }}
+                  onPress={() => {
+                    // this.creatClassroom();
+                    this.setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    Join
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={{
+                    ...Externalstyle.profile_button,
                   }}
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text style={Externalstyle.classroom_textStyle}>
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
                     Hide Modal
                   </Text>
                 </TouchableHighlight>
@@ -208,6 +238,7 @@ export default class classroomnoenroll extends React.Component {
         ) : null}
         <FloatingAction
           actions={actions}
+          color={Color.background_button_attendance}
           onPressItem={(name) => {
             this.setModalVisible(true, name);
           }}

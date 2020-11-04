@@ -68,7 +68,7 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
   },
   text_attendance: {
-    padding: 10,
+    padding: 20,
     justifyContent: "center",
   },
   button: {
@@ -97,7 +97,7 @@ const externalStyle = StyleSheet.create({
     fontSize: 25,
   },
   attend_title_header: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
 
   //Classroom
@@ -135,21 +135,22 @@ const externalStyle = StyleSheet.create({
   classroom_modalView: {
     width: "80%",
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: Color.background_footer,
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 6,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+
+    elevation: 13,
   },
   classroom_openButton: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "black",
     borderRadius: 20,
     padding: 10,
     elevation: 2,
@@ -164,11 +165,10 @@ const externalStyle = StyleSheet.create({
     textAlign: "center",
   },
   classroom_modal_input: {
-    borderColor: "gray",
-    borderWidth: 0.5,
-    width: "100%",
-    textAlign: "center",
-    height: 50,
+    flex: 1,
+    padding: 15,
+    color: "white",
+    fontWeight: "500",
   },
   classroom_modal_input2: {
     borderColor: "gray",
