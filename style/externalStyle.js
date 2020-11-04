@@ -352,6 +352,16 @@ const externalStyle = StyleSheet.create({
     fontSize: 14,
     fontWeight: "300",
   },
+  //lessons
+  lesson_card: {
+    flexDirection: "row",
+    flex: 1,
+    width: "50%",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 15,
+  },
 });
 
 export default externalStyle;

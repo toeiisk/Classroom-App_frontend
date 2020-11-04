@@ -106,7 +106,9 @@ export default class classroomnoenroll extends React.Component {
           <FlatList
             data={this.state.classroom}
             renderItem={({ item }) => (
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Lessons")}
+              >
                 <ImageBackground
                   source={{
                     uri:
