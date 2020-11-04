@@ -19,15 +19,17 @@ import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
 import axios from "axios";
-import { AsyncStorage } from "react-native";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import {getClassroom} from '../store/actions/classroom.action'
+import {createClassroom} from '../store/actions/classroom.action'
 
-export default class classroomnoenroll extends React.Component {
+class classroomnoenroll extends React.Component {
   state = {
     modalVisible: false,
     nameselect: "",
-    description: "",
-    name: "",
-    classroom: [],
+    description: '',
+    name: '',
   };
   setModalVisible = (visible, name) => {
     this.setState({
@@ -35,52 +37,36 @@ export default class classroomnoenroll extends React.Component {
       nameselect: name,
     });
   };
-
-  creatClassroom = async () => {
-    var token = await AsyncStorage.getItem("token");
-    const data = {
-      name: this.state.name,
-      description: this.state.description,
-    };
-    await axios
-      .post("http://103.13.231.22:3000/api/classroom/create", data, {
-        headers: {
-          "x-access-token": token,
-        },
-      })
-      .then(() => {
-        this.setState({
-          name: "",
-          description: "",
-        });
-      })
-      .catch((er) => console.log(er.message));
-  };
-
-  async componentDidMount() {
-    var token = await AsyncStorage.getItem("token");
-    try {
-      axios
-        .get(
-          "http://103.13.231.22:3000/api/classroom/get/all/classroombyuser",
-          {
-            headers: {
-              "x-access-token": token,
-            },
-          }
-        )
-        .then((res) => {
-          this.setState({
-            classroom: res.data.classrooms,
-          });
-        })
-        .catch((er) => console.log(er.message));
-    } catch (er) {
-      return er;
+  
+  creatClassroom = async (data) =>{
+    try{
+      this.props.dispatch(createClassroom(data))
+    }catch{
+      const newError = new ErrorUtils(error, "Signup Error");
+      newError.showAlert();
     }
   }
 
+  SubmitdataClassroom =  () => {
+    const data = {
+      'name': this.state.name,
+      'description': this.state.description
+    }
+    this.creatClassroom(data)
+    this.setState({
+      name : '',
+      description : ''
+    })
+    
+  }
+
+  async componentDidMount(){
+    this.props.dispatch(getClassroom())
+  }
+
   render() {
+    const {Classroom} = this.props
+    console.log('dataclassroom', Classroom)
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
@@ -104,7 +90,7 @@ export default class classroomnoenroll extends React.Component {
         </View>
         <ScrollView>
           <FlatList
-            data={this.state.classroom}
+            data={Classroom}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate("Lessons")}
@@ -167,7 +153,7 @@ export default class classroomnoenroll extends React.Component {
                     ...Externalstyle.profile_button_edit,
                   }}
                   onPress={() => {
-                    this.creatClassroom();
+                    this.SubmitdataClassroom();
                     this.setModalVisible(!modalVisible);
                   }}
                 >
@@ -249,3 +235,15 @@ export default class classroomnoenroll extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  Classroom : state.classReducer.Classroom.classroomUser
+})
+ 
+const mapDispatchToProps = (dispatch) => ({
+  dispatch
+})
+
+export default  compose(connect(mapStateToProps, mapDispatchToProps, null)(classroomnoenroll));
+
+
