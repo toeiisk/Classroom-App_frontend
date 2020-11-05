@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import {
   View,
+  StyleSheet,
+  StatusBar,
+  Dimensions,
   Text,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
   SafeAreaView,
+  FlatList,
   Image,
   ScrollView,
 } from "react-native";
@@ -56,10 +61,7 @@ class ContentScreen extends Component {
               </View>
             </View>
             <View style={{ padding: 20 }}>
-              <Text
-                umberOfLines={1}
-                style={[Externalstyle.chat_title, { lineHeight: 30 }]}
-              >
+              <Text style={[Externalstyle.chat_title, { lineHeight: 30 }]}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
