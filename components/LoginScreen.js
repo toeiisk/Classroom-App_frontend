@@ -11,6 +11,8 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { UserLogin } from "../store/actions/auth.actions";
@@ -25,10 +27,29 @@ class LoginScreen extends Component {
       username: "",
       password: "",
       userdata: null,
+      loadingFont: true,
     };
+    this._loadingFont = this._loadingFont.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this._loadingFont();
+  }
+
+  async _loadingFont() {
+    await Font.loadAsync({
+      kanitLight: require("../assets/resources/fonts/Kanit-Light.ttf"),
+      kanitBold: require("../assets/resources/fonts/Kanit-Bold.ttf"),
+      MitrBold: require("../assets/resources/fonts/Mitr-Bold.ttf"),
+      MitrLight: require("../assets/resources/fonts/Mitr-Light.ttf"),
+      MitrMedium: require("../assets/resources/fonts/Mitr-Medium.ttf"),
+      MitrRegular: require("../assets/resources/fonts/Mitr-Regular.ttf"),
+    });
+
+    this.setState({ loadingFont: false });
   }
 
   onChangeUsername = (input) => {
@@ -103,9 +124,30 @@ class LoginScreen extends Component {
     }
   };
 
+  // state = {
+  //   loading: true,
+  // };
+
+  // async componentDidMount() {
+  //   await Font.loadAsync({
+  //     Kanit: require("../assets/resources/fonts/Kanit-Light.ttf"),
+  //     KanitBold: require("../assets/resources/fonts/Kanit-Bold.ttf"),
+  //   });
+  //   this.setState({ loading: false });
+  // }
+
   render() {
     // const {UserLogin} = this.props
     // if(UserLogin.isSuccess || this.state.loggedin) return <TestScreen />
+    // if (this.state.loading) {
+    //   return <View></View>;
+    // }
+    const { loadingFont } = this.state;
+
+    if (loadingFont) {
+      return <AppLoading />;
+    }
+
     return (
       <SafeAreaView style={Externalstyle.container}>
         <StatusBar barStyle="light-content" />
@@ -188,8 +230,8 @@ class LoginScreen extends Component {
             </View>
             <View
               style={{
-                borderBottomColor: "black",
-                borderBottomWidth: 1,
+                borderBottomColor: "white",
+                borderBottomWidth: 2,
                 marginTop: 20,
               }}
             />

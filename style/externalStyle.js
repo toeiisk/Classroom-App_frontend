@@ -36,9 +36,10 @@ const externalStyle = StyleSheet.create({
   },
   text_title_primary: {
     color: "black",
-    fontWeight: "400",
-    fontSize: 30,
+    fontSize: 35,
     marginBottom: 10,
+    fontFamily: "MitrMedium",
+    letterSpacing: 3,
   },
   inputContainer: {
     marginTop: 5,
@@ -51,6 +52,7 @@ const externalStyle = StyleSheet.create({
     fontSize: 16,
     fontWeight: "400",
     color: "white",
+    fontFamily: "MitrMedium",
   },
 
   //Attendance
@@ -201,16 +203,19 @@ const externalStyle = StyleSheet.create({
     color: "black",
     fontWeight: "500",
     marginTop: 10,
+    fontFamily: "MitrMedium",
   },
   login_input: {
     flex: 1,
     padding: 8,
     color: "white",
     fontWeight: "500",
+    fontFamily: "MitrLight",
   },
   login_button: {
     alignItems: "center",
     marginTop: 15,
+    fontFamily: "MitrMedium",
   },
   login_signin: {
     width: "100%",
@@ -226,6 +231,7 @@ const externalStyle = StyleSheet.create({
     justifyContent: "space-between",
   },
   login_text_forgot: {
+    fontFamily: "MitrMedium",
     fontWeight: "400",
     fontSize: 14,
   },
@@ -352,7 +358,7 @@ const externalStyle = StyleSheet.create({
     fontSize: 14,
     fontWeight: "300",
   },
-  
+
   //lessons
   lesson_card: {
     flex: 1,

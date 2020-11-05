@@ -41,15 +41,10 @@
     "@babel/plugin-transform-react-jsx": "^7.12.5",
     "babel-plugin-module-resolver": "^4.0.0"
   },
-  "private": true,
-  "plugins": [
-    [
-      "@babel/plugin-transform-react-jsx",
-      {
-        "throwIfNamespace": false,
-        "runtime": "automatic",
-        "importSource": "custom-jsx-library"
-      }
+  "rnpm": {
+    "assets": [
+      "./assets/resources/fonts/"
     ]
-  ]
+  },
+  "private": true
 }
