@@ -32,15 +32,34 @@ const RootStackScreen = () => (
               style={{
                 width: 30,
                 height: 30,
-                marginLeft:30,
-                marginTop: 30
+                marginLeft: 30,
+                marginTop: 30,
               }}
             />
           </TouchableOpacity>
         ),
       }}
     />
-    {/* <RootStack.Screen name="Lessons" component={LessonScreen} /> */}
+    <RootStack.Screen
+      name="Lessons"
+      component={LessonScreen}
+      options={{
+        title: null,
+        headerLeft: () => (
+          <TouchableOpacity>
+            <Image
+              source={require("../assets/resources/icon/previous.png")}
+              style={{
+                width: 30,
+                height: 30,
+                marginLeft: 30,
+                marginTop: 30,
+              }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
+    />
   </RootStack.Navigator>
 );
 
