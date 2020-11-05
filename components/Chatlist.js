@@ -47,7 +47,6 @@ export default class attendancescreen extends React.Component {
               <View style={Externalstyle.text_attendance}>
                 <Text style={Externalstyle.chat_title}>
                   Classroom001
-                  {"\n"}
                 </Text>
                 <Text style={Externalstyle.chat_titlesub}>
                   Lorem Ipsum is simply dummy
@@ -62,7 +61,6 @@ export default class attendancescreen extends React.Component {
               <View style={Externalstyle.text_attendance}>
                 <Text style={Externalstyle.chat_title}>
                   Classroom001
-                  {"\n"}
                 </Text>
                 <Text style={Externalstyle.chat_titlesub}>
                   Lorem Ipsum is simply dummy

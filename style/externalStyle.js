@@ -14,20 +14,22 @@ const externalStyle = StyleSheet.create({
   },
   text_title: {
     color: "white",
-    fontWeight: "600",
     fontSize: 30,
+    fontFamily: "MitrBold",
+    letterSpacing: 3
   },
   title: {
     color: "black",
     opacity: 1,
     fontSize: 14,
     fontWeight: "bold",
+    fontFamily: "MitrMedium"
   },
   titlesub: {
     color: "black",
     opacity: 1,
     fontSize: 14,
-    fontWeight: "500",
+    fontFamily: "MitrRegular"
   },
   line_title: {
     borderBottomColor: "white",
@@ -70,7 +72,7 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
   },
   text_attendance: {
-    padding: 20,
+    paddingHorizontal: 20,
     justifyContent: "center",
   },
   button: {
@@ -97,6 +99,7 @@ const externalStyle = StyleSheet.create({
     color: "white",
     fontWeight: "400",
     fontSize: 25,
+    fontFamily: "MitrMedium"
   },
   attend_title_header: {
     marginHorizontal: 20,
@@ -108,6 +111,7 @@ const externalStyle = StyleSheet.create({
     opacity: 1,
     fontSize: 18,
     fontWeight: "bold",
+    fontFamily: "MitrMedium"
   },
   classroom_card: {
     backgroundColor: Color.background_card,
@@ -121,12 +125,14 @@ const externalStyle = StyleSheet.create({
     opacity: 1,
     fontSize: 14,
     marginBottom: 30,
+    fontFamily: "MitrLight"
   },
   classroom_author: {
     color: "black",
     opacity: 1,
     fontSize: 14,
     fontWeight: "bold",
+    fontFamily: "MitrRegular"
   },
   classroom_centeredView: {
     flex: 1,
@@ -165,12 +171,14 @@ const externalStyle = StyleSheet.create({
   classroom_modalText: {
     marginBottom: 15,
     textAlign: "center",
+    fontFamily: "MitrBold"
   },
   classroom_modal_input: {
     flex: 1,
     padding: 15,
     color: "white",
     fontWeight: "500",
+    fontFamily: "MitrMedium"
   },
   classroom_modal_input2: {
     borderColor: "gray",
@@ -179,6 +187,7 @@ const externalStyle = StyleSheet.create({
     textAlign: "center",
     height: 50,
     marginTop: 10,
+    fontFamily: "MitrMedium"
   },
 
   //Login
@@ -290,10 +299,11 @@ const externalStyle = StyleSheet.create({
 
   profile_title: {
     color: Color.text_profile,
-    padding: 20,
+    padding: 15,
     opacity: 1,
     fontSize: 16,
     fontWeight: "300",
+    fontFamily: "MitrRegular"
   },
 
   //Register
@@ -309,12 +319,14 @@ const externalStyle = StyleSheet.create({
     color: "black",
     fontWeight: "500",
     marginTop: 5,
+    fontFamily: "MitrMedium",
   },
   register_input: {
     flex: 1,
     padding: 8,
     color: "white",
     fontWeight: "300",
+    fontFamily: "MitrLight",
   },
   register_button: {
     alignItems: "center",
@@ -329,6 +341,7 @@ const externalStyle = StyleSheet.create({
     backgroundColor: Color.background_button_signin,
   },
   register_text_forgot: {
+    fontFamily: "MitrMedium",
     fontWeight: "400",
     fontSize: 14,
   },
@@ -345,18 +358,21 @@ const externalStyle = StyleSheet.create({
     flex: 1,
     padding: 15,
     fontWeight: "500",
+    fontFamily: "MitrRegular"
   },
   chat_title: {
     color: Color.text_profile,
     opacity: 1,
     fontSize: 16,
     fontWeight: "bold",
+    fontFamily: "MitrRegular"
   },
   chat_titlesub: {
     color: Color.text_profile,
     opacity: 1,
     fontSize: 14,
     fontWeight: "300",
+    fontFamily: "MitrLight"
   },
 
   //lessons
@@ -384,6 +400,7 @@ const externalStyle = StyleSheet.create({
     width: height * 0.35,
     fontSize: 14,
     fontWeight: "400",
+    fontFamily: "MitrLight"
   },
   text_contents: {
     paddingHorizontal: 20,
@@ -394,6 +411,7 @@ const externalStyle = StyleSheet.create({
     opacity: 1,
     fontSize: 14,
     fontWeight: "bold",
+    fontFamily: "MitrMedium"
   },
   comments_titlesub: {
     color: Color.text_profile,
@@ -402,6 +420,7 @@ const externalStyle = StyleSheet.create({
     fontWeight: "300",
     marginTop: 5,
     lineHeight: 20,
+    fontFamily: "MitrLight"
   },
 });
 

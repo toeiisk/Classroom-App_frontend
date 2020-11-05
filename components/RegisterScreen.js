@@ -271,7 +271,7 @@ class RegisterScreen extends Component {
                     { color: Color.text_forgot },
                   ]}
                 >
-                  Already have an account?{" "}
+                  Already have an account?{"  "}
                   <TouchableOpacity
                     onPress={() =>
                       this.props.navigation.navigate("SignInScreen")
@@ -280,7 +280,7 @@ class RegisterScreen extends Component {
                     <Text
                       style={[
                         Externalstyle.register_text_forgot,
-                        { color: Color.text_forgot_login },
+                        { color: Color.text_forgot_login, },
                       ]}
                     >
                       Login

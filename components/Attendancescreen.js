@@ -90,9 +90,11 @@ export default class attendancescreen extends React.Component {
                         {item.day}, {item.date} - {item.timestamp}
                         {"\n"}
                       </Text>
-                      <Text style={Externalstyle.titlesub}>
-                        SUBJECT: {item.subject}
-                      </Text>
+                      <View style={{ paddingRight: 10 }}>
+                        <Text style={Externalstyle.titlesub}>
+                          SUBJECT: {item.subject}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </ImageBackground>
