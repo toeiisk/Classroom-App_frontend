@@ -18,7 +18,7 @@ const Usernavigator = (navigation) => (
   >
     <Tab.Screen
       name="Classroom"
-      component={Contents}
+      component={Classroom}
       options={{
         tabBarIcon: ({ focused }) => (
           <Image
