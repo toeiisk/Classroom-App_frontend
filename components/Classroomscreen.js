@@ -170,7 +170,7 @@ class classroomnoenroll extends React.Component {
                   }}
                 >
                   <Text style={[Externalstyle.title, { color: "white" }]}>
-                    Hide Modal
+                    Cancle
                   </Text>
                 </TouchableHighlight>
               </View>
@@ -217,7 +217,7 @@ class classroomnoenroll extends React.Component {
                   }}
                 >
                   <Text style={[Externalstyle.title, { color: "white" }]}>
-                    Hide Modal
+                    Cancle
                   </Text>
                 </TouchableHighlight>
               </View>

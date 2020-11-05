@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   Dimensions,
   Text,
   TextInput,
+  Image,
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
@@ -13,11 +14,24 @@ import {
   ScrollView,
 } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
+import { Overlay } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
 export default class attendancescreen extends React.Component {
+  state = {
+    overlayVisible: false,
+    nameselect: "",
+    name: "",
+  };
+  setOverlayVisible = (visible, name) => {
+    this.setState({
+      overlayVisible: visible,
+      nameselect: name,
+    });
+  };
   render() {
+    const { overlayVisible, nameselect } = this.state;
     const actions = [
       {
         text: "Manage Attend",
@@ -102,6 +116,43 @@ export default class attendancescreen extends React.Component {
             )}
             ItemSeparatorComponent={this.renderSeparator}
           />
+          {nameselect == "Attend" ? (
+            <Overlay
+              onBackdropPress={() => {
+                this.setOverlayVisible(!overlayVisible);
+              }}
+              overlayStyle={{ backgroundColor: "transparent" }}
+            >
+              <Animatable.View
+                animation="zoomIn"
+                duration={2000}
+                style={{ justifyContent: "center", alignItems: "center" }}
+              >
+                <Animatable.Image
+                  animation="pulse"
+                  easing="ease-out"
+                  iterationCount="infinite"
+                  style={{ height: 200, width: 200 }}
+                  source={require("../assets/resources/icon/audio-book.png")}
+                />
+                <Text
+                  style={[Externalstyle.text_title, { textAlign: "center" }]}
+                >
+                  Please be quiet!! Waiting for Attendance
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setOverlayVisible(!overlayVisible);
+                  }}
+                  style={Externalstyle.profile_button_edit}
+                >
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    CANCLE
+                  </Text>
+                </TouchableOpacity>
+              </Animatable.View>
+            </Overlay>
+          ) : null}
         </ScrollView>
         {/* <View style={Externalstyle.atten_layout_button}>
           <TouchableOpacity style={Externalstyle.button}>
@@ -113,7 +164,7 @@ export default class attendancescreen extends React.Component {
         <FloatingAction
           actions={actions}
           onPressItem={(name) => {
-            console.log(`selected button: ${name}`);
+            this.setOverlayVisible(true, name);
           }}
           color={Color.background_button_attendance}
         />

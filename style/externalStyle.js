@@ -16,20 +16,20 @@ const externalStyle = StyleSheet.create({
     color: "white",
     fontSize: 30,
     fontFamily: "MitrBold",
-    letterSpacing: 3
+    letterSpacing: 3,
   },
   title: {
     color: "black",
     opacity: 1,
     fontSize: 14,
     fontWeight: "bold",
-    fontFamily: "MitrMedium"
+    fontFamily: "MitrMedium",
   },
   titlesub: {
     color: "black",
     opacity: 1,
     fontSize: 14,
-    fontFamily: "MitrRegular"
+    fontFamily: "MitrRegular",
   },
   line_title: {
     borderBottomColor: "white",
@@ -99,7 +99,7 @@ const externalStyle = StyleSheet.create({
     color: "white",
     fontWeight: "400",
     fontSize: 25,
-    fontFamily: "MitrMedium"
+    fontFamily: "MitrMedium",
   },
   attend_title_header: {
     marginHorizontal: 20,
@@ -111,7 +111,7 @@ const externalStyle = StyleSheet.create({
     opacity: 1,
     fontSize: 18,
     fontWeight: "bold",
-    fontFamily: "MitrMedium"
+    fontFamily: "MitrMedium",
   },
   classroom_card: {
     backgroundColor: Color.background_card,
@@ -125,14 +125,14 @@ const externalStyle = StyleSheet.create({
     opacity: 1,
     fontSize: 14,
     marginBottom: 30,
-    fontFamily: "MitrLight"
+    fontFamily: "MitrLight",
   },
   classroom_author: {
     color: "black",
     opacity: 1,
     fontSize: 14,
     fontWeight: "bold",
-    fontFamily: "MitrRegular"
+    fontFamily: "MitrRegular",
   },
   classroom_centeredView: {
     flex: 1,
@@ -171,14 +171,14 @@ const externalStyle = StyleSheet.create({
   classroom_modalText: {
     marginBottom: 15,
     textAlign: "center",
-    fontFamily: "MitrBold"
+    fontFamily: "MitrBold",
   },
   classroom_modal_input: {
     flex: 1,
     padding: 15,
     color: "white",
     fontWeight: "500",
-    fontFamily: "MitrMedium"
+    fontFamily: "MitrMedium",
   },
   classroom_modal_input2: {
     borderColor: "gray",
@@ -187,7 +187,7 @@ const externalStyle = StyleSheet.create({
     textAlign: "center",
     height: 50,
     marginTop: 10,
-    fontFamily: "MitrMedium"
+    fontFamily: "MitrMedium",
   },
 
   //Login
@@ -303,7 +303,7 @@ const externalStyle = StyleSheet.create({
     opacity: 1,
     fontSize: 16,
     fontWeight: "300",
-    fontFamily: "MitrRegular"
+    fontFamily: "MitrRegular",
   },
 
   //Register
@@ -358,21 +358,21 @@ const externalStyle = StyleSheet.create({
     flex: 1,
     padding: 15,
     fontWeight: "500",
-    fontFamily: "MitrRegular"
+    fontFamily: "MitrRegular",
   },
   chat_title: {
     color: Color.text_profile,
     opacity: 1,
     fontSize: 16,
     fontWeight: "bold",
-    fontFamily: "MitrRegular"
+    fontFamily: "MitrRegular",
   },
   chat_titlesub: {
     color: Color.text_profile,
     opacity: 1,
     fontSize: 14,
     fontWeight: "300",
-    fontFamily: "MitrLight"
+    fontFamily: "MitrLight",
   },
 
   //lessons
@@ -400,7 +400,7 @@ const externalStyle = StyleSheet.create({
     width: height * 0.35,
     fontSize: 14,
     fontWeight: "400",
-    fontFamily: "MitrLight"
+    fontFamily: "MitrLight",
   },
   text_contents: {
     paddingHorizontal: 20,
@@ -411,7 +411,7 @@ const externalStyle = StyleSheet.create({
     opacity: 1,
     fontSize: 14,
     fontWeight: "bold",
-    fontFamily: "MitrMedium"
+    fontFamily: "MitrMedium",
   },
   comments_titlesub: {
     color: Color.text_profile,
@@ -420,7 +420,41 @@ const externalStyle = StyleSheet.create({
     fontWeight: "300",
     marginTop: 5,
     lineHeight: 20,
-    fontFamily: "MitrLight"
+    fontFamily: "MitrLight",
+  },
+
+  //create post
+  creatpost_text_label: {
+    color: "white",
+    fontWeight: "500",
+    margin: 8,
+    fontSize: 18,
+    fontFamily: "MitrMedium",
+  },
+  creatpost_input: {
+    flex: 1,
+    color: "white",
+    fontFamily: "MitrLight",
+  },
+  creatpost_textarea: {
+    margin: 8,
+    padding: 5,
+    borderWidth: 1,
+    borderColor: "#AAAAAA",
+    backgroundColor: "white",
+    height: 80,
+    width: height,
+    fontSize: 18,
+    fontFamily: "MitrLight",
+  },
+  createpost_button: {
+    width: "80%",
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_logout,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

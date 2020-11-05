@@ -5,6 +5,7 @@ import Attendance from "../components/Attendancescreen";
 // import Attendance from "../components/ViewAttendscreen";
 import Contents from "../components/Contentscreen";
 import Lessons from "../components/Lessonscreen";
+import Creatpost from "../components/Createpostscreen";
 import Profile from "../components/Profilescreen";
 import Chat from "../components/Chatlist";
 import { Image } from "react-native";
@@ -18,7 +19,7 @@ const Usernavigator = (navigation) => (
   >
     <Tab.Screen
       name="Classroom"
-      component={Classroom}
+      component={Creatpost}
       options={{
         tabBarIcon: ({ focused }) => (
           <Image
