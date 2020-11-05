@@ -307,7 +307,7 @@ const externalStyle = StyleSheet.create({
   register_input: {
     flex: 1,
     padding: 8,
-    color: "black",
+    color: "white",
     fontWeight: "300",
   },
   register_button: {
@@ -352,15 +352,50 @@ const externalStyle = StyleSheet.create({
     fontSize: 14,
     fontWeight: "300",
   },
+  
   //lessons
   lesson_card: {
-    flexDirection: "row",
     flex: 1,
-    width: "50%",
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 15,
+    borderRadius: 20,
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+  },
+  gridItem: {
+    flex: 1,
+    margin: 10,
+    height: 150,
+  },
+
+  //contents
+  TextInputStyleClass: {
+    padding: 5,
+    borderWidth: 1,
+    borderColor: "#AAAAAA",
+    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+    height: 60,
+    width: height * 0.35,
+    fontSize: 14,
+    fontWeight: "400",
+  },
+  text_contents: {
+    paddingHorizontal: 20,
+    justifyContent: "center",
+  },
+  comments_title: {
+    color: Color.text_profile,
+    opacity: 1,
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  comments_titlesub: {
+    color: Color.text_profile,
+    opacity: 1,
+    fontSize: 14,
+    fontWeight: "300",
+    marginTop: 5,
+    lineHeight: 20,
   },
 });
 

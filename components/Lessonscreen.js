@@ -25,6 +25,7 @@ class LessonScreen extends Component {
         <ScrollView>
           <View style={{ paddingHorizontal: 20 }}>
             <FlatList
+              numColumns={2}
               data={[
                 {
                   id: "1",
@@ -46,16 +47,28 @@ class LessonScreen extends Component {
                   title: "Lesson 4",
                   bgcolor: "#609FD5",
                 },
+                {
+                  id: "5",
+                  title: "Lesson 5",
+                  bgcolor: "#D4D4D4",
+                },
+                {
+                  id: "6",
+                  title: "Lesson 6",
+                  bgcolor: "#405FD7",
+                },
               ]}
               renderItem={({ item }) => (
-                <TouchableOpacity>
+                <TouchableOpacity style={Externalstyle.gridItem}>
                   <View
                     style={[
                       Externalstyle.lesson_card,
                       { backgroundColor: item.bgcolor },
                     ]}
                   >
-                    <Text>{item.title}</Text>
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      {item.title}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               )}

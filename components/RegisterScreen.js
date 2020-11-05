@@ -14,6 +14,7 @@ import {
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createNewUser } from "../store/actions/auth.actions";
+import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 // import {Actions} from 'react-native-router-flux';
@@ -156,131 +157,139 @@ class RegisterScreen extends Component {
       <SafeAreaView style={Externalstyle.register_container}>
         <StatusBar barStyle="light-content" />
         <ScrollView>
-          <View style={{ marginTop: 20, alignItems: "center" }}>
-            <Text style={Externalstyle.text_title_primary}>REGISTER</Text>
-          </View>
-          <View style={Externalstyle.register_content}>
-            <Text style={Externalstyle.register_text_label}>Firstname</Text>
-            <View style={Externalstyle.inputContainer}>
-              <TextInput
-                style={Externalstyle.register_input}
-                numberOfLines={1}
-                placeholder={"Firstname"}
-                placeholderTextColor="#fff"
-                onChangeText={this.onChangeName1}
-                value={this.state.firstname}
-              />
+          <KeyboardAvoidingScrollView>
+            <View style={{ marginTop: 20, alignItems: "center" }}>
+              <Text style={Externalstyle.text_title_primary}>REGISTER</Text>
             </View>
-            <Text style={Externalstyle.register_text_label}>Lastname</Text>
-            <View style={Externalstyle.inputContainer}>
-              <TextInput
-                style={Externalstyle.register_input}
-                numberOfLines={1}
-                placeholder={"Lastname"}
-                placeholderTextColor="#fff"
-                onChangeText={this.onChangeName2}
-                value={this.state.lastname}
-              />
-            </View>
-            <Text style={Externalstyle.register_text_label}>Username</Text>
-            <View style={Externalstyle.inputContainer}>
-              <TextInput
-                style={Externalstyle.register_input}
-                numberOfLines={1}
-                placeholder={"Username"}
-                placeholderTextColor="#fff"
-                onChangeText={this.onChangeUsername}
-                value={this.state.username}
-              />
-            </View>
-            <Text style={Externalstyle.register_text_label}>Password</Text>
-            <View style={Externalstyle.inputContainer}>
-              <TextInput
-                style={Externalstyle.register_input}
-                numberOfLines={1}
-                placeholder={"Password"}
-                placeholderTextColor="#fff"
-                secureTextEntry={true}
-                onChangeText={this.onChangePassword}
-                value={this.state.password}
-              />
-            </View>
-            <Text style={Externalstyle.register_text_label}>
-              Confirm Password
-            </Text>
-            <View style={Externalstyle.inputContainer}>
-              <TextInput
-                style={Externalstyle.register_input}
-                numberOfLines={1}
-                placeholder={"Confirm Password"}
-                placeholderTextColor="#fff"
-                secureTextEntry={true}
-                onChangeText={this.onChangeConPassword}
-                value={this.state.confirmpass}
-              />
-            </View>
-            {this.state.checkpass ? (
-              <Text style={{ color: "red", textAlign: "center" }}>
-                Password does match
+            <View style={Externalstyle.register_content}>
+              <Text style={Externalstyle.register_text_label}>Firstname</Text>
+              <View style={Externalstyle.inputContainer}>
+                <TextInput
+                  style={Externalstyle.register_input}
+                  numberOfLines={1}
+                  placeholder={"Firstname"}
+                  placeholderTextColor="#fff"
+                  onChangeText={this.onChangeName1}
+                  value={this.state.firstname}
+                />
+              </View>
+              <Text style={Externalstyle.register_text_label}>Lastname</Text>
+              <View style={Externalstyle.inputContainer}>
+                <TextInput
+                  style={Externalstyle.register_input}
+                  numberOfLines={1}
+                  placeholder={"Lastname"}
+                  placeholderTextColor="#fff"
+                  onChangeText={this.onChangeName2}
+                  value={this.state.lastname}
+                />
+              </View>
+              <Text style={Externalstyle.register_text_label}>Username</Text>
+              <View style={Externalstyle.inputContainer}>
+                <TextInput
+                  style={Externalstyle.register_input}
+                  numberOfLines={1}
+                  placeholder={"Username"}
+                  placeholderTextColor="#fff"
+                  onChangeText={this.onChangeUsername}
+                  value={this.state.username}
+                />
+              </View>
+              <Text style={Externalstyle.register_text_label}>Password</Text>
+              <View style={Externalstyle.inputContainer}>
+                <TextInput
+                  style={Externalstyle.register_input}
+                  numberOfLines={1}
+                  placeholder={"Password"}
+                  placeholderTextColor="#fff"
+                  secureTextEntry={true}
+                  onChangeText={this.onChangePassword}
+                  value={this.state.password}
+                />
+              </View>
+              <Text style={Externalstyle.register_text_label}>
+                Confirm Password
               </Text>
-            ) : null}
-            <Text style={Externalstyle.register_text_label}>Email</Text>
-            <View style={Externalstyle.inputContainer}>
-              <TextInput
-                style={Externalstyle.register_input}
-                numberOfLines={1}
-                placeholder={"Email"}
-                placeholderTextColor="#fff"
-                onChangeText={this.onChangeEmail}
-                value={this.state.email}
-              />
-            </View>
-            <Text style={Externalstyle.register_text_label}>Student ID</Text>
-            <View style={Externalstyle.inputContainer}>
-              <TextInput
-                style={Externalstyle.register_input}
-                numberOfLines={1}
-                placeholder={"Student ID"}
-                placeholderTextColor="#fff"
-                onChangeText={this.onChangestudentId}
-                value={this.state.studentid}
-              />
-            </View>
-            <View style={Externalstyle.register_button}>
-              <TouchableOpacity
-                style={Externalstyle.register_signin}
-                onPress={() => {
-                  this.onSubmit();
+              <View style={Externalstyle.inputContainer}>
+                <TextInput
+                  style={Externalstyle.register_input}
+                  numberOfLines={1}
+                  placeholder={"Confirm Password"}
+                  placeholderTextColor="#fff"
+                  secureTextEntry={true}
+                  onChangeText={this.onChangeConPassword}
+                  value={this.state.confirmpass}
+                />
+              </View>
+              {this.state.checkpass ? (
+                <Text style={{ color: "red", textAlign: "center" }}>
+                  Password does match
+                </Text>
+              ) : null}
+              <Text style={Externalstyle.register_text_label}>Email</Text>
+              <View style={Externalstyle.inputContainer}>
+                <TextInput
+                  style={Externalstyle.register_input}
+                  numberOfLines={1}
+                  placeholder={"Email"}
+                  placeholderTextColor="#fff"
+                  onChangeText={this.onChangeEmail}
+                  value={this.state.email}
+                />
+              </View>
+              <Text style={Externalstyle.register_text_label}>Student ID</Text>
+              <View style={Externalstyle.inputContainer}>
+                <TextInput
+                  style={Externalstyle.register_input}
+                  numberOfLines={1}
+                  placeholder={"Student ID"}
+                  placeholderTextColor="#fff"
+                  onChangeText={this.onChangestudentId}
+                  value={this.state.studentid}
+                />
+              </View>
+              <View style={Externalstyle.register_button}>
+                <TouchableOpacity
+                  style={Externalstyle.register_signin}
+                  onPress={() => {
+                    this.onSubmit();
+                  }}
+                >
+                  <Text style={Externalstyle.text_button}>Register</Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: 15,
+                  marginBottom: 20,
                 }}
               >
-                <Text style={Externalstyle.text_button}>Register</Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{ alignItems: "center", marginTop: 15, marginBottom: 20 }}
-            >
-              <Text
-                style={[
-                  Externalstyle.register_text_forgot,
-                  { color: Color.text_forgot },
-                ]}
-              >
-                Already have an account?{" "}
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate("SignInScreen")}
+                <Text
+                  style={[
+                    Externalstyle.register_text_forgot,
+                    { color: Color.text_forgot },
+                  ]}
                 >
-                  <Text
-                    style={[
-                      Externalstyle.register_text_forgot,
-                      { color: Color.text_forgot_login },
-                    ]}
+                  Already have an account?{" "}
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.props.navigation.navigate("SignInScreen")
+                    }
                   >
-                    Login
-                  </Text>
-                </TouchableOpacity>
-              </Text>
+                    <Text
+                      style={[
+                        Externalstyle.register_text_forgot,
+                        { color: Color.text_forgot_login },
+                      ]}
+                    >
+                      Login
+                    </Text>
+                  </TouchableOpacity>
+                </Text>
+              </View>
             </View>
-          </View>
+          </KeyboardAvoidingScrollView>
         </ScrollView>
       </SafeAreaView>
     );

@@ -42,7 +42,7 @@ export default class attendancescreen extends React.Component {
             <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }}>
               <Image
                 source={require("../assets/logo-classroom.png")}
-                style={{ height: "100%", width: "20%" }}
+                style={{ height: 90, width: 90 }}
               />
               <View style={Externalstyle.text_attendance}>
                 <Text style={Externalstyle.chat_title}>
@@ -57,7 +57,7 @@ export default class attendancescreen extends React.Component {
             <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }}>
               <Image
                 source={require("../assets/logo-classroom.png")}
-                style={{ height: "100%", width: "20%" }}
+                style={{ height: 90, width: 90 }}
               />
               <View style={Externalstyle.text_attendance}>
                 <Text style={Externalstyle.chat_title}>

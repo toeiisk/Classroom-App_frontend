@@ -3,6 +3,7 @@ import React from "react";
 import Classroom from "../components/Classroomscreen";
 import Attendance from "../components/Attendancescreen";
 // import Attendance from "../components/ViewAttendscreen";
+import Contents from "../components/Contentscreen";
 import Lessons from "../components/Lessonscreen";
 import Profile from "../components/Profilescreen";
 import Chat from "../components/Chatlist";
@@ -17,7 +18,7 @@ const Usernavigator = (navigation) => (
   >
     <Tab.Screen
       name="Classroom"
-      component={Lessons}
+      component={Contents}
       options={{
         tabBarIcon: ({ focused }) => (
           <Image

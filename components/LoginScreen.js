@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  KeyboardAvoidingView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { connect } from "react-redux";
@@ -122,91 +123,101 @@ class LoginScreen extends Component {
           animation="fadeInUpBig"
           duration={1500}
         >
-          <View style={{ alignItems: "center" }}>
-            <Text style={Externalstyle.text_title_primary}>LOGIN</Text>
-          </View>
-          <Text style={Externalstyle.login_text_label}>Username</Text>
-          <View style={Externalstyle.inputContainer}>
-            <TextInput
-              style={Externalstyle.login_input}
-              numberOfLines={1}
-              placeholder={"Username"}
-              placeholderTextColor="#fff"
-              onChangeText={this.onChangeUsername}
-              value={this.state.username}
-            />
-          </View>
-          <Text style={Externalstyle.login_text_label}>Password</Text>
-          <View style={Externalstyle.inputContainer}>
-            <TextInput
-              style={Externalstyle.login_input}
-              numberOfLines={1}
-              placeholder={"Password"}
-              placeholderTextColor="#fff"
-              secureTextEntry={true}
-              onChangeText={this.onChangePassword}
-              value={this.state.password}
-            />
-            {UserLogin.isError ? (
-              <Text style={{ color: "red" }}>
-                Username หรือ Password ผิดพลาด
-              </Text>
-            ) : null}
-          </View>
-          <View style={Externalstyle.login_button}>
-            <TouchableOpacity
-              style={Externalstyle.login_signin}
-              onPress={() => {
-                this.onSubmit();
+          <KeyboardAvoidingView>
+            <View style={{ alignItems: "center" }}>
+              <Text style={Externalstyle.text_title_primary}>LOGIN</Text>
+            </View>
+            <Text style={Externalstyle.login_text_label}>Username</Text>
+            <View style={Externalstyle.inputContainer}>
+              <TextInput
+                style={Externalstyle.login_input}
+                numberOfLines={1}
+                placeholder={"Username"}
+                placeholderTextColor="#fff"
+                onChangeText={this.onChangeUsername}
+                value={this.state.username}
+              />
+            </View>
+            <Text style={Externalstyle.login_text_label}>Password</Text>
+            <View style={Externalstyle.inputContainer}>
+              <TextInput
+                style={Externalstyle.login_input}
+                numberOfLines={1}
+                placeholder={"Password"}
+                placeholderTextColor="#fff"
+                secureTextEntry={true}
+                onChangeText={this.onChangePassword}
+                value={this.state.password}
+              />
+              {UserLogin.isError ? (
+                <Text style={{ color: "red" }}>
+                  Username หรือ Password ผิดพลาด
+                </Text>
+              ) : null}
+            </View>
+            <View style={Externalstyle.login_button}>
+              <TouchableOpacity
+                style={Externalstyle.login_signin}
+                onPress={() => {
+                  this.onSubmit();
+                }}
+              >
+                <Text style={Externalstyle.text_button}>Sign In</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.facebookLogIn()}
+                style={[
+                  Externalstyle.login_signin,
+                  { backgroundColor: "#3A559F", marginTop: 10 },
+                ]}
+              >
+                <Text style={Externalstyle.text_button}>
+                  Login with Facebook
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  Externalstyle.login_signin,
+                  { backgroundColor: "#FFF", marginTop: 10 },
+                ]}
+              >
+                <Text style={[Externalstyle.text_button, { color: "#000" }]}>
+                  Login with Google
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                borderBottomColor: "black",
+                borderBottomWidth: 1,
+                marginTop: 20,
               }}
-            >
-              <Text style={Externalstyle.text_button}>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.facebookLogIn()}
-              style={[
-                Externalstyle.login_signin,
-                { backgroundColor: "#3A559F", marginTop: 10 },
-              ]}
-            >
-              <Text style={Externalstyle.text_button}>Login with Facebook</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                Externalstyle.login_signin,
-                { backgroundColor: "#FFF", marginTop: 10 },
-              ]}
-            >
-              <Text style={[Externalstyle.text_button, { color: "#000" }]}>
-                Login with Google
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: "black",
-              borderBottomWidth: 1,
-              marginTop: 20,
-            }}
-          />
-          <View style={Externalstyle.login_button_forgot}>
-            <TouchableOpacity>
-              <Text
-                style={[Externalstyle.login_text_forgot, { color: "#FF0000" }]}
+            />
+            <View style={Externalstyle.login_button_forgot}>
+              <TouchableOpacity>
+                <Text
+                  style={[
+                    Externalstyle.login_text_forgot,
+                    { color: "#FF0000" },
+                  ]}
+                >
+                  Forgot Password?
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Register")}
               >
-                Forgot Password?
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Register")}
-            >
-              <Text
-                style={[Externalstyle.login_text_forgot, { color: "#0578FF" }]}
-              >
-                Register Now?
-              </Text>
-            </TouchableOpacity>
-          </View>
+                <Text
+                  style={[
+                    Externalstyle.login_text_forgot,
+                    { color: "#0578FF" },
+                  ]}
+                >
+                  Register Now?
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
         </Animatable.View>
       </SafeAreaView>
     );
