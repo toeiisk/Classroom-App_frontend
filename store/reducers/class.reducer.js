@@ -5,7 +5,6 @@ const initialState = {
 
 
 const Classroom  = (state = initialState, action) =>{
-    console.log(action.data)
     switch(action.type){
         case "CREATE_CLASSROOM_SUCCESS":            
             return {

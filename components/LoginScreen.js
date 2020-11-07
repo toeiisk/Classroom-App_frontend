@@ -124,24 +124,8 @@ class LoginScreen extends Component {
     }
   };
 
-  // state = {
-  //   loading: true,
-  // };
-
-  // async componentDidMount() {
-  //   await Font.loadAsync({
-  //     Kanit: require("../assets/resources/fonts/Kanit-Light.ttf"),
-  //     KanitBold: require("../assets/resources/fonts/Kanit-Bold.ttf"),
-  //   });
-  //   this.setState({ loading: false });
-  // }
 
   render() {
-    // const {UserLogin} = this.props
-    // if(UserLogin.isSuccess || this.state.loggedin) return <TestScreen />
-    // if (this.state.loading) {
-    //   return <View></View>;
-    // }
     const { loadingFont } = this.state;
 
     if (loadingFont) {

@@ -15,22 +15,26 @@ import {
 } from "react-native";
 import { Text } from "react-native-elements";
 import { FloatingAction } from "react-native-floating-action";
-import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
-import axios from "axios";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import {getClassroom} from '../store/actions/classroom.action'
 import {createClassroom} from '../store/actions/classroom.action'
+import {joinClassroom} from '../store/actions/classroom.action'
 
 class classroomnoenroll extends React.Component {
-  state = {
-    modalVisible: false,
-    nameselect: "",
-    description: '',
-    name: '',
-  };
+
+  constructor(props){
+    super(props)
+    this.state = {
+      modalVisible: false,
+      nameselect: "",
+      description: '',
+      name: '',
+      code: ''
+    };
+  }
   setModalVisible = (visible, name) => {
     this.setState({
       modalVisible: visible,
@@ -42,10 +46,20 @@ class classroomnoenroll extends React.Component {
     try{
       this.props.dispatch(createClassroom(data))
     }catch{
-      const newError = new ErrorUtils(error, "Signup Error");
+      const newError = new ErrorUtils(error, "Creatclass Error");
       newError.showAlert();
     }
   }
+
+  joinClassroom = async (code) =>{
+    try{
+      this.props.dispatch(joinClassroom(code))
+    }catch{
+      const newError = new ErrorUtils(error, "Joinclass Error");
+      newError.showAlert();
+    }
+  }
+
 
   SubmitdataClassroom =  () => {
     const data = {
@@ -58,6 +72,16 @@ class classroomnoenroll extends React.Component {
       description : ''
     })
     
+  }
+
+  SubmitJoinClassroom = () => {
+    const codeclassroom = {
+      'code' : this.state.code
+    }
+    this.joinClassroom(codeclassroom)
+    this.setState({
+      code: ''
+    })
   }
 
   async componentDidMount(){
@@ -93,7 +117,7 @@ class classroomnoenroll extends React.Component {
             data={Classroom}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("Lessons")}
+                onPress={() => {this.props.navigation.navigate("Lessons")}}
               >
                 <ImageBackground
                   source={{
@@ -193,6 +217,7 @@ class classroomnoenroll extends React.Component {
                     numberOfLines={1}
                     placeholder={"Password Classroom"}
                     placeholderTextColor="white"
+                    onChangeText={(e) => {this.setState({code : e})}}
                   />
                 </View>
                 <TouchableHighlight
@@ -200,7 +225,7 @@ class classroomnoenroll extends React.Component {
                     ...Externalstyle.profile_button_edit,
                   }}
                   onPress={() => {
-                    // this.creatClassroom();
+                    this.SubmitJoinClassroom()
                     this.setModalVisible(!modalVisible);
                   }}
                 >
