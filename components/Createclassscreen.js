@@ -33,8 +33,8 @@ export default function createclassscreen() {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
+  const handleConfirm = (datetime) => {
+    console.warn("A datetime has been picked: ", datetime);
     hideDatePicker();
   };
   return (
@@ -82,9 +82,12 @@ export default function createclassscreen() {
             </TouchableOpacity>
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
+              is24Hour={true}
+              timeZoneOffsetInMinutes={0}
+              format={'HH:mm'}
+              locale="th_TH"
               mode="datetime"
               pickerContainerStyleIOS={{backgroundColor: "white"}}
-              modalStyleIOS={{color: "white"}}
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
