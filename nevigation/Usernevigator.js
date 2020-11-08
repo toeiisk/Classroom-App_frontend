@@ -17,7 +17,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 
 
-const Usernavigator = (navigation) => (
+const Usernavigator = () => (
   <Tab.Navigator
     activeColor="#0673F6"
     inactiveColor="#4B4B4B"

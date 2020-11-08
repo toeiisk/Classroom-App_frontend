@@ -1,4 +1,7 @@
-import { createStackNavigator, HeaderBackButton } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  HeaderBackButton,
+} from "@react-navigation/stack";
 import React from "react";
 import Signinscreen from "../components/LoginScreen";
 import Registerscreen from "../components/RegisterScreen";

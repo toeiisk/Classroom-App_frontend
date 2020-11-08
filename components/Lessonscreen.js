@@ -59,7 +59,12 @@ class LessonScreen extends Component {
                 },
               ]}
               renderItem={({ item }) => (
-                <TouchableOpacity style={Externalstyle.gridItem}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.navigate("Createclass");
+                  }}
+                  style={Externalstyle.gridItem}
+                >
                   <View
                     style={[
                       Externalstyle.lesson_card,
@@ -80,6 +85,5 @@ class LessonScreen extends Component {
     );
   }
 }
-
 
 export default LessonScreen;

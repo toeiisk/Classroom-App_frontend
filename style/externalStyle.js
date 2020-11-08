@@ -18,6 +18,12 @@ const externalStyle = StyleSheet.create({
     fontFamily: "MitrBold",
     letterSpacing: 3,
   },
+  text_title_sub: {
+    color: "white",
+    fontSize: 20,
+    fontFamily: "MitrMedium",
+    letterSpacing: 3,
+  },
   title: {
     color: "black",
     opacity: 1,
@@ -433,7 +439,7 @@ const externalStyle = StyleSheet.create({
   },
   creatpost_input: {
     flex: 1,
-    color: "white",
+    color: "black",
     fontFamily: "MitrLight",
   },
   creatpost_textarea: {
@@ -453,6 +459,24 @@ const externalStyle = StyleSheet.create({
     margin: 10,
     borderRadius: 25,
     backgroundColor: Color.background_button_logout,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  create_image: {
+    width: "50%",
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_signin,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  create_submit: {
+    width: "80%",
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_signin,
     justifyContent: "center",
     alignItems: "center",
   },
