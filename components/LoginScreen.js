@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
+// import { SocialIcon } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -124,7 +125,6 @@ class LoginScreen extends Component {
     }
   };
 
-
   render() {
     const { loadingFont } = this.state;
 
@@ -190,6 +190,19 @@ class LoginScreen extends Component {
               >
                 <Text style={Externalstyle.text_button}>Sign In</Text>
               </TouchableOpacity>
+              {/* <SocialIcon
+                button
+                type="facebook"
+                onPress={() => this.facebookLogIn()}
+                style={[
+                  Externalstyle.login_signin,
+                  { backgroundColor: "#3A559F", marginTop: 10 },
+                ]}
+              >
+                <Text style={Externalstyle.text_button}>
+                  Login with Facebook
+                </Text>
+              </SocialIcon> */}
               <TouchableOpacity
                 onPress={() => this.facebookLogIn()}
                 style={[
@@ -220,7 +233,9 @@ class LoginScreen extends Component {
               }}
             />
             <View style={Externalstyle.login_button_forgot}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate("Forgotpass")}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Forgotpass")}
+              >
                 <Text
                   style={[
                     Externalstyle.login_text_forgot,

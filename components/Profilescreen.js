@@ -27,7 +27,12 @@ class Profilescreen extends React.Component {
               }}
               style={Externalstyle.profile_image}
             />
-            <Text style={[Externalstyle.text_title, { textAlign: "center" ,padding: 20 }]}>
+            <Text
+              style={[
+                Externalstyle.text_title,
+                { textAlign: "center", padding: 20 },
+              ]}
+            >
               Paramet Kongjaroen
             </Text>
           </View>
@@ -57,7 +62,12 @@ class Profilescreen extends React.Component {
             </View>
           </View>
           <View style={Externalstyle.layout_button}>
-            <TouchableOpacity style={Externalstyle.profile_button_edit}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("EditProfile");
+              }}
+              style={Externalstyle.profile_button_edit}
+            >
               <Text style={[Externalstyle.title, { color: "white" }]}>
                 EDIT
               </Text>
