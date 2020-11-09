@@ -14,6 +14,7 @@ import {
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createNewUser } from "../store/actions/auth.actions";
+import {reRegister} from '../store/actions/auth.actions'
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
@@ -85,28 +86,9 @@ class RegisterScreen extends Component {
     });
   };
 
-  // createNewUser = async (values) =>{
-  //   try{
-  //     this.props.dispatch(createNewUser(values));
-  //       Alert.alert(
-  //         "สมัครข้อมูลสำเร็จ",
-  //         "ยืนยัน",
-  //         [
-  //           {
-  //             text: "ตกลง",
-  //             onPress: () =>this.props.navigation.navigate('LoginScreen'),
-  //             style: "ok"
-  //           },
-  //         ],
-  //         { cancelable: false }
-  //       );
-
-  //   }catch{
-  //     console.log('cant register')
-  //     const newError = new ErrorUtils(error, "Signup Error");
-  //         newError.showAlert();
-  //   }
-  // }
+  componentDidMount(){
+    this.props.dispatch(reRegister())
+  }
 
   onSubmit = () => {
     if (this.state.password === this.state.confirmpass) {
@@ -146,7 +128,11 @@ class RegisterScreen extends Component {
         [
           {
             text: "ตกลง",
-            onPress: () => this.props.navigation.navigate("LoginScreen"),
+            onPress: () => {
+              this.props.dispatch(reRegister())
+              this.props.navigation.navigate("SignInScreen")
+              
+            },
             style: "ok",
           },
         ],
@@ -303,6 +289,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     createNewUser: (newUser) => dispatch(createNewUser(newUser)),
+    dispatch
   };
 };
 

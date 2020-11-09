@@ -1,6 +1,15 @@
 import axios from "axios";
 import { AsyncStorage } from 'react-native';
 
+
+export const reRegister = () =>{
+    return async (dispatch) =>{
+        dispatch({
+            type : "CREAT_USER_FAIL"
+        })
+    }
+}
+
 export const createNewUser = (payload) => {
     return async (dispatch) => {        
         try{

@@ -44,7 +44,6 @@ class classroomnoenroll extends React.Component {
       code: '',
       isDatePickerVisible: false,
       data: '',
-      author: ''
 
     };
   }
@@ -126,7 +125,6 @@ class classroomnoenroll extends React.Component {
 
   render() {
     const {Classroom} = this.props
-    console.log('data', Classroom)
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
@@ -165,9 +163,9 @@ class classroomnoenroll extends React.Component {
                   style={Externalstyle.classroom_card}
                 >
                   <Text style={Externalstyle.classroom_title}>{item.name}</Text>
-                  <Text style={Externalstyle.classroom_date}>{item.datetime}</Text>
+                  <Text style={Externalstyle.classroom_date}>{item.day} {item.time}</Text>
                   <Text style={Externalstyle.classroom_author}>
-                    {item.description}
+                    {item.nameOwner}
                   </Text>
                   {item.userIsOwner ? <Text style={Externalstyle.classroom_author}> Code: {item.code}</Text> : null}
                 </ImageBackground>
@@ -234,29 +232,13 @@ class classroomnoenroll extends React.Component {
                               <DateTimePickerModal
                                 isVisible={this.state.isDatePickerVisible}
                                 is24Hour={true}
-                                timeZoneOffsetInMinutes={0}
                                 format={'HH:mm'}
-                                locale="th_TH"
                                 mode="datetime"
                                 pickerContainerStyleIOS={{backgroundColor: "white"}}
                                 textColor="black"
                                 onConfirm={this.handleConfirm}
                                 onCancel={this.hideDatePicker}
                               />
-                            <Text
-                              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
-                            >
-                              Author
-                            </Text>
-                            <Input
-                              style={Externalstyle.creatpost_input}
-                              numberOfLines={1}
-                              placeholder={"Text here..."}
-                              placeholderTextColor="black"
-                              onChangeText={(e) => {
-                                this.setState({ author: e });
-                              }}
-                            />
                           </View>
                         </KeyboardAvoidingScrollView>
                       </ScrollView>
