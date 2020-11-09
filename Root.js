@@ -37,7 +37,7 @@ const RootApp = (props) => {
   },[])
   return (
       <NavigationContainer>
-        {UserLogin.isSuccess ? <Userscreens /> : <Userscreens />}
+        {UserLogin.isSuccess ? <Userscreens /> : <Rootscreens />}
       </NavigationContainer>
   );
 };
