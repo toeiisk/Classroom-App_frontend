@@ -22,6 +22,14 @@ import { compose } from "redux";
 import {getClassroom} from '../store/actions/classroom.action'
 import {createClassroom} from '../store/actions/classroom.action'
 import {joinClassroom} from '../store/actions/classroom.action'
+import CreateClassroom from './Createclassscreen';
+import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
+import { Input } from "react-native-elements";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from 'moment'
+
+
+
 
 class classroomnoenroll extends React.Component {
 
@@ -32,7 +40,11 @@ class classroomnoenroll extends React.Component {
       nameselect: "",
       description: '',
       name: '',
-      code: ''
+      code: '',
+      isDatePickerVisible: false,
+      data: '',
+      author: ''
+
     };
   }
   setModalVisible = (visible, name) => {
@@ -60,6 +72,26 @@ class classroomnoenroll extends React.Component {
     }
   }
 
+  showDatePicker = (date) =>{
+    this.setState({
+      isDatePickerVisible: date
+    })
+  }
+
+  hideDatePicker = () =>{
+    this.setState({
+      isDatePickerVisible: false
+    })
+  }
+
+  handleConfirm = (datetime) => {
+    const selectdate = moment(datetime, "h:mm:ss A").format("dddd HH:mm")
+    console.log(selectdate)
+    this.setState({
+      data: selectdate
+    })
+    this.hideDatePicker();
+  };
 
   SubmitdataClassroom =  () => {
     const data = {
@@ -90,7 +122,6 @@ class classroomnoenroll extends React.Component {
 
   render() {
     const {Classroom} = this.props
-    console.log('dataclassroom', Classroom)
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
@@ -148,7 +179,7 @@ class classroomnoenroll extends React.Component {
             transparent={true}
             visible={modalVisible}
           >
-            <View style={Externalstyle.classroom_centeredView}>
+            {/* <View style={Externalstyle.classroom_centeredView}>
               <View style={Externalstyle.classroom_modalView}>
                 <Text h4 style={Externalstyle.classroom_modalText}>
                   Create Classroom
@@ -201,7 +232,91 @@ class classroomnoenroll extends React.Component {
                   </Text>
                 </TouchableHighlight>
               </View>
-            </View>
+            </View> */}
+                    <SafeAreaView style={Externalstyle.register_container}>
+                      <ScrollView>
+                        <KeyboardAvoidingScrollView>
+                          <View style={{ marginTop: 20, alignItems: "center" }}>
+                            <Text style={Externalstyle.text_title_primary}>CREATE CLASS</Text>
+                          </View>
+                          <View style={Externalstyle.register_content}>
+                            <Text
+                              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
+                            >
+                              Name class
+                            </Text>
+                            <Input
+                              style={Externalstyle.creatpost_input}
+                              numberOfLines={1}
+                              placeholder={"Text here..."}
+                              placeholderTextColor="black"
+                              onChangeText={(e) => {
+                                this.setState({ name: e });
+                              }}
+                            />
+                            <Text
+                              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
+                            >
+                              Description
+                            </Text>
+                            <Input
+                              style={Externalstyle.creatpost_input}
+                              numberOfLines={1}
+                              placeholder={"Text here..."}
+                              placeholderTextColor="black"
+                              onChangeText={(e) => {
+                                this.setState({ description: e });
+                              }}
+                            />
+                            <Text
+                              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
+                            >
+                              Date - Time
+                            </Text>
+                            <TouchableOpacity
+                              onPress={() => this.showDatePicker(true)}
+                              style={Externalstyle.create_image}
+                            >
+                              <Text style={[Externalstyle.title, { color: "white" }]}>
+                                Select Date-Time
+                              </Text>
+                            </TouchableOpacity>
+                              <DateTimePickerModal
+                                isVisible={this.state.isDatePickerVisible}
+                                is24Hour={true}
+                                timeZoneOffsetInMinutes={0}
+                                format={'HH:mm'}
+                                locale="th_TH"
+                                mode="datetime"
+                                pickerContainerStyleIOS={{backgroundColor: "white"}}
+                                onConfirm={this.handleConfirm}
+                                onCancel={this.hideDatePicker}
+                              />
+                            <Text
+                              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
+                            >
+                              Author
+                            </Text>
+                            <Input
+                              style={Externalstyle.creatpost_input}
+                              numberOfLines={1}
+                              placeholder={"Text here..."}
+                              placeholderTextColor="black"
+                              onChangeText={(e) => {
+                                this.setState({ author: e });
+                              }}
+                            />
+                          </View>
+                        </KeyboardAvoidingScrollView>
+                      </ScrollView>
+              <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
+                <TouchableOpacity style={Externalstyle.create_submit}  onPress={() => {
+                            this.setModalVisible(!modalVisible);
+                          }}>
+                  <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+            </SafeAreaView>
           </Modal>
         ) : nameselect == "JoinClass" ? (
           <Modal

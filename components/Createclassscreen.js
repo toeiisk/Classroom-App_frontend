@@ -21,7 +21,7 @@ import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 // import {Actions} from 'react-native-router-flux';
-
+import moment from 'moment'
 export default function createclassscreen() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -34,7 +34,9 @@ export default function createclassscreen() {
   };
 
   const handleConfirm = (datetime) => {
-    console.warn("A datetime has been picked: ", datetime);
+    const date = moment(datetime).add(3, 'days').calendar()
+    console.warn("A datetime has been picked: ", date);
+    console.log('date', date)
     hideDatePicker();
   };
   return (
