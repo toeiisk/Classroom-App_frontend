@@ -220,7 +220,7 @@ class LoginScreen extends Component {
               }}
             />
             <View style={Externalstyle.login_button_forgot}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate("Forgotpass")}>
                 <Text
                   style={[
                     Externalstyle.login_text_forgot,

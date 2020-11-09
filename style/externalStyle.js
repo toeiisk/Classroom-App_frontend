@@ -480,6 +480,21 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
+  //reset pass
+  resetpass_container: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: Color.background_footer,
+  },
+  resetpass_text_label: {
+    paddingVertical: 20,
+    lineHeight: 30,
+    color: "white",
+    margin: 8,
+    fontSize: 20,
+    fontFamily: "MitrLight",
+  },
 });
 
 export default externalStyle;
