@@ -285,7 +285,7 @@ class classroomnoenroll extends React.Component {
                         Select Date-Time
                       </Text>
                     </TouchableOpacity>
-                    <DateTimePickerModal
+                    {/* <DateTimePickerModal
                       isVisible={this.state.isDatePickerVisible}
                       is24Hour={true}
                       timeZoneOffsetInMinutes={0}
@@ -293,6 +293,18 @@ class classroomnoenroll extends React.Component {
                       locale="th_TH"
                       mode="datetime"
                       pickerContainerStyleIOS={{ backgroundColor: "white" }}
+                      onConfirm={this.handleConfirm}
+                      onCancel={this.hideDatePicker}
+                    /> */}
+                    <DateTimePickerModal
+                      isVisible={this.state.isDatePickerVisible}
+                      is24Hour={true}
+                      timeZoneOffsetInMinutes={0}
+                      format={"HH:mm"}
+                      locale="th_TH"
+                      mode="datetime"
+                      pickerContainerStyleIOS={{ backgroundColor: "white", }}
+                      textColor="black"
                       onConfirm={this.handleConfirm}
                       onCancel={this.hideDatePicker}
                     />
@@ -337,7 +349,7 @@ class classroomnoenroll extends React.Component {
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
                   }}
-                  style={Externalstyle.create_cancle}
+                  style={Externalstyle.profile_button}
                 >
                   <Text style={[Externalstyle.title, { color: "white" }]}>
                     Cancle

@@ -89,6 +89,7 @@ export default function createclassscreen() {
               format={'HH:mm'}
               locale="th_TH"
               mode="datetime"
+              textColor="black"
               pickerContainerStyleIOS={{backgroundColor: "white"}}
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}

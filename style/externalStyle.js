@@ -480,15 +480,6 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  create_cancle: {
-    width: "80%",
-    padding: 10,
-    margin: 10,
-    borderRadius: 25,
-    backgroundColor: Color.background_button_signin,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 });
 
 export default externalStyle;
