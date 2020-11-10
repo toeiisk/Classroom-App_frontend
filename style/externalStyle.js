@@ -394,6 +394,21 @@ const externalStyle = StyleSheet.create({
     margin: 10,
     height: 150,
   },
+  lesson_modalView: {
+    width: "80%",
+    padding: 35,
+    backgroundColor: Color.background_footer,
+    borderRadius: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+    elevation: 13,
+  },
 
   //contents
   TextInputStyleClass: {

@@ -5,6 +5,7 @@ import {
   StatusBar,
   Dimensions,
   Text,
+  Modal,
   TextInput,
   TouchableOpacity,
   ImageBackground,
@@ -14,10 +15,37 @@ import {
   ScrollView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
+import { Overlay } from "react-native-elements";
+import { FloatingAction } from "react-native-floating-action";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
+import Color from "../assets/resources/constants/color";
 class ContentScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false,
+      nameselect: "",
+      name: "",
+    };
+  }
+
+  setModalVisible = (visible, name) => {
+    this.setState({
+      modalVisible: visible,
+      nameselect: name,
+    });
+  };
   render() {
+    const { modalVisible, nameselect } = this.state;
+    const actions = [
+      {
+        text: "Create Post",
+        icon: require("../assets/logo.png"),
+        name: "CreatePost",
+        position: 2,
+      },
+    ];
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>
@@ -135,34 +163,21 @@ class ContentScreen extends Component {
               </View>
             </View>
           </View>
-
-          {/* <View
-            style={{
-              flexDirection: "row",
-              width: 250,
-              margin: 10,
-              padding: 4,
-              alignItems: "center",
-              justifyContent: "center",
-              borderWidth: 4,
-              borderColor: "#888",
-              borderRadius: 10,
-              backgroundColor: "#fff",
-            }}
-          >
-            <View style={{ flex: 4 }}>
-              <TextInput />
-            </View>
-            <View style={{ flex: 1 }}>
-              <TouchableOpacity>
-                <Image
-                  source={require("../assets/logo.png")}
-                  style={{ width: 50, height: 50 }}
-                />
-              </TouchableOpacity>
-            </View>
-          </View> */}
         </ScrollView>
+        {nameselect == "CreatePost" ? (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+          ></Modal>
+        ) : null}
+        <FloatingAction
+          actions={actions}
+          color={Color.background_button_attendance}
+          onPressItem={(name) => {
+            this.setModalVisible(true, name);
+          }}
+        />
       </SafeAreaView>
     );
   }

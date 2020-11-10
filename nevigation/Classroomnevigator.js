@@ -8,6 +8,7 @@ import Contents from "../components/Contentscreen";
 import Createpost from "../components/Createpostscreen";
 import Createclass from "../components/Createclassscreen";
 import EditProfileScreen from "../components/EditProfilescreen";
+import Contentclass from "../components/Contentscreen";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image } from "react-native";
@@ -27,6 +28,11 @@ const ScreenStack = () => (
     <RootScreen.Screen
       name="Lessons"
       component={Lessons}
+      options={{ headerShown: false }}
+    />
+    <RootScreen.Screen
+      name="Contentclass"
+      component={Contentclass}
       options={{ headerShown: false }}
     />
     <RootScreen.Screen
@@ -69,7 +75,7 @@ const ScreenStack = () => (
         ),
       }}
     />
-     <RootScreen.Screen
+    <RootScreen.Screen
       name="EditProfile"
       component={EditProfileScreen}
       options={{

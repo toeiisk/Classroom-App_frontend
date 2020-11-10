@@ -15,7 +15,6 @@ import {
   ScrollView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { Button, Overlay } from "react-native-elements";
 import { FloatingAction } from "react-native-floating-action";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
@@ -23,20 +22,11 @@ class LessonScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      overlayVisible: false,
       modalVisible: false,
       nameselect: "",
-      nameselect2: "",
       name: "",
     };
   }
-
-  setOverlayVisible = (visible, name) => {
-    this.setState({
-      overlayVisible: visible,
-      nameselect2: name,
-    });
-  };
 
   setModalVisible = (visible, name) => {
     this.setState({
@@ -44,27 +34,22 @@ class LessonScreen extends Component {
       nameselect: name,
     });
   };
+
   render() {
-    const { overlayVisible, nameselect2 } = this.state;
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
-        text: "Create Classroom",
+        text: "Create Lesson",
         icon: require("../assets/logo.png"),
-        name: "CreateClass",
+        name: "CreateLesson",
         position: 2,
-      },
-      {
-        text: "Join Classroom",
-        icon: require("../assets/logo.png"),
-        name: "JoinClass",
-        position: 1,
       },
     ];
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
           <Text style={Externalstyle.text_title}>LESSONS</Text>
+          <View style={Externalstyle.line_title} />
         </View>
         <ScrollView>
           <View style={{ paddingHorizontal: 20 }}>
@@ -105,7 +90,7 @@ class LessonScreen extends Component {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => {
-                    this.props.navigation.navigate("Createclass");
+                    this.props.navigation.navigate("Contentclass");
                   }}
                   style={Externalstyle.gridItem}
                 >
@@ -125,42 +110,62 @@ class LessonScreen extends Component {
             />
           </View>
         </ScrollView>
-        {nameselect2 == "CreateClass" ? (
-          <Overlay
-            onBackdropPress={() => {
-              this.setOverlayVisible(!overlayVisible);
-            }}
-            overlayStyle={{ backgroundColor: "transparent" }}
-          >
+        {nameselect == "CreateLesson" ? (
+          <Modal transparent={true} visible={modalVisible}>
             <View style={Externalstyle.classroom_centeredView}>
               <Animatable.View
                 animation="zoomIn"
                 duration={2000}
-                style={Externalstyle.classroom_modalView}
-              ></Animatable.View>
+                style={Externalstyle.lesson_modalView}
+              >
+                <Text h4 style={Externalstyle.classroom_modalText}>
+                  Create Lesson
+                </Text>
+                <View style={Externalstyle.inputContainer}>
+                  <TextInput
+                    style={Externalstyle.classroom_modal_input}
+                    numberOfLines={1}
+                    placeholder={"Text input.."}
+                    placeholderTextColor="white"
+                    onChangeText={(e) => {
+                      this.setState({ code: e });
+                    }}
+                  />
+                </View>
+                <TouchableHighlight
+                  style={{
+                    ...Externalstyle.profile_button_edit,
+                  }}
+                  onPress={() => {
+                    this.SubmitJoinClassroom();
+                    this.setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    Create Lesson
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={{
+                    ...Externalstyle.profile_button,
+                  }}
+                  onPress={() => {
+                    this.setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    Cancle
+                  </Text>
+                </TouchableHighlight>
+              </Animatable.View>
             </View>
-          </Overlay>
-        ) : nameselect2 == "JoinClass" ? (
-          <Overlay
-            onBackdropPress={() => {
-              this.setOverlayVisible(!overlayVisible);
-            }}
-            overlayStyle={{ backgroundColor: "transparent" }}
-          >
-            <View style={Externalstyle.classroom_centeredView}>
-              <Animatable.View
-                animation="zoomIn"
-                duration={2000}
-                style={Externalstyle.classroom_modalView}
-              ></Animatable.View>
-            </View>
-          </Overlay>
+          </Modal>
         ) : null}
         <FloatingAction
           actions={actions}
           color={Color.background_button_attendance}
           onPressItem={(name) => {
-            this.setOverlayVisible(true, name);
+            this.setModalVisible(true, name);
           }}
         />
       </SafeAreaView>

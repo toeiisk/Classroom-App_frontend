@@ -167,7 +167,7 @@ class classroomnoenroll extends React.Component {
                   <Text style={Externalstyle.classroom_author}>
                     {item.nameOwner}
                   </Text>
-                  {item.userIsOwner ? <Text style={Externalstyle.classroom_author}> Code: {item.code}</Text> : null}
+                  {item.userIsOwner ? <Text style={Externalstyle.classroom_author}>Code: {item.code}</Text> : null}
                 </ImageBackground>
               </TouchableOpacity>
             )}
