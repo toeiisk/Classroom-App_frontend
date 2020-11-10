@@ -7,6 +7,7 @@ import Signinscreen from "../components/LoginScreen";
 import Registerscreen from "../components/RegisterScreen";
 import LessonScreen from "../components/Lessonscreen";
 import ForgotpassScreen from "../components/ForgotpassScreen";
+import Chatroom from "../components/ChatScreen";
 import { Image } from "react-native";
 import Color from "../assets/resources/constants/color";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -16,7 +17,7 @@ const RootStack = createStackNavigator();
 const RootStackScreen = () => (
   <RootStack.Navigator
     screenOptions={{
-      headerStyle: { backgroundColor: Color.background_footer },
+      headerStyle: { backgroundColor: Color.background_footer, height: 80 },
     }}
   >
     <RootStack.Screen
@@ -37,7 +38,6 @@ const RootStackScreen = () => (
                 width: 30,
                 height: 30,
                 marginLeft: 30,
-                marginTop: 30,
               }}
             />
           </TouchableOpacity>
@@ -57,7 +57,25 @@ const RootStackScreen = () => (
                 width: 30,
                 height: 30,
                 marginLeft: 30,
-                marginTop: 30,
+              }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
+    />
+    <RootStack.Screen
+      name="Chatroom"
+      component={Chatroom}
+      options={{
+        title: null,
+        headerLeft: () => (
+          <TouchableOpacity>
+            <Image
+              source={require("../assets/resources/icon/previous.png")}
+              style={{
+                width: 30,
+                height: 30,
+                marginLeft: 30,
               }}
             />
           </TouchableOpacity>
@@ -77,7 +95,6 @@ const RootStackScreen = () => (
                 width: 30,
                 height: 30,
                 marginLeft: 30,
-                marginTop: 30,
               }}
             />
           </TouchableOpacity>

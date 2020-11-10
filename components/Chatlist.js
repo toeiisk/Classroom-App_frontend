@@ -39,29 +39,18 @@ export default class attendancescreen extends React.Component {
         </View>
         <ScrollView>
           <View style={{ paddingHorizontal: 20 }}>
-            <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate("Chatroom");
+              }}
+              style={{ flexDirection: "row", paddingVertical: 10 }}
+            >
               <Image
                 source={require("../assets/logo-classroom.png")}
                 style={{ height: 90, width: 90 }}
               />
               <View style={Externalstyle.text_attendance}>
-                <Text style={Externalstyle.chat_title}>
-                  Classroom001
-                </Text>
-                <Text style={Externalstyle.chat_titlesub}>
-                  Lorem Ipsum is simply dummy
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }}>
-              <Image
-                source={require("../assets/logo-classroom.png")}
-                style={{ height: 90, width: 90 }}
-              />
-              <View style={Externalstyle.text_attendance}>
-                <Text style={Externalstyle.chat_title}>
-                  Classroom001
-                </Text>
+                <Text style={Externalstyle.chat_title}>Classroom001</Text>
                 <Text style={Externalstyle.chat_titlesub}>
                   Lorem Ipsum is simply dummy
                 </Text>

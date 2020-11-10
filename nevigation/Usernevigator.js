@@ -9,13 +9,10 @@ import Creatpost from "../components/Createpostscreen";
 import Profile from "../components/Profilescreen";
 import Chat from "../components/Chatlist";
 import { Image } from "react-native";
-import ScreenStack from "./Classroomnevigator"
-
-
+import ScreenStack from "./Classroomnevigator";
+import ChatStack from "./Chatnavigation";
 
 const Tab = createMaterialBottomTabNavigator();
-
-
 
 const Usernavigator = () => (
   <Tab.Navigator
@@ -68,8 +65,8 @@ const Usernavigator = () => (
       }}
     />
     <Tab.Screen
-      name="Chat"
-      component={Chat}
+      name="ChatStack"
+      component={ChatStack}
       options={{
         tabBarIcon: ({ focused }) => (
           <Image
@@ -113,8 +110,5 @@ const Usernavigator = () => (
     />
   </Tab.Navigator>
 );
-
-
-
 
 export default Usernavigator;

@@ -1,10 +1,6 @@
-import {
-  createStackNavigator,
-  HeaderBackButton,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import Lessons from "../components/Lessonscreen";
 import Classroom from "../components/Classroomscreen";
-import Contents from "../components/Contentscreen";
 import Createpost from "../components/Createpostscreen";
 import Createclass from "../components/Createclassscreen";
 import EditProfileScreen from "../components/EditProfilescreen";
@@ -17,7 +13,7 @@ const RootScreen = createStackNavigator();
 const ScreenStack = () => (
   <RootScreen.Navigator
     screenOptions={{
-      headerStyle: { backgroundColor: Color.background_footer },
+      headerStyle: { backgroundColor: Color.background_footer, height: 80 },
     }}
   >
     <RootScreen.Screen
@@ -48,7 +44,6 @@ const ScreenStack = () => (
                 width: 30,
                 height: 30,
                 marginLeft: 30,
-                marginTop: 30,
               }}
             />
           </TouchableOpacity>
@@ -68,7 +63,6 @@ const ScreenStack = () => (
                 width: 30,
                 height: 30,
                 marginLeft: 30,
-                marginTop: 30,
               }}
             />
           </TouchableOpacity>
@@ -88,7 +82,6 @@ const ScreenStack = () => (
                 width: 30,
                 height: 30,
                 marginLeft: 30,
-                marginTop: 30,
               }}
             />
           </TouchableOpacity>
