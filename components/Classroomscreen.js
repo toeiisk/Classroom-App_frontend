@@ -156,7 +156,7 @@ class classroomnoenroll extends React.Component {
                 <ImageBackground
                   source={{
                     uri:
-                      "https://image.freepik.com/free-vector/health-insurance-vector-illustration_159144-57.jpg",
+                      "https://media4.manhattan-institute.org/sites/cj/files/woke-classrooms.jpg",
                   }}
                   imageStyle={{ borderRadius: 15 }}
                   opacity={0.2}

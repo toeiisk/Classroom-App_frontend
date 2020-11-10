@@ -89,7 +89,7 @@ export default class attendancescreen extends React.Component {
                 <ImageBackground
                   source={{
                     uri:
-                      "https://image.freepik.com/free-vector/health-insurance-vector-illustration_159144-57.jpg",
+                      "https://edu.google.com/images/social_image.jpg",
                   }}
                   imageStyle={{ borderRadius: 15 }}
                   opacity={0.2}
