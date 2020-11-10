@@ -5,12 +5,14 @@ import { combineReducers } from 'redux';
 
 import authReducer from "./auth.reducer";
 import classReducer from './class.reducer'
+import modalReducer from './modal.reducer'
 
 
 
 const reducers = {
     authReducer,
-    classReducer
+    classReducer,
+    modalReducer
 };
 
 const appReducer = combineReducers(reducers);

@@ -137,7 +137,6 @@ class LessonScreen extends Component {
                     ...Externalstyle.profile_button_edit,
                   }}
                   onPress={() => {
-                    this.SubmitJoinClassroom();
                     this.setModalVisible(!modalVisible);
                   }}
                 >

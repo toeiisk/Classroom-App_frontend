@@ -20,6 +20,10 @@ import { FloatingAction } from "react-native-floating-action";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
+import Createpostscreen from './Createpostscreen';
+import { setVisible } from "../store/actions/modal.actions";
+import { connect } from "react-redux";
+import { compose } from "redux";
 class ContentScreen extends Component {
   constructor(props) {
     super(props);
@@ -32,9 +36,9 @@ class ContentScreen extends Component {
 
   setModalVisible = (visible, name) => {
     this.setState({
-      modalVisible: visible,
       nameselect: name,
     });
+    this.props.dispatch(setVisible(visible))
   };
   render() {
     const { modalVisible, nameselect } = this.state;
@@ -46,6 +50,7 @@ class ContentScreen extends Component {
         position: 2,
       },
     ];
+    const {Visible} = this.props
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>
@@ -157,7 +162,7 @@ class ContentScreen extends Component {
                   <Text style={Externalstyle.comments_titlesub}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    aliqua.s
                   </Text>
                 </View>
               </View>
@@ -168,8 +173,10 @@ class ContentScreen extends Component {
           <Modal
             animationType="slide"
             transparent={true}
-            visible={modalVisible}
-          ></Modal>
+            visible={Visible.visible}
+          >
+            <Createpostscreen navigation = {this.props.navigation}/>
+          </Modal>
         ) : null}
         <FloatingAction
           actions={actions}
@@ -183,4 +190,14 @@ class ContentScreen extends Component {
   }
 }
 
-export default ContentScreen;
+const mapStateToProps = (state) => ({
+  Visible: state.modalReducer.Modal,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    dispatch
+  }
+};
+
+export default compose(connect(mapStateToProps, mapDispatchToProps, null)(ContentScreen));

@@ -266,6 +266,9 @@ class classroomnoenroll extends React.Component {
                 }}>
                   <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={Externalstyle.cansel_submit} onPress={() => {this.setModalVisible(!modalVisible);}}>
+                  <Text style={[Externalstyle.title, { color: "white" }]}>Cansel</Text>
+                </TouchableOpacity>
               </View>
             </SafeAreaView>
           </Modal>

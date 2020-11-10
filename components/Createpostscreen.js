@@ -21,12 +21,13 @@ import { createNewUser } from "../store/actions/auth.actions";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import Externalstyle from "../style/externalStyle";
-import Color from "../assets/resources/constants/color";
+import { useDispatch } from 'react-redux'
+
 // import {Actions} from 'react-native-router-flux';
 
-export default function createpostscreen() {
+export default function createpostscreen(props) {
   const [image, setImage] = useState(null);
-
+  const dispatch = useDispatch()
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -128,6 +129,9 @@ export default function createpostscreen() {
       >
         <TouchableOpacity style={Externalstyle.create_submit}>
           <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={Externalstyle.cansel_submit} onPress={()=> dispatch({type: 'UNVISIBLE'})}>
+          <Text style={[Externalstyle.title, { color: "white" }]}>Cancel</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

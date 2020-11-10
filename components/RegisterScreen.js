@@ -293,6 +293,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps, null)(RegisterScreen)
-);
+export default compose(connect(mapStateToProps, mapDispatchToProps, null)(RegisterScreen));

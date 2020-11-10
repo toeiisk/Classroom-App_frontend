@@ -495,6 +495,16 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  cansel_submit: {
+    width: "80%",
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
 
   //reset pass
   resetpass_container: {
