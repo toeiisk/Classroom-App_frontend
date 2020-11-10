@@ -16,6 +16,7 @@ import { ScrollView } from "react-native-gesture-handler";
 class Profilescreen extends React.Component {
   render() {
     const { UserLogout } = this.props;
+    const {UserLogin} = this.props
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>
@@ -33,7 +34,7 @@ class Profilescreen extends React.Component {
                 { textAlign: "center", padding: 20 },
               ]}
             >
-              Paramet Kongjaroen
+               {UserLogin.name}
             </Text>
           </View>
           <View style={Externalstyle.layout_detail}>
@@ -43,7 +44,7 @@ class Profilescreen extends React.Component {
                 style={Externalstyle.profile_logo}
               />
               <Text style={Externalstyle.profile_title}>
-                61070121@gmail.com
+                {UserLogin.email}
               </Text>
             </View>
             <View style={{ flexDirection: "row" }}>
@@ -51,14 +52,14 @@ class Profilescreen extends React.Component {
                 source={require("../assets/resources/icon/man.png")}
                 style={Externalstyle.profile_logo}
               />
-              <Text style={Externalstyle.profile_title}>61070121</Text>
+              <Text style={Externalstyle.profile_title}>{UserLogin.stuid}</Text>
             </View>
             <View style={{ flexDirection: "row" }}>
               <Image
                 source={require("../assets/resources/icon/phone.png")}
                 style={Externalstyle.profile_logo}
               />
-              <Text style={Externalstyle.profile_title}>088-8888-888</Text>
+              <Text style={Externalstyle.profile_title}>{UserLogin.phonenumber}</Text>
             </View>
           </View>
           <View style={Externalstyle.layout_button}>
@@ -93,4 +94,10 @@ const mapDispathtoProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispathtoProps)(Profilescreen);
+const mapStatetoProps = (state) => {
+  return {
+    UserLogin: state.authReducer.UserLogin,
+  }
+}
+
+export default connect(mapStatetoProps, mapDispathtoProps)(Profilescreen);
