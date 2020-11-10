@@ -520,6 +520,57 @@ const externalStyle = StyleSheet.create({
     fontSize: 20,
     fontFamily: "MitrLight",
   },
+
+  //chatroom
+  messages_container: {
+    marginTop: 10,
+    padding: 10,
+  },
+  messagesbox: {
+    borderRadius: 5,
+    padding: 10,
+  },
+  messages_name: {
+    color: Color.accent,
+    opacity: 1,
+    fontSize: 14,
+    letterSpacing: 1,
+    fontFamily: "MitrMedium",
+    marginBottom: 5,
+  },
+  messages_time: {
+    alignSelf: "flex-end",
+    color: Color.primary,
+    opacity: 1,
+    fontSize: 14,
+    fontFamily: "MitrLight",
+  },
+  chat_Container: {
+    flexDirection: "row",
+    margin: 10,
+    alignItems: "flex-end",
+  },
+  mainContainer: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    padding: 10,
+    marginLeft: 10,
+    borderRadius: 50,
+    flex: 1,
+    alignItems: "flex-end",
+  },
+  buttonContainer: {
+    backgroundColor: Color.background_footer,
+    borderRadius: 50,
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  chat_textinput: {
+    flex: 1,
+    marginHorizontal: 10,
+  },
 });
 
 export default externalStyle;

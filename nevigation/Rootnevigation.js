@@ -63,7 +63,7 @@ const RootStackScreen = () => (
         ),
       }}
     />
-    <RootStack.Screen
+    {/* <RootStack.Screen
       name="Chatroom"
       component={Chatroom}
       options={{
@@ -81,7 +81,7 @@ const RootStackScreen = () => (
           </TouchableOpacity>
         ),
       }}
-    />
+    /> */}
     <RootStack.Screen
       name="Forgotpass"
       component={ForgotpassScreen}
