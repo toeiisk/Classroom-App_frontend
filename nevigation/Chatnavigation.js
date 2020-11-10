@@ -10,7 +10,7 @@ const RootScreen = createStackNavigator();
 const ChatStack = () => (
   <RootScreen.Navigator
     screenOptions={{
-      headerStyle: { backgroundColor: "white", height: 80 },
+      headerStyle: { backgroundColor: "white", height: 100 },
     }}
   >
     <RootScreen.Screen
