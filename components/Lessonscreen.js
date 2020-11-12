@@ -18,6 +18,12 @@ import * as Animatable from "react-native-animatable";
 import { FloatingAction } from "react-native-floating-action";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import {createLesson} from '../store/actions/lesson.action'
+import {getLesson} from '../store/actions/lesson.action'
+import Loadingscreen from './LoadingScreen'
+
 class LessonScreen extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +33,6 @@ class LessonScreen extends Component {
       name: "",
     };
   }
-
   setModalVisible = (visible, name) => {
     this.setState({
       modalVisible: visible,
@@ -35,8 +40,41 @@ class LessonScreen extends Component {
     });
   };
 
+
+  submitLesson = () =>{
+    const idClassroom = this.props.route.params.idClassroom
+    const data = {
+      'namelesson': this.state.name,
+      'idclassroom' : idClassroom
+    }
+    this.senddataforcreateLesson(data)
+    this.setState({
+      name: ''
+    })
+  }
+
+
+  senddataforcreateLesson = async (data) =>{
+    try{
+      this.props.dispatch(createLesson(data))
+    }catch{
+      const newError = new ErrorUtils(error, "Creatclass Error");
+      newError.showAlert();
+    }
+  }
+
+  async componentDidMount(){
+    const idClassroom = this.props.route.params.idClassroom
+    console.log(idClassroom)
+    this.props.dispatch(getLesson(idClassroom))
+  }
+
   render() {
+    
     const { modalVisible, nameselect } = this.state;
+    const {Lesson} = this.props
+
+
     const actions = [
       {
         text: "Create Lesson",
@@ -55,53 +93,22 @@ class LessonScreen extends Component {
           <View style={{ paddingHorizontal: 20 }}>
             <FlatList
               numColumns={2}
-              data={[
-                {
-                  id: "1",
-                  title: "Lesson 1",
-                  bgcolor: "#8B93F5",
-                },
-                {
-                  id: "2",
-                  title: "Lesson 2",
-                  bgcolor: "#F7704C",
-                },
-                {
-                  id: "3",
-                  title: "Lesson 3",
-                  bgcolor: "#4CBF8B",
-                },
-                {
-                  id: "4",
-                  title: "Lesson 4",
-                  bgcolor: "#609FD5",
-                },
-                {
-                  id: "5",
-                  title: "Lesson 5",
-                  bgcolor: "#D4D4D4",
-                },
-                {
-                  id: "6",
-                  title: "Lesson 6",
-                  bgcolor: "#405FD7",
-                },
-              ]}
+              data={Lesson.LessonmUser}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => {
-                    this.props.navigation.navigate("Contentclass");
+                    this.props.navigation.navigate("Contentclass", {'LessonId' : item.id});
                   }}
                   style={Externalstyle.gridItem}
                 >
                   <View
                     style={[
                       Externalstyle.lesson_card,
-                      { backgroundColor: item.bgcolor },
+                      { backgroundColor: 'black' },
                     ]}
                   >
                     <Text style={[Externalstyle.title, { color: "white" }]}>
-                      {item.title}
+                      {item.name}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -128,7 +135,7 @@ class LessonScreen extends Component {
                     placeholder={"Text input.."}
                     placeholderTextColor="white"
                     onChangeText={(e) => {
-                      this.setState({ code: e });
+                      this.setState({ name: e });
                     }}
                   />
                 </View>
@@ -138,6 +145,7 @@ class LessonScreen extends Component {
                   }}
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
+                    this.submitLesson()
                   }}
                 >
                   <Text style={[Externalstyle.title, { color: "white" }]}>
@@ -172,4 +180,14 @@ class LessonScreen extends Component {
   }
 }
 
-export default LessonScreen;
+
+const mapStateToProps = (state) => ({
+  Lesson : state.lessonReducer.Lesson,
+})
+ 
+const mapDispatchToProps = (dispatch) => ({
+  dispatch
+})
+
+export default  compose(connect(mapStateToProps, mapDispatchToProps, null)(LessonScreen));
+

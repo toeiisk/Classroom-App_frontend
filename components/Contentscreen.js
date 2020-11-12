@@ -73,7 +73,7 @@ class ContentScreen extends Component {
           <View style={{ paddingHorizontal: 20 }}>
             <View style={Externalstyle.title_header}>
               <Text style={Externalstyle.text_title}>
-                Introduction to Microservices #1
+                Id Class {this.props.route.params.LessonId}
               </Text>
             </View>
             <View

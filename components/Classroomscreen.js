@@ -98,9 +98,7 @@ class classroomnoenroll extends React.Component {
       'name': this.state.name,
       'description': this.state.description,
       'datetime' : this.state.data,
-      // 'author' : this.state.author
     }
-    console.log('senddata', data)
     this.creatClassroom(data)
     this.setState({
       name : '',
@@ -151,7 +149,7 @@ class classroomnoenroll extends React.Component {
             data={Classroom}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => {this.props.navigation.navigate("Lessons")}}
+                onPress={() => {this.props.navigation.navigate("Lessons", {'idClassroom' : item.id})}}
               >
                 <ImageBackground
                   source={{

@@ -18,7 +18,7 @@ export const createClassroom = (payload) =>{
                     console.log('getclassroom')
                     dispatch({
                         type: 'CREATE_CLASSROOM_SUCCESS',
-                        data : res.data.classrooms
+                        data : res.data.classrooms,
                     })
                 })
                 .catch((er) => {
@@ -45,7 +45,6 @@ export const createClassroom = (payload) =>{
 export const getClassroom = () =>{
     return async (dispatch) =>{
         var token = await AsyncStorage.getItem('token')
-        console.log('token', token)
         try{
             await axios.get('http://103.13.231.22:3000/api/classroom/get/all/classroombyuser', {
                 headers: {
