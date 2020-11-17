@@ -41,6 +41,7 @@ class ContentScreen extends Component {
     this.props.dispatch(setVisible(visible))
   };
   render() {
+    const userOwner  = this.props.route.params.Owner
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
@@ -178,13 +179,17 @@ class ContentScreen extends Component {
             <Createpostscreen navigation = {this.props.navigation}/>
           </Modal>
         ) : null}
-        <FloatingAction
-          actions={actions}
-          color={Color.background_button_attendance}
-          onPressItem={(name) => {
-            this.setModalVisible(true, name);
-          }}
-        />
+        {userOwner ?
+          <FloatingAction
+            actions={actions}
+            color={Color.background_button_attendance}
+            onPressItem={(name) => {
+              this.setModalVisible(true, name);
+            }}
+          />
+          :
+          null
+        }
       </SafeAreaView>
     );
   }

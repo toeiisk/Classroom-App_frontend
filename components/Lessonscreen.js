@@ -41,8 +41,18 @@ class LessonScreen extends Component {
   };
 
 
+  randomRGB = () => {             
+    const red = Math.floor(Math.random()*256);
+    const green = Math.floor(Math.random()*256);
+    const blue = Math.floor(Math.random()*256);
+
+    return `rgb(${red}, ${green}, ${blue})`;
+  }
+
+
   submitLesson = () =>{
     const idClassroom = this.props.route.params.idClassroom
+
     const data = {
       'namelesson': this.state.name,
       'idclassroom' : idClassroom
@@ -65,14 +75,15 @@ class LessonScreen extends Component {
 
   async componentDidMount(){
     const idClassroom = this.props.route.params.idClassroom
-    console.log(idClassroom)
     this.props.dispatch(getLesson(idClassroom))
   }
 
+
   render() {
     
-    const { modalVisible, nameselect } = this.state;
+    const { modalVisible, nameselect, bgColor } = this.state;
     const {Lesson} = this.props
+    const userOwner = this.props.route.params.userOwner
 
 
     const actions = [
@@ -97,14 +108,15 @@ class LessonScreen extends Component {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => {
-                    this.props.navigation.navigate("Contentclass", {'LessonId' : item.id});
+                    this.props.navigation.navigate("Contentclass", {'LessonId' : item.id, 'Owner' : userOwner});
                   }}
                   style={Externalstyle.gridItem}
                 >
+                  {this.ChangeColor}
                   <View
                     style={[
                       Externalstyle.lesson_card,
-                      { backgroundColor: 'black' },
+                      { backgroundColor: this.randomRGB()},
                     ]}
                   >
                     <Text style={[Externalstyle.title, { color: "white" }]}>
@@ -168,13 +180,17 @@ class LessonScreen extends Component {
             </View>
           </Modal>
         ) : null}
-        <FloatingAction
-          actions={actions}
-          color={Color.background_button_attendance}
-          onPressItem={(name) => {
-            this.setModalVisible(true, name);
-          }}
-        />
+        {userOwner ? 
+          <FloatingAction
+            actions={actions}
+            color={Color.background_button_attendance}
+            onPressItem={(name) => {
+              this.setModalVisible(true, name);
+            }}
+          />
+          :
+          null
+        }
       </SafeAreaView>
     );
   }

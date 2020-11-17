@@ -61,8 +61,6 @@ export const getLesson = (payload) => {
                 }
               })
               .then((res) =>{
-                  console.log(token)
-                  console.log(res.data.lessons)
                   dispatch({
                     type: 'CREATE_LESSON_SUCCESS',
                     data : res.data.lessons,

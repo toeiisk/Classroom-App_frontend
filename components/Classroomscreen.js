@@ -123,6 +123,7 @@ class classroomnoenroll extends React.Component {
 
   render() {
     const {Classroom} = this.props
+    console.log('classrooms', Classroom)
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
@@ -149,7 +150,7 @@ class classroomnoenroll extends React.Component {
             data={Classroom}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => {this.props.navigation.navigate("Lessons", {'idClassroom' : item.id})}}
+                onPress={() => {this.props.navigation.navigate("Lessons", {'idClassroom' : item.id, 'userOwner': item.userIsOwner})}}
               >
                 <ImageBackground
                   source={{
