@@ -62,6 +62,10 @@ const externalStyle = StyleSheet.create({
     color: "white",
     fontFamily: "MitrMedium",
   },
+  imgres: {
+    width: height_logo * 2,
+    height: height_logo,
+  },
 
   //Attendance
   card: {
@@ -234,7 +238,7 @@ const externalStyle = StyleSheet.create({
   },
   login_signin: {
     width: "100%",
-    height: 35,
+    paddingVertical: 10,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 3,
@@ -504,7 +508,6 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
 
   //reset pass
   resetpass_container: {

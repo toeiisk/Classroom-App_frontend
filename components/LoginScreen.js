@@ -10,7 +10,9 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
-// import { SocialIcon } from "react-native-elements";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import * as Animatable from "react-native-animatable";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -183,45 +185,24 @@ class LoginScreen extends Component {
             </View>
             <View style={Externalstyle.login_button}>
               <TouchableOpacity
-                style={Externalstyle.login_signin}
+                style={[Externalstyle.login_signin, {flexDirection: "row"}]}
                 onPress={() => {
                   this.onSubmit();
                 }}
               >
-                <Text style={Externalstyle.text_button}>Sign In</Text>
+                <FontAwesomeIcon icon={faSignInAlt} size={32} color="white"/>
+                <Text style={[Externalstyle.text_button, {paddingHorizontal: 10}]}>Sign In</Text>
               </TouchableOpacity>
-              {/* <SocialIcon
-                button
-                type="facebook"
-                onPress={() => this.facebookLogIn()}
-                style={[
-                  Externalstyle.login_signin,
-                  { backgroundColor: "#3A559F", marginTop: 10 },
-                ]}
-              >
-                <Text style={Externalstyle.text_button}>
-                  Login with Facebook
-                </Text>
-              </SocialIcon> */}
               <TouchableOpacity
                 onPress={() => this.facebookLogIn()}
                 style={[
                   Externalstyle.login_signin,
-                  { backgroundColor: "#3A559F", marginTop: 10 },
+                  { backgroundColor: "#3A559F", marginTop: 10, flexDirection: "row" },
                 ]}
               >
-                <Text style={Externalstyle.text_button}>
+                <FontAwesomeIcon icon={faFacebook} size={32} color="white"/>
+                <Text style={[Externalstyle.text_button, {paddingHorizontal: 10}]}>
                   Login with Facebook
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  Externalstyle.login_signin,
-                  { backgroundColor: "#FFF", marginTop: 10 },
-                ]}
-              >
-                <Text style={[Externalstyle.text_button, { color: "#000" }]}>
-                  Login with Google
                 </Text>
               </TouchableOpacity>
             </View>

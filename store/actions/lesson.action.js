@@ -13,14 +13,11 @@ export const createLesson = (payload) =>{
                 headers : { 'x-access-token': token}
             })
             .then(async() => {
-                console.log('pass', payload.idclassroom)
-                console.log(token)
                 await axios.get(`http://103.13.231.22:3000/api/classroom/${payload.idclassroom}/lesson`, 
                 {headers: {
                     'x-access-token': token
                 }})
                 .then((res) => {
-                    console.log('get lessons')
                     dispatch({
                         type: 'CREATE_LESSON_SUCCESS',
                         data : res.data.lessons,

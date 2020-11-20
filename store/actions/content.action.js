@@ -2,7 +2,6 @@ import axios from "axios";
 import { AsyncStorage } from 'react-native';
 
 export const creteContent = (payload) => {
-    console.log(payload.image)
     return async (dispatch) => {
         var token = await AsyncStorage.getItem('token')
         let formData = new FormData();
@@ -14,6 +13,10 @@ export const creteContent = (payload) => {
             name: 'test.jpg'
         });
         let url = `http://103.13.231.22:3000/api/classroom/${payload.classroomId}/lesson/${payload.lessonId}/post`
+        await dispatch({
+            type: 'LOAD_CONTENT',
+            isLoding : true
+        })
         try {
             await axios({
                 method: 'POST',
@@ -23,15 +26,81 @@ export const creteContent = (payload) => {
                     'Content-Type': 'multipart/form-data',
                     'x-access-token': token
                 }
-            })
-                .then((res) => console.log('pass', res.data))
+            })  
+                .then(() => {
+                    axios.get(`http://103.13.231.22:3000/api/classroom/${payload.classroomId}/lesson/${payload.lessonId}/post`,
+                    {headers: {'x-access-token': token}}
+                    )
+                    .then((res) => {
+                        dispatch({
+                            type: 'CREATE_CONTENT_SUCCESS',
+                            data : res.data,
+                            isLoding : false
+                        })
+                    })
+                })
                 .catch((er) => {
-                    console.log(er.response.data);
+                    dispatch({
+                        type: 'CREATE_CONTENT_ERROR',
+                        isLoding : true
+                    })
                 })
         } catch (err) {
-            console.log('notpass2', err)
+            dispatch({
+                type: 'CREATE_CONTENT_ERROR',
+                isLoding : true
+            })
         }
 
 
+    }
+}
+
+
+export const getContent = (payload) => {
+    return async (dispatch) =>{
+        await dispatch({
+            type: 'LOAD_CONTENT',
+            isLoding : true
+        })
+        try{
+            var token = await AsyncStorage.getItem('token')
+            await axios.get(`http://103.13.231.22:3000/api/classroom/${payload.classroomId}/lesson/${payload.lessonId}/post`, {
+                headers: {
+                  'x-access-token': token
+                }
+              })
+              .then((res) =>{
+                  console.log(res.status)
+                  if(res.status == 200){
+                    console.log('pass')
+                    dispatch({
+                        type: 'CREATE_CONTENT_SUCCESS',
+                        data : res.data,
+                        isLoding : false
+    
+                    })
+                  }else{
+                    console.log('not get content')
+                    console.log(res.status)
+                    dispatch({
+                        type: 'CREATE_CONTENT_ERROR',
+                        data : res.data,
+                        isLoding : true
+    
+                    })
+                  }
+              }).catch((er) => {
+                dispatch({
+                    type: 'CREATE_CONTENT_ERROR',
+                    isLoding : true
+                })
+              })
+        }catch{
+            dispatch({
+                type: 'CREATE_CONTENT_ERROR',
+                isLoding : true
+            })
+        }
     }
 }

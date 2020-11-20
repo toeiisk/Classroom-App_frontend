@@ -15,7 +15,6 @@ export const createClassroom = (payload) =>{
                     'x-access-token': token
                 }})
                 .then((res) =>{
-                    console.log('getclassroom')
                     dispatch({
                         type: 'CREATE_CLASSROOM_SUCCESS',
                         data : res.data.classrooms,
@@ -81,7 +80,6 @@ export const joinClassroom = (payload) =>{
                     }
                 })
                 .then((res) =>{
-                    console.log('getclassroom')
                     dispatch({
                         type: 'CREATE_CLASSROOM_SUCCESS',
                         data : res.data.classrooms

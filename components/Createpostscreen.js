@@ -67,6 +67,7 @@ export default function createpostscreen(props) {
       'classroomId' : classroomId
     }
     dispatch(creteContent(data))
+    dispatch({type: 'UNVISIBLE'})
   }
 
   return (
