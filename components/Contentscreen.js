@@ -193,7 +193,7 @@ class ContentScreen extends Component {
               <Image
                 resizeMode="stretch"
                 style={{ width: 300, height: 160, borderRadius: 20 }}
-                source={{uri: Post.contentData.Post.image}}
+                source={{uri: 'http://103.13.231.22:3000/api/get/img' + Post.contentData.Post.image}}
               />
             </View>
             <View style={{ paddingHorizontal: 20 }}>
