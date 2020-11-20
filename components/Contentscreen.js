@@ -113,7 +113,6 @@ class ContentScreen extends Component {
     ];
     const {Visible} = this.props
     const {Post} = this.props
-    
 
     if(Post.isLoading || Post.isLoading == null){
       return(
@@ -154,6 +153,7 @@ class ContentScreen extends Component {
       )
     }
     else{
+      console.log('image', Post.contentData.Post.image)
       return (
         <SafeAreaView style={Externalstyle.container}>
           <ScrollView>
@@ -164,7 +164,7 @@ class ContentScreen extends Component {
                 paddingTop: 20,
               }}
             >
-              <FontAwesomeIcon
+               <FontAwesomeIcon
               icon={faChevronCircleLeft}
               size={35}
               color="white"
