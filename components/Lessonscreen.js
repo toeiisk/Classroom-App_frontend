@@ -20,9 +20,12 @@ import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import {createLesson} from '../store/actions/lesson.action'
-import {getLesson} from '../store/actions/lesson.action'
-import Loadingscreen from './LoadingScreen'
+import { createLesson } from "../store/actions/lesson.action";
+import { getLesson } from "../store/actions/lesson.action";
+import Loadingscreen from "./LoadingScreen";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Overlay, Button, Input } from "react-native-elements";
 
 class LessonScreen extends Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class LessonScreen extends Component {
       modalVisible: false,
       nameselect: "",
       name: "",
+      isModalVisible: false,
     };
   }
   setModalVisible = (visible, name) => {
@@ -40,52 +44,52 @@ class LessonScreen extends Component {
     });
   };
 
+  openModal = () => {
+    this.setState({
+      isModalVisible: true,
+    });
+  };
 
-  randomRGB = () => {             
-    const red = Math.floor(Math.random()*256);
-    const green = Math.floor(Math.random()*256);
-    const blue = Math.floor(Math.random()*256);
+  randomRGB = () => {
+    const red = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
 
     return `rgb(${red}, ${green}, ${blue})`;
-  }
+  };
 
-
-  submitLesson = () =>{
-    const idClassroom = this.props.route.params.idClassroom
+  submitLesson = () => {
+    const idClassroom = this.props.route.params.idClassroom;
 
     const data = {
-      'namelesson': this.state.name,
-      'idclassroom' : idClassroom
-    }
-    this.senddataforcreateLesson(data)
+      namelesson: this.state.name,
+      idclassroom: idClassroom,
+    };
+    this.senddataforcreateLesson(data);
     this.setState({
-      name: ''
-    })
-  }
+      name: "",
+    });
+  };
 
-
-  senddataforcreateLesson = async (data) =>{
-    try{
-      this.props.dispatch(createLesson(data))
-    }catch{
+  senddataforcreateLesson = async (data) => {
+    try {
+      this.props.dispatch(createLesson(data));
+    } catch {
       const newError = new ErrorUtils(error, "Creatclass Error");
       newError.showAlert();
     }
-  }
+  };
 
-  async componentDidMount(){
-    const idClassroom = this.props.route.params.idClassroom
-    this.props.dispatch(getLesson(idClassroom))
+  async componentDidMount() {
+    const idClassroom = this.props.route.params.idClassroom;
+    this.props.dispatch(getLesson(idClassroom));
   }
-
 
   render() {
-    
     const { modalVisible, nameselect, bgColor } = this.state;
-    const {Lesson} = this.props
-    const userOwner = this.props.route.params.userOwner
-    const idClassroom = this.props.route.params.idClassroom
-
+    const { Lesson } = this.props;
+    const userOwner = this.props.route.params.userOwner;
+    const idClassroom = this.props.route.params.idClassroom;
 
     const actions = [
       {
@@ -108,8 +112,14 @@ class LessonScreen extends Component {
               data={Lesson.LessonmUser}
               renderItem={({ item }) => (
                 <TouchableOpacity
+                  onLongPress={() => this.openModal()}
+                  delayLongPress={600}
                   onPress={() => {
-                    this.props.navigation.navigate("Contentclass", {'LessonId' : item.id, 'Owner' : userOwner, 'classroomId' : idClassroom});
+                    this.props.navigation.navigate("Contentclass", {
+                      LessonId: item.id,
+                      Owner: userOwner,
+                      classroomId: idClassroom,
+                    });
                   }}
                   style={Externalstyle.gridItem}
                 >
@@ -117,7 +127,7 @@ class LessonScreen extends Component {
                   <View
                     style={[
                       Externalstyle.lesson_card,
-                      { backgroundColor: this.randomRGB()},
+                      { backgroundColor: this.randomRGB() },
                     ]}
                   >
                     <Text style={[Externalstyle.title, { color: "white" }]}>
@@ -158,7 +168,7 @@ class LessonScreen extends Component {
                   }}
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
-                    this.submitLesson()
+                    this.submitLesson();
                   }}
                 >
                   <Text style={[Externalstyle.title, { color: "white" }]}>
@@ -181,7 +191,7 @@ class LessonScreen extends Component {
             </View>
           </Modal>
         ) : null}
-        {userOwner ? 
+        {userOwner ? (
           <FloatingAction
             actions={actions}
             color={Color.background_button_attendance}
@@ -189,22 +199,62 @@ class LessonScreen extends Component {
               this.setModalVisible(true, name);
             }}
           />
-          :
-          null
-        }
+        ) : null}
+        {userOwner ? (
+          <Overlay
+            isVisible={this.state.isModalVisible}
+            onBackdropPress={() => this.setState({ isModalVisible: false })}
+            overlayStyle={{
+              width: "80%",
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+            }}
+          >
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <TouchableOpacity
+                style={[
+                  Externalstyle.profile_button_edit,
+                  { flexDirection: "row" },
+                ]}
+              >
+                <FontAwesomeIcon icon={faEdit} size={32} color="white" />
+                <Text
+                  style={[
+                    Externalstyle.title,
+                    { fontSize: 16, color: "white", paddingHorizontal: 10 },
+                  ]}
+                >
+                  EDIT
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[Externalstyle.profile_button, { flexDirection: "row" }]}
+              >
+                <FontAwesomeIcon icon={faTrash} size={32} color="white" />
+                <Text
+                  style={[
+                    Externalstyle.title,
+                    { fontSize: 16, color: "white", paddingHorizontal: 10 },
+                  ]}
+                >
+                  DELETE
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Overlay>
+        ) : null}
       </SafeAreaView>
     );
   }
 }
 
-
 const mapStateToProps = (state) => ({
-  Lesson : state.lessonReducer.Lesson,
-})
- 
+  Lesson: state.lessonReducer.Lesson,
+});
+
 const mapDispatchToProps = (dispatch) => ({
-  dispatch
-})
+  dispatch,
+});
 
-export default  compose(connect(mapStateToProps, mapDispatchToProps, null)(LessonScreen));
-
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps, null)(LessonScreen)
+);

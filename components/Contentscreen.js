@@ -15,15 +15,23 @@ import {
   ScrollView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { Overlay } from "react-native-elements";
+import { Overlay, Header } from "react-native-elements";
 import { FloatingAction } from "react-native-floating-action";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
-import Createpostscreen from './Createpostscreen';
+import Createpostscreen from "./Createpostscreen";
 import { setVisible } from "../store/actions/modal.actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faBackspace,
+  faBackward,
+  faChevronCircleLeft,
+  faEllipsisV,
+} from "@fortawesome/free-solid-svg-icons";
 class ContentScreen extends Component {
   constructor(props) {
     super(props);
@@ -38,12 +46,27 @@ class ContentScreen extends Component {
     this.setState({
       nameselect: name,
     });
-    this.props.dispatch(setVisible(visible))
+    this.props.dispatch(setVisible(visible));
   };
+
+  _menu = null;
+
+  setMenuRef = (ref) => {
+    this._menu = ref;
+  };
+
+  hideMenu = () => {
+    this._menu.hide();
+  };
+
+  showMenu = () => {
+    this._menu.show();
+  };
+
   render() {
-    const userOwner  = this.props.route.params.Owner
-    const lessonId = this.props.route.params.LessonId
-    const classroomId = this.props.route.params.classroomId
+    const userOwner = this.props.route.params.Owner;
+    const lessonId = this.props.route.params.LessonId;
+    const classroomId = this.props.route.params.classroomId;
 
     const { modalVisible, nameselect } = this.state;
     const actions = [
@@ -54,20 +77,61 @@ class ContentScreen extends Component {
         position: 2,
       },
     ];
-    const {Visible} = this.props
+    const { Visible } = this.props;
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>
           <View
             style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: 20,
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faChevronCircleLeft}
+              size={35}
+              color="white"
+            />
+            <Menu
+              ref={this.setMenuRef}
+              button={
+                <TouchableOpacity>
+                  <FontAwesomeIcon
+                    icon={faEllipsisV}
+                    size={35}
+                    color="white"
+                    onPress={this.showMenu}
+                  />
+                </TouchableOpacity>
+              }
+            >
+              <MenuItem onPress={this.hideMenu}>
+                <Text style={[Externalstyle.chat_title, {color: "black"}]}>EDIT</Text>
+              </MenuItem>
+              <MenuDivider />
+              <MenuItem onPress={this.hideMenu}>
+                <Text style={[Externalstyle.chat_title, {color: "black"}]}>DELETE</Text>
+              </MenuItem>
+            </Menu>
+          </View>
+          {/* <TouchableOpacity
+            ref={this.setMenuRef}
+            onPress={this.showMenu}
+            style={{ alignItems: "flex-end", padding: 20 }}
+          >
+            <FontAwesomeIcon icon={faEllipsisV} size={32} color="white" />
+          </TouchableOpacity> */}
+          <View
+            style={{
               justifyContent: "center",
               alignItems: "center",
-              paddingTop: 20,
+              padding: 20,
             }}
           >
             <Image
-              resizeMode="stretch"
-              style={{ width: 300, height: 160, borderRadius: 20 }}
+              resizeMode="cover"
+              style={[Externalstyle.imgres, { overflow: "visible" }]}
               source={{
                 uri:
                   "https://site-content.saleshood.com/wp-content/uploads/2014/05/05185218/learning-culture.gif",
@@ -179,10 +243,14 @@ class ContentScreen extends Component {
             transparent={true}
             visible={Visible.visible}
           >
-            <Createpostscreen navigation = {this.props.navigation} lessonId = {lessonId} classroomId = {classroomId}/>
+            <Createpostscreen
+              navigation={this.props.navigation}
+              lessonId={lessonId}
+              classroomId={classroomId}
+            />
           </Modal>
         ) : null}
-        {userOwner ?
+        {userOwner ? (
           <FloatingAction
             actions={actions}
             color={Color.background_button_attendance}
@@ -190,9 +258,7 @@ class ContentScreen extends Component {
               this.setModalVisible(true, name);
             }}
           />
-          :
-          null
-        }
+        ) : null}
       </SafeAreaView>
     );
   }
@@ -203,9 +269,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return{
-    dispatch
-  }
+  return {
+    dispatch,
+  };
 };
 
-export default compose(connect(mapStateToProps, mapDispatchToProps, null)(ContentScreen));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps, null)(ContentScreen)
+);
