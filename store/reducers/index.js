@@ -7,6 +7,7 @@ import authReducer from "./auth.reducer";
 import classReducer from './class.reducer'
 import modalReducer from './modal.reducer'
 import lessonReducer from './lesson.reducer'
+import contentReducer from './content.reducer'
 
 
 
@@ -14,7 +15,9 @@ const reducers = {
     authReducer,
     classReducer,
     modalReducer,
-    lessonReducer
+    lessonReducer,
+    contentReducer
+
 };
 
 const appReducer = combineReducers(reducers);

@@ -21,13 +21,18 @@ import { createNewUser } from "../store/actions/auth.actions";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import Externalstyle from "../style/externalStyle";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {creteContent} from '../store/actions/content.action'
 
 // import {Actions} from 'react-native-router-flux';
 
 export default function createpostscreen(props) {
   const [image, setImage] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('')
   const dispatch = useDispatch()
+  const classroomId = props.classroomId
+  const lessonId = props.lessonId
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -48,13 +53,22 @@ export default function createpostscreen(props) {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
+
+  const handleSubmit = () => {
+    const data = {
+      'title': title,
+      'description': description,
+      'image' : image,
+      'lessonId' : lessonId,
+      'classroomId' : classroomId
+    }
+    dispatch(creteContent(data))
+  }
+
   return (
     <SafeAreaView style={Externalstyle.register_container}>
       <ScrollView>
@@ -68,11 +82,12 @@ export default function createpostscreen(props) {
             >
               Title
             </Text>
-            <Input
+            <TextInput
               style={Externalstyle.creatpost_input}
               numberOfLines={1}
               placeholder={"Text here..."}
               placeholderTextColor="black"
+              onChangeText={(e) => setTitle(e)}
             />
             <Text
               style={[Externalstyle.creatpost_text_label, { color: "black" }]}
@@ -87,6 +102,7 @@ export default function createpostscreen(props) {
                 placeholderTextColor={"black"}
                 numberOfLines={10}
                 multiline={true}
+                onChangeText={(e) => setDescription(e)}
               />
             </KeyboardAvoidingScrollView>
             <Text
@@ -127,7 +143,7 @@ export default function createpostscreen(props) {
       <View
         style={{ justifyContent: "flex-end", alignItems: "center" }}
       >
-        <TouchableOpacity style={Externalstyle.create_submit}>
+        <TouchableOpacity style={Externalstyle.create_submit} onPress={handleSubmit}>
           <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
         </TouchableOpacity>
         <TouchableOpacity style={Externalstyle.cansel_submit} onPress={()=> dispatch({type: 'UNVISIBLE'})}>

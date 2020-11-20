@@ -42,6 +42,9 @@ class ContentScreen extends Component {
   };
   render() {
     const userOwner  = this.props.route.params.Owner
+    const lessonId = this.props.route.params.LessonId
+    const classroomId = this.props.route.params.classroomId
+
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
@@ -176,7 +179,7 @@ class ContentScreen extends Component {
             transparent={true}
             visible={Visible.visible}
           >
-            <Createpostscreen navigation = {this.props.navigation}/>
+            <Createpostscreen navigation = {this.props.navigation} lessonId = {lessonId} classroomId = {classroomId}/>
           </Modal>
         ) : null}
         {userOwner ?

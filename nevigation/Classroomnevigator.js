@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Lessons from "../components/Lessonscreen";
 import Classroom from "../components/Classroomscreen";
 import Createpost from "../components/Createpostscreen";
-import Createclass from "../components/Createclassscreen";
+// import Createclass from "../components/Createclassscreen";
 import EditProfileScreen from "../components/EditProfilescreen";
 import Contentclass from "../components/Contentscreen";
 import React from "react";
@@ -50,7 +50,7 @@ const ScreenStack = () => (
         ),
       }}
     />
-    <RootScreen.Screen
+    {/* <RootScreen.Screen
       name="Createclass"
       component={Createclass}
       options={{
@@ -68,7 +68,7 @@ const ScreenStack = () => (
           </TouchableOpacity>
         ),
       }}
-    />
+    /> */}
     <RootScreen.Screen
       name="EditProfile"
       component={EditProfileScreen}

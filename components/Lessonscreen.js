@@ -84,6 +84,7 @@ class LessonScreen extends Component {
     const { modalVisible, nameselect, bgColor } = this.state;
     const {Lesson} = this.props
     const userOwner = this.props.route.params.userOwner
+    const idClassroom = this.props.route.params.idClassroom
 
 
     const actions = [
@@ -108,7 +109,7 @@ class LessonScreen extends Component {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => {
-                    this.props.navigation.navigate("Contentclass", {'LessonId' : item.id, 'Owner' : userOwner});
+                    this.props.navigation.navigate("Contentclass", {'LessonId' : item.id, 'Owner' : userOwner, 'classroomId' : idClassroom});
                   }}
                   style={Externalstyle.gridItem}
                 >
