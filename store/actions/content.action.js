@@ -24,7 +24,7 @@ export const creteContent = (payload) => {
                     'x-access-token': token
                 }
             })
-                .then((res) => console.log('pass', res))
+                .then((res) => console.log('pass', res.data))
                 .catch((er) => {
                     console.log(er.response.data);
                 })
