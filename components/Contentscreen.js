@@ -13,7 +13,7 @@ import {
   FlatList,
   Image,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { Overlay, Header } from "react-native-elements";
@@ -25,7 +25,7 @@ import Createpostscreen from "./Createpostscreen";
 import { setVisible } from "../store/actions/modal.actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import {getContent} from '../store/actions/content.action'
+import { getContent } from "../store/actions/content.action";
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -42,7 +42,7 @@ class ContentScreen extends Component {
       modalVisible: false,
       nameselect: "",
       name: "",
-      isLoding: null
+      isLoding: null,
     };
   }
 
@@ -63,52 +63,50 @@ class ContentScreen extends Component {
     this._menu.hide();
   };
 
-  
   titleContent = () => {
-    const {Post} = this.props
-    if(Post.isLoading){
-      return <ActivityIndicator />
-    }else{
+    const { Post } = this.props;
+    if (Post.isLoading) {
+      return <ActivityIndicator />;
+    } else {
       // return(
       //   <Text>{Post.contentData.Post.title}</Text>
       // )
     }
-  }
+  };
 
   desContent = () => {
-    const {Post} = this.props
-    if(Post.isLoading || Post.isLoading == null){
-      console.log('1')
-    }else{
-      console.log(Post.contentData.Post.title)
+    const { Post } = this.props;
+    if (Post.isLoading || Post.isLoading == null) {
+      console.log("1");
+    } else {
+      console.log(Post.contentData.Post.title);
     }
-  }
- 
+  };
 
-  async componentDidMount(){
-    const lessonId = this.props.route.params.LessonId
-    const classroomId = this.props.route.params.classroomId
+  async componentDidMount() {
+    const lessonId = this.props.route.params.LessonId;
+    const classroomId = this.props.route.params.classroomId;
     const dataContent = {
-      'lessonId': lessonId,
-      'classroomId': classroomId
-    }
-    this.props.dispatch(getContent(dataContent))
+      lessonId: lessonId,
+      classroomId: classroomId,
+    };
+    this.props.dispatch(getContent(dataContent));
   }
   showMenu = () => {
     this._menu.show();
   };
 
   getImage = () => {
-    const {Post} = this.props
-    console.log('image', Post.contentData.Post.image)
+    const { Post } = this.props;
+    console.log("image", Post.contentData.Post.image);
     const dataiamge = {
-      path_img : Post.contentData.Post.image
-    }
-    console.log(dataiamge)
-    Axios.get('http://103.13.231.22:3000/api/get/img', dataiamge)
+      path_img: Post.contentData.Post.image,
+    };
+    console.log(dataiamge);
+    Axios.get("http://103.13.231.22:3000/api/get/img", dataiamge)
       .then((res) => console.log(res))
-      .catch((er) => console.log(er.response))
-  }
+      .catch((er) => console.log(er.response));
+  };
 
   render() {
     const userOwner = this.props.route.params.Owner;
@@ -124,92 +122,110 @@ class ContentScreen extends Component {
         position: 2,
       },
     ];
-    const {Visible} = this.props
-    const {Post} = this.props
+    const { Visible } = this.props;
+    const { Post } = this.props;
 
-    if(Post.isLoading || Post.isLoading == null){
-      return(
-      <SafeAreaView style={Externalstyle.container}>
-      <ScrollView>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: 'center',
-            paddingTop: 20,
-            flexDirection: 'row'
-          }}
-        >
-          <Text style={{justifyContent: 'center'}}> Content not create </Text>
-        </View>
-      </ScrollView>
-      {nameselect == "CreatePost" ? (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={Visible.visible}
-        >
-          <Createpostscreen navigation = {this.props.navigation} lessonId = {lessonId} classroomId = {classroomId}/>
-        </Modal>
-      ) : null}
-      {userOwner ?
-        <FloatingAction
-          actions={actions}
-          color={Color.background_button_attendance}
-          onPressItem={(name) => {
-            this.setModalVisible(true, name);
-          }}
-        />
-        :
-        null
+    if (Post.isLoading || Post.isLoading == null) {
+      return (
+        <SafeAreaView style={Externalstyle.container}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={Externalstyle.text_title_sub}>Content not create</Text>
+          </View>
+          {nameselect == "CreatePost" ? (
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={Visible.visible}
+            >
+              <Createpostscreen
+                navigation={this.props.navigation}
+                lessonId={lessonId}
+                classroomId={classroomId}
+              />
+            </Modal>
+          ) : null}
+          {userOwner ? (
+            <FloatingAction
+              actions={actions}
+              color={Color.background_button_attendance}
+              onPressItem={(name) => {
+                this.setModalVisible(true, name);
+              }}
+            />
+          ) : null}
+        </SafeAreaView>
+      );
+    } else {
+      {
+        this.getImage();
       }
-    </SafeAreaView>
-      )
-    }
-    else{
-      {this.getImage()}
       return (
         <SafeAreaView style={Externalstyle.container}>
           <ScrollView>
             <View
               style={{
-                justifyContent: "center",
-                alignItems: "center",
-                paddingTop: 20,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                padding: 20,
               }}
             >
-               <FontAwesomeIcon
-              icon={faChevronCircleLeft}
-              size={35}
-              color="white"
-            />
-            <Menu
-              ref={this.setMenuRef}
-              button={
-                <TouchableOpacity>
-                  <FontAwesomeIcon
-                    icon={faEllipsisV}
-                    size={35}
-                    color="white"
-                    onPress={this.showMenu}
-                  />
-                </TouchableOpacity>
-              }
-            >
-              <MenuItem onPress={this.hideMenu}>
-                <Text style={[Externalstyle.chat_title, {color: "black"}]}>EDIT</Text>
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem onPress={this.hideMenu}>
-                <Text style={[Externalstyle.chat_title, {color: "black"}]}>DELETE</Text>
-              </MenuItem>
-            </Menu>
-              <Image
-                resizeMode="stretch"
-                style={{ width: 300, height: 160, borderRadius: 20 }}
-                // source={this.getImage()}
-              />
+              <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                <FontAwesomeIcon
+                  icon={faChevronCircleLeft}
+                  size={35}
+                  color="white"
+                />
+              </TouchableOpacity>
+              <Menu
+                ref={this.setMenuRef}
+                button={
+                  <TouchableOpacity>
+                    <FontAwesomeIcon
+                      icon={faEllipsisV}
+                      size={35}
+                      color="white"
+                      onPress={this.showMenu}
+                    />
+                  </TouchableOpacity>
+                }
+              >
+                <MenuItem onPress={this.hideMenu}>
+                  <Text style={[Externalstyle.chat_title, { color: "black" }]}>
+                    EDIT
+                  </Text>
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem onPress={this.hideMenu}>
+                  <Text style={[Externalstyle.chat_title, { color: "black" }]}>
+                    DELETE
+                  </Text>
+                </MenuItem>
+              </Menu>
             </View>
             <View style={{ paddingHorizontal: 20 }}>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: 20,
+                }}
+              >
+                <Image
+                  resizeMode="cover"
+                  style={[Externalstyle.imgres, { overflow: "visible" }]}
+                  // source={this.getImage()}
+                  source={{
+                    uri:
+                      "https://miro.medium.com/max/693/1*2vt-C5QMnVdh8euVgpRhNw.jpeg",
+                  }}
+                />
+              </View>
               <View style={Externalstyle.title_header}>
                 <Text style={Externalstyle.text_title}>
                   {Post.contentData.Post.title}
@@ -238,7 +254,7 @@ class ContentScreen extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{ alignItems: "center", marginVertical: 10 }}>
+            {/* <View style={{ alignItems: "center", marginVertical: 10 }}>
               <TouchableOpacity
                 onPress={() => this.props.navigation.popToTop()}
                 style={Externalstyle.profile_button_edit}
@@ -247,8 +263,15 @@ class ContentScreen extends Component {
                   BACK
                 </Text>
               </TouchableOpacity>
-            </View>
-  
+            </View> */}
+            <View
+              style={{
+                borderBottomColor: "white",
+                borderBottomWidth: 2,
+                margin: 20
+              }}
+            />
+
             {/* comments */}
             <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
               <View
@@ -293,8 +316,8 @@ class ContentScreen extends Component {
                   </Text>
                   <View style={{ paddingRight: 20 }}>
                     <Text style={Externalstyle.comments_titlesub}>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore et dolore magna
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua.s
                     </Text>
                   </View>
@@ -308,10 +331,14 @@ class ContentScreen extends Component {
               transparent={true}
               visible={Visible.visible}
             >
-              <Createpostscreen navigation = {this.props.navigation} lessonId = {lessonId} classroomId = {classroomId}/>
+              <Createpostscreen
+                navigation={this.props.navigation}
+                lessonId={lessonId}
+                classroomId={classroomId}
+              />
             </Modal>
           ) : null}
-          {userOwner ?
+          {userOwner ? (
             <FloatingAction
               actions={actions}
               color={Color.background_button_attendance}
@@ -319,9 +346,7 @@ class ContentScreen extends Component {
                 this.setModalVisible(true, name);
               }}
             />
-            :
-            null
-          }
+          ) : null}
         </SafeAreaView>
       );
     }
@@ -330,7 +355,7 @@ class ContentScreen extends Component {
 
 const mapStateToProps = (state) => ({
   Visible: state.modalReducer.Modal,
-  Post: state.contentReducer.Content
+  Post: state.contentReducer.Content,
 });
 
 const mapDispatchToProps = (dispatch) => {

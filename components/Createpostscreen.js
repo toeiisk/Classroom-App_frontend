@@ -83,7 +83,7 @@ export default function createpostscreen(props) {
             >
               Title
             </Text>
-            <TextInput
+            <Input
               style={Externalstyle.creatpost_input}
               numberOfLines={1}
               placeholder={"Text here..."}
