@@ -21,26 +21,27 @@ const ChatStack = () => (
     <RootScreen.Screen
       name="Chatroom"
       component={Chatroom}
-      options={{
-        title: "CLASSROOM001",
-        headerTitleStyle:{
-          fontFamily: "MitrMedium",
-          fontSize: 22,
-          letterSpacing: 2
-        },
-        headerLeft: () => (
-          <TouchableOpacity>
-            <Image
-              source={require("../assets/resources/icon/previous.png")}
-              style={{
-                width: 30,
-                height: 30,
-                marginLeft: 30,
-              }}
-            />
-          </TouchableOpacity>
-        ),
-      }}
+      options={{ headerShown: false }}
+      // options={{
+      //   title: "CLASSROOM001",
+      //   headerTitleStyle:{
+      //     fontFamily: "MitrMedium",
+      //     fontSize: 22,
+      //     letterSpacing: 2
+      //   },
+      //   headerLeft: () => (
+      //     <TouchableOpacity>
+      //       <Image
+      //         source={require("../assets/resources/icon/previous.png")}
+      //         style={{
+      //           width: 30,
+      //           height: 30,
+      //           marginLeft: 30,
+      //         }}
+      //       />
+      //     </TouchableOpacity>
+      //   ),
+      // }}
     />
   </RootScreen.Navigator>
 );

@@ -573,6 +573,13 @@ const externalStyle = StyleSheet.create({
     flex: 1,
     alignItems: "flex-end",
   },
+  subContainer: {
+    flexDirection: "row",
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 10,
+    justifyContent: "space-between"
+  },
   buttonContainer: {
     backgroundColor: Color.background_footer,
     borderRadius: 50,
@@ -585,6 +592,9 @@ const externalStyle = StyleSheet.create({
     flex: 1,
     marginHorizontal: 10,
   },
+  content_textinput: {
+    width: '70%'
+  }
 });
 
 export default externalStyle;

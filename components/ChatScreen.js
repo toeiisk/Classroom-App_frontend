@@ -19,6 +19,14 @@ import { Input } from "react-native-elements";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
+import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faBackspace,
+  faBackward,
+  faChevronCircleLeft,
+  faEllipsisV,
+} from "@fortawesome/free-solid-svg-icons";
 
 class ChatScreen extends Component {
   constructor(props) {
@@ -36,9 +44,64 @@ class ChatScreen extends Component {
       message: inputText,
     });
   };
+
+  _menu = null;
+
+  setMenuRef = (ref) => {
+    this._menu = ref;
+  };
+
+  hideMenu = () => {
+    this._menu.hide();
+  };
+
+  showMenu = () => {
+    this._menu.show();
+  };
+
   render() {
     return (
       <SafeAreaView style={Externalstyle.container}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: 20,
+            backgroundColor: "white",
+          }}
+        >
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <FontAwesomeIcon
+              icon={faChevronCircleLeft}
+              size={35}
+              color="black"
+            />
+          </TouchableOpacity>
+          <Text
+            style={{ fontSize: 22, fontFamily: "kanitBold", letterSpacing: 2 }}
+          >
+            CLASSROOM 01
+          </Text>
+          <Menu
+            ref={this.setMenuRef}
+            button={
+              <TouchableOpacity>
+                <FontAwesomeIcon
+                  icon={faEllipsisV}
+                  size={35}
+                  color="black"
+                  onPress={this.showMenu}
+                />
+              </TouchableOpacity>
+            }
+          >
+            <MenuItem onPress={this.hideMenu}>
+              <Text style={[Externalstyle.chat_title, { color: "black" }]}>
+                LEAVE
+              </Text>
+            </MenuItem>
+          </Menu>
+        </View>
         <ScrollView>
           <View style={{ paddingHorizontal: 20 }}>
             <FlatList

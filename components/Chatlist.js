@@ -13,6 +13,7 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { Card } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import Externalstyle from "../style/externalStyle";
 export default class attendancescreen extends React.Component {
@@ -38,7 +39,7 @@ export default class attendancescreen extends React.Component {
           </View>
         </View>
         <ScrollView>
-          <View style={{ paddingHorizontal: 20 }}>
+          <Card containerStyle={{paddingHorizontal: 20, borderRadius: 10}}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Chatroom");
@@ -50,13 +51,13 @@ export default class attendancescreen extends React.Component {
                 style={{ height: 70, width: 70 }}
               />
               <View style={Externalstyle.text_attendance}>
-                <Text style={Externalstyle.chat_title}>Classroom001</Text>
-                <Text style={Externalstyle.chat_titlesub}>
+                <Text style={[Externalstyle.chat_title, {color: "black"}]}>Classroom001</Text>
+                <Text style={[Externalstyle.chat_titlesub, {color: "black"}]}>
                   Lorem Ipsum is simply dummy
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </Card>
           {/* <View style={{ alignItems: "flex-start", paddingHorizontal: 30 }}>
             <View style={{ flexDirection: "row", padding:10 }}>
               <Image

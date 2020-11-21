@@ -29,11 +29,10 @@ import { getContent } from "../store/actions/content.action";
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
-  faBackspace,
-  faBackward,
   faChevronCircleLeft,
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Axios from "axios";
 class ContentScreen extends Component {
   constructor(props) {
@@ -304,14 +303,20 @@ class ContentScreen extends Component {
                 />
                 <View style={{ paddingHorizontal: 20 }}>
                   <KeyboardAvoidingScrollView>
-                    <TextInput
-                      style={Externalstyle.TextInputStyleClass}
-                      underlineColorAndroid="transparent"
-                      placeholder={"Add a comment..."}
-                      placeholderTextColor={"#5F5F5F"}
-                      numberOfLines={10}
-                      multiline={true}
-                    />
+                    <View style={Externalstyle.subContainer}>
+                      <TextInput
+                        multiline
+                        placeholder={"Type a comment..."}
+                        value={this.state.message}
+                        onChangeText={this.setMessage}
+                        style={Externalstyle.content_textinput}
+                      />
+                      <MaterialCommunityIcons
+                        name="send-circle"
+                        size={35}
+                        color="grey"
+                      />
+                    </View>
                   </KeyboardAvoidingScrollView>
                 </View>
               </View>
