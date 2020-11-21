@@ -34,6 +34,7 @@ import {
   faChevronCircleLeft,
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
+import Axios from "axios";
 class ContentScreen extends Component {
   constructor(props) {
     super(props);
@@ -97,6 +98,18 @@ class ContentScreen extends Component {
     this._menu.show();
   };
 
+  getImage = () => {
+    const {Post} = this.props
+    console.log('image', Post.contentData.Post.image)
+    const dataiamge = {
+      path_img : Post.contentData.Post.image
+    }
+    console.log(dataiamge)
+    Axios.get('http://103.13.231.22:3000/api/get/img', dataiamge)
+      .then((res) => console.log(res))
+      .catch((er) => console.log(er.response))
+  }
+
   render() {
     const userOwner = this.props.route.params.Owner;
     const lessonId = this.props.route.params.LessonId;
@@ -153,7 +166,7 @@ class ContentScreen extends Component {
       )
     }
     else{
-      console.log('image', Post.contentData.Post.image)
+      {this.getImage()}
       return (
         <SafeAreaView style={Externalstyle.container}>
           <ScrollView>
@@ -193,7 +206,7 @@ class ContentScreen extends Component {
               <Image
                 resizeMode="stretch"
                 style={{ width: 300, height: 160, borderRadius: 20 }}
-                source={{uri: 'http://103.13.231.22:3000/api/get/img' + Post.contentData.Post.image}}
+                // source={this.getImage()}
               />
             </View>
             <View style={{ paddingHorizontal: 20 }}>
