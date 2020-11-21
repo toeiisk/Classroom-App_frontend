@@ -5,6 +5,9 @@ import Createpost from "../components/Createpostscreen";
 // import Createclass from "../components/Createclassscreen";
 import EditProfileScreen from "../components/EditProfilescreen";
 import Contentclass from "../components/Contentscreen";
+import Editcontent from "../components/EditContentscreen";
+import Editlesson from "../components/EditLessonscreen";
+import Editclassroom from "../components/EditClassroomscreen";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image } from "react-native";
@@ -50,25 +53,21 @@ const ScreenStack = () => (
         ),
       }}
     />
-    {/* <RootScreen.Screen
-      name="Createclass"
-      component={Createclass}
-      options={{
-        title: null,
-        headerLeft: () => (
-          <TouchableOpacity>
-            <Image
-              source={require("../assets/resources/icon/previous.png")}
-              style={{
-                width: 30,
-                height: 30,
-                marginLeft: 30,
-              }}
-            />
-          </TouchableOpacity>
-        ),
-      }}
-    /> */}
+    <RootScreen.Screen
+      name="Editcontent"
+      component={Editcontent}
+      options={{ headerShown: false }}
+    />
+    <RootScreen.Screen
+      name="Editlesson"
+      component={Editlesson}
+      options={{ headerShown: false }}
+    />
+    <RootScreen.Screen
+      name="Editclassroom"
+      component={Editclassroom}
+      options={{ headerShown: false }}
+    />
     <RootScreen.Screen
       name="EditProfile"
       component={EditProfileScreen}

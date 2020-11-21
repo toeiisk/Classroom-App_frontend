@@ -16,7 +16,7 @@ import { ScrollView } from "react-native-gesture-handler";
 class Profilescreen extends React.Component {
   render() {
     const { UserLogout } = this.props;
-    const {UserLogin} = this.props
+    const { UserLogin } = this.props;
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>
@@ -34,55 +34,53 @@ class Profilescreen extends React.Component {
                 { textAlign: "center", padding: 20 },
               ]}
             >
-               {UserLogin.name}
+              {UserLogin.name}
             </Text>
           </View>
           <View style={Externalstyle.layout_detail}>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", paddingVertical: 20 }}>
               <Image
                 source={require("../assets/resources/icon/email.png")}
                 style={Externalstyle.profile_logo}
               />
-              <Text style={Externalstyle.profile_title}>
-                {UserLogin.email}
-              </Text>
+              <Text style={Externalstyle.profile_title}>{UserLogin.email}</Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", paddingVertical: 20 }}>
               <Image
                 source={require("../assets/resources/icon/man.png")}
                 style={Externalstyle.profile_logo}
               />
               <Text style={Externalstyle.profile_title}>{UserLogin.stuid}</Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", paddingVertical: 20 }}>
               <Image
                 source={require("../assets/resources/icon/phone.png")}
                 style={Externalstyle.profile_logo}
               />
-              <Text style={Externalstyle.profile_title}>{UserLogin.phonenumber}</Text>
+              <Text style={Externalstyle.profile_title}>
+                {UserLogin.phonenumber}
+              </Text>
             </View>
           </View>
-          <View style={Externalstyle.layout_button}>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate("EditProfile");
-              }}
-              style={Externalstyle.profile_button_edit}
-            >
-              <Text style={[Externalstyle.title, { color: "white" }]}>
-                EDIT
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={Externalstyle.profile_button}
-              onPress={UserLogout}
-            >
-              <Text style={[Externalstyle.title, { color: "white" }]}>
-                LOGOUT
-              </Text>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
+        <View style={[Externalstyle.layout_button]}>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("EditProfile");
+            }}
+            style={Externalstyle.profile_button_edit}
+          >
+            <Text style={[Externalstyle.title, { color: "white" }]}>EDIT</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={Externalstyle.profile_button}
+            onPress={UserLogout}
+          >
+            <Text style={[Externalstyle.title, { color: "white" }]}>
+              LOGOUT
+            </Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   }
@@ -97,7 +95,7 @@ const mapDispathtoProps = (dispatch) => {
 const mapStatetoProps = (state) => {
   return {
     UserLogin: state.authReducer.UserLogin,
-  }
-}
+  };
+};
 
 export default connect(mapStatetoProps, mapDispathtoProps)(Profilescreen);

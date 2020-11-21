@@ -124,7 +124,7 @@ class classroomnoenroll extends React.Component {
   }
 
   render() {
-    const {Classroom} = this.props
+    const { Classroom } = this.props;
     const { modalVisible, nameselect } = this.state;
     const actions = [
       {
@@ -169,7 +169,9 @@ class classroomnoenroll extends React.Component {
                   opacity={0.2}
                   style={Externalstyle.classroom_card}
                 >
-                  <Text style={Externalstyle.classroom_title}>SUBJECT: {item.name}</Text>
+                  <Text style={Externalstyle.classroom_title}>
+                    SUBJECT: {item.name}
+                  </Text>
                   <Text style={Externalstyle.classroom_date}>
                     DATE-TIME: {item.day} {item.time}
                   </Text>
@@ -375,22 +377,39 @@ class classroomnoenroll extends React.Component {
         <Overlay
           isVisible={this.state.isModalVisible}
           onBackdropPress={() => this.setState({ isModalVisible: false })}
-          overlayStyle={{ width: "80%", backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+          overlayStyle={{
+            width: "80%",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+          }}
         >
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <TouchableOpacity
-              style={[Externalstyle.profile_button_edit, { flexDirection: "row" }]}
+              onPress={() => this.props.navigation.navigate("Editclassroom")}
+              style={[
+                Externalstyle.profile_button_edit,
+                { flexDirection: "row" },
+              ]}
             >
-              <FontAwesomeIcon icon={faEdit} size={32} color="white"/>
-              <Text style={[Externalstyle.title, { fontSize: 16, color: "white", paddingHorizontal: 10 }]}>
+              <FontAwesomeIcon icon={faEdit} size={32} color="white" />
+              <Text
+                style={[
+                  Externalstyle.title,
+                  { fontSize: 16, color: "white", paddingHorizontal: 10 },
+                ]}
+              >
                 EDIT
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[Externalstyle.profile_button, { flexDirection: "row" }]}
             >
-              <FontAwesomeIcon icon={faTrash} size={32} color="white"/>
-              <Text style={[Externalstyle.title, { fontSize: 16, color: "white", paddingHorizontal: 10 }]}>
+              <FontAwesomeIcon icon={faTrash} size={32} color="white" />
+              <Text
+                style={[
+                  Externalstyle.title,
+                  { fontSize: 16, color: "white", paddingHorizontal: 10 },
+                ]}
+              >
                 DELETE
               </Text>
             </TouchableOpacity>

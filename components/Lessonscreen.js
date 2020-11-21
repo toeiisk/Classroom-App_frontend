@@ -211,6 +211,7 @@ class LessonScreen extends Component {
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("Editlesson")}
                 style={[
                   Externalstyle.profile_button_edit,
                   { flexDirection: "row" },
@@ -223,7 +224,7 @@ class LessonScreen extends Component {
                     { fontSize: 16, color: "white", paddingHorizontal: 10 },
                   ]}
                 >
-                  EDIT
+                  EDITT
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity

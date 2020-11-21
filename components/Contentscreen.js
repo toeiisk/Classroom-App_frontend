@@ -130,6 +130,21 @@ class ContentScreen extends Component {
         <SafeAreaView style={Externalstyle.container}>
           <View
             style={{
+              justifyContent: "flex-start",
+              marginTop: 20,
+              marginHorizontal: 20,
+            }}
+          >
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+              <FontAwesomeIcon
+                icon={faChevronCircleLeft}
+                size={35}
+                color="white"
+              />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
@@ -195,7 +210,11 @@ class ContentScreen extends Component {
                   </TouchableOpacity>
                 }
               >
-                <MenuItem onPress={this.hideMenu}>
+                <MenuItem
+                  onPress={() => {
+                    this.props.navigation.navigate("Editcontent");
+                  }}
+                >
                   <Text style={[Externalstyle.chat_title, { color: "black" }]}>
                     EDIT
                   </Text>
@@ -268,7 +287,7 @@ class ContentScreen extends Component {
               style={{
                 borderBottomColor: "white",
                 borderBottomWidth: 2,
-                margin: 20
+                margin: 20,
               }}
             />
 
