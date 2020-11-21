@@ -42,7 +42,8 @@ class ContentScreen extends Component {
       modalVisible: false,
       nameselect: "",
       name: "",
-      message: ""
+      message: "",
+      arrayComment: []
     };
   }
 
@@ -88,16 +89,6 @@ class ContentScreen extends Component {
     
   }
 
-  componentDidUpdate(){
-    const lessonId = this.props.route.params.LessonId;
-    const classroomId = this.props.route.params.classroomId;
-    const {Post} = this.props
-    
-    // if( Post != undefined){
-      
-    //   console.log('test', Post.contentData)
-    // }
-  }
 
   async componentDidMount() {
     const lessonId = this.props.route.params.LessonId;
@@ -114,7 +105,11 @@ class ContentScreen extends Component {
         "classroomId": classroomId,
         "postId" : idPost
       };
-      this.props.dispatch(getComment(dataComment))
+    await this.props.dispatch(getComment(dataComment))
+    // const {Comment} = this.props
+    // this.setState({
+    //   arrayComment: Comment.commentData
+    // })
   }
   showMenu = () => {
     this._menu.show();
@@ -139,7 +134,36 @@ class ContentScreen extends Component {
   }
 
   listComment = (data) => {
-    console.log('dataaaacomment', data)
+    // console.log(data.Comments)
+    return data.Comments.map((data) => {
+      return(
+         <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                  }}
+                >
+                  <Image
+                    source={require("../assets/logo-classroom.png")}
+                    style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
+                  />
+                  <View style={Externalstyle.text_contents}>
+                    <Text style={Externalstyle.comments_title}>
+                      Sukrit leelakornkij{"  "}
+                      <Text style={Externalstyle.comments_titlesub}>
+                        5/11/2563 15:14
+                      </Text>
+                    </Text>
+                    <View style={{ paddingRight: 20 }}>
+                      <Text style={Externalstyle.comments_titlesub}>
+                        {data.description}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+      )
+    })
   }
 
   render() {
@@ -159,7 +183,7 @@ class ContentScreen extends Component {
     const { Visible } = this.props;
     const { Post } = this.props;
     const {Comment} = this.props
-    console.log(Comment.commentData)
+
     if (Post.isLoading || Post.isLoading == null) {
       return (
         <SafeAreaView style={Externalstyle.container}>
@@ -322,6 +346,7 @@ class ContentScreen extends Component {
             />
 
             {/* comments */}
+            
             <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
               <View
                 style={{
@@ -357,37 +382,7 @@ class ContentScreen extends Component {
                 </View>
               </View>
             </View>
-            <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
-              
-              {/* {Comment.commentData.map((data) => {
-                this.listComment(data)
-              })} */}
-              <View
-                style={{
-                  flexDirection: "row",
-                }}
-              >
-                <Image
-                  source={require("../assets/logo-classroom.png")}
-                  style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
-                />
-                <View style={Externalstyle.text_contents}>
-                  <Text style={Externalstyle.comments_title}>
-                    Sukrit leelakornkij{"  "}
-                    <Text style={Externalstyle.comments_titlesub}>
-                      5/11/2563 15:14
-                    </Text>
-                  </Text>
-                  <View style={{ paddingRight: 20 }}>
-                    <Text style={Externalstyle.comments_titlesub}>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.s
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
+            {Comment.isLoading ? <ActivityIndicator /> : this.listComment(Comment.commentData)}
           </ScrollView>
           {nameselect == "CreatePost" ? (
             <Modal

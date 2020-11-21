@@ -2,6 +2,7 @@ import { isLoading } from 'expo-font';
 import { combineReducers } from 'redux';
 const initialState = {
     contentData : [],
+    isLoading : null
 }
 
 

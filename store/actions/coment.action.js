@@ -57,7 +57,7 @@ export const getComment = (datacomment) => {
         var token = await AsyncStorage.getItem('token')
         dispatch({
             type: 'LOAD_COMMENT',
-            isLoding: true
+            isLoading: true
         })
         try{
             await axios.get(`http://103.13.231.22:3000/api/classroom/${datacomment.classroomId}/lesson/${datacomment.lessonId}/post/${datacomment.postId}/comment`,
@@ -70,20 +70,20 @@ export const getComment = (datacomment) => {
                 dispatch({
                     type: 'POST_SUCCESS',
                     data: res.data,
-                    isLoding: false
+                    isLoading: false
                 })
             })
             .catch((er) => {
                 dispatch({
                     type: 'POST_ERROR',
-                    isLoding: false
+                    isLoading: false
                 })
             })
     
         }catch(er){
             dispatch({
                 type: 'POST_ERROR',
-                isLoding: false
+                isLoading: false
             })
         }
     

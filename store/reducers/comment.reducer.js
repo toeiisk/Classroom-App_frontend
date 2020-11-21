@@ -9,22 +9,22 @@ const Comment  = (state = initialState, action) =>{
     switch(action.type){
         case "LOAD_COMMENT":
             return {
-                isLoading: action.isLoding
+                isLoading: action.isLoading
             }
         case "POST_SUCCESS":
             return {
                 ...state,
                 commentData : action.data,
-                isLoding: action.isLoding
+                isLoading: action.isLoading
                
             }
         case "POST_ERROR":
             return{
                 ...state,
-                isLoding: action.isLoding
+                isLoading: action.isLoading
             }
         default:
-            return {...state}
+            return {...state, isLoading: true}
     }
 }
 
