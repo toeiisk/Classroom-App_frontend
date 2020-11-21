@@ -25,7 +25,8 @@ import Createpostscreen from "./Createpostscreen";
 import { setVisible } from "../store/actions/modal.actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { getContent } from "../store/actions/content.action";
+import { getContent, } from "../store/actions/content.action";
+import {Postcomment, getComment} from "../store/actions/coment.action"
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -41,7 +42,7 @@ class ContentScreen extends Component {
       modalVisible: false,
       nameselect: "",
       name: "",
-      isLoding: null,
+      message: ""
     };
   }
 
@@ -82,6 +83,22 @@ class ContentScreen extends Component {
     }
   };
 
+  getComment = async(data) => {
+    this.props.dispatch(getComment(data))
+    
+  }
+
+  componentDidUpdate(){
+    const lessonId = this.props.route.params.LessonId;
+    const classroomId = this.props.route.params.classroomId;
+    const {Post} = this.props
+    
+    // if( Post != undefined){
+      
+    //   console.log('test', Post.contentData)
+    // }
+  }
+
   async componentDidMount() {
     const lessonId = this.props.route.params.LessonId;
     const classroomId = this.props.route.params.classroomId;
@@ -89,23 +106,41 @@ class ContentScreen extends Component {
       lessonId: lessonId,
       classroomId: classroomId,
     };
-    this.props.dispatch(getContent(dataContent));
+    await this.props.dispatch(getContent(dataContent));
+    const {Post} = this.props
+    const idPost = Post.contentData.Post.id
+      const dataComment = {
+        "lessonId": lessonId,
+        "classroomId": classroomId,
+        "postId" : idPost
+      };
+      this.props.dispatch(getComment(dataComment))
   }
   showMenu = () => {
     this._menu.show();
   };
 
-  getImage = () => {
-    const { Post } = this.props;
-    console.log("image", Post.contentData.Post.image);
-    const dataiamge = {
-      path_img: Post.contentData.Post.image,
-    };
-    console.log(dataiamge);
-    Axios.get("http://103.13.231.22:3000/api/get/img", dataiamge)
-      .then((res) => console.log(res))
-      .catch((er) => console.log(er.response));
-  };
+  submitComment = () => {
+    const lessonId = this.props.route.params.LessonId;
+    const classroomId = this.props.route.params.classroomId;
+    const {Post} = this.props
+    const idPost = Post.contentData.Post.id
+    const dataComment = {
+      "lessonId" : lessonId,
+      "classroomId" : classroomId,
+      "postId" : idPost,
+      "description" : this.state.message
+    }
+    this.props.dispatch(Postcomment(dataComment))
+
+    this.setState({
+      message : ''
+    })
+  }
+
+  listComment = (data) => {
+    console.log('dataaaacomment', data)
+  }
 
   render() {
     const userOwner = this.props.route.params.Owner;
@@ -123,7 +158,8 @@ class ContentScreen extends Component {
     ];
     const { Visible } = this.props;
     const { Post } = this.props;
-
+    const {Comment} = this.props
+    console.log(Comment.commentData)
     if (Post.isLoading || Post.isLoading == null) {
       return (
         <SafeAreaView style={Externalstyle.container}>
@@ -175,10 +211,7 @@ class ContentScreen extends Component {
           ) : null}
         </SafeAreaView>
       );
-    } else {
-      {
-        this.getImage();
-      }
+    } else {    
       return (
         <SafeAreaView style={Externalstyle.container}>
           <ScrollView>
@@ -236,11 +269,9 @@ class ContentScreen extends Component {
               >
                 <Image
                   resizeMode="cover"
-                  style={[Externalstyle.imgres, { overflow: "visible" }]}
-                  // source={this.getImage()}
+                  style={[Externalstyle.imgres, { overflow: "visible" , width: '80%'}]}
                   source={{
-                    uri:
-                      "https://miro.medium.com/max/693/1*2vt-C5QMnVdh8euVgpRhNw.jpeg",
+                    uri: `http://103.13.231.22:3000${Post.contentData.Post.image}`
                   }}
                 />
               </View>
@@ -308,20 +339,29 @@ class ContentScreen extends Component {
                         multiline
                         placeholder={"Type a comment..."}
                         value={this.state.message}
-                        onChangeText={this.setMessage}
+                        onChangeText={(e) => this.setState({
+                          message: e
+                        })}
                         style={Externalstyle.content_textinput}
+                        
                       />
-                      <MaterialCommunityIcons
-                        name="send-circle"
-                        size={35}
-                        color="grey"
-                      />
+                      <TouchableOpacity onPress = {this.submitComment}> 
+                        <MaterialCommunityIcons
+                          name="send-circle"
+                          size={35}
+                          color="grey"
+                        />
+                      </TouchableOpacity>
                     </View>
                   </KeyboardAvoidingScrollView>
                 </View>
               </View>
             </View>
             <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+              
+              {/* {Comment.commentData.map((data) => {
+                this.listComment(data)
+              })} */}
               <View
                 style={{
                   flexDirection: "row",
@@ -380,6 +420,7 @@ class ContentScreen extends Component {
 const mapStateToProps = (state) => ({
   Visible: state.modalReducer.Modal,
   Post: state.contentReducer.Content,
+  Comment : state.commentReducer.Comment
 });
 
 const mapDispatchToProps = (dispatch) => {

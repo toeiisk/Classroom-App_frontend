@@ -2,12 +2,10 @@ import { isLoading } from 'expo-font';
 import { combineReducers } from 'redux';
 const initialState = {
     contentData : [],
-    isLoading : null
 }
 
 
 const Content  = (state = initialState, action) =>{
-    console.log(action.type)
     switch(action.type){
         case "CREATE_CONTENT_SUCCESS":
             return {

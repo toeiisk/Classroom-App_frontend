@@ -8,6 +8,7 @@ import classReducer from './class.reducer'
 import modalReducer from './modal.reducer'
 import lessonReducer from './lesson.reducer'
 import contentReducer from './content.reducer'
+import commentReducer from './comment.reducer'
 
 
 
@@ -16,7 +17,8 @@ const reducers = {
     classReducer,
     modalReducer,
     lessonReducer,
-    contentReducer
+    contentReducer,
+    commentReducer
 
 };
 
