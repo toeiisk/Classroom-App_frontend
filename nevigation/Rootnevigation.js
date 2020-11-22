@@ -7,6 +7,7 @@ import Signinscreen from "../components/LoginScreen";
 import Registerscreen from "../components/RegisterScreen";
 import LessonScreen from "../components/Lessonscreen";
 import ForgotpassScreen from "../components/ForgotpassScreen";
+import Loadingtest from "../components/LoadingTestscreen";
 import Chatroom from "../components/ChatScreen";
 import { Image } from "react-native";
 import Color from "../assets/resources/constants/color";
@@ -28,6 +29,11 @@ const RootStackScreen = () => (
     <RootStack.Screen
       name="Register"
       component={Registerscreen}
+      options={{ headerShown: false }}
+    />
+    <RootStack.Screen
+      name="Loadingtest"
+      component={Loadingtest}
       options={{ headerShown: false }}
     />
     <RootStack.Screen
