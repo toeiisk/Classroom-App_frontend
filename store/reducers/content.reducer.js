@@ -2,7 +2,6 @@ import { isLoading } from 'expo-font';
 import { combineReducers } from 'redux';
 const initialState = {
     contentData : [],
-    isLoading : null
 }
 
 
@@ -12,7 +11,8 @@ const Content  = (state = initialState, action) =>{
             return {
                 ...state,
                 contentData : action.data,
-                isLoading : action.isLoding
+                isLoading : action.isLoding,
+                havecontent : true
             }
         case 'LOAD_CONTENT':
             return{
@@ -23,10 +23,11 @@ const Content  = (state = initialState, action) =>{
         case "CREATE_CONTENT_ERROR":
             return{
                 ...state,
-                isLoading : action.isLoding
+                isLoading : action.isLoding,
+                havecontent : false
             }
         default:
-            return {...state}
+            return {...state, isLoading : true}
     }
 }
 

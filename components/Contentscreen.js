@@ -106,10 +106,7 @@ class ContentScreen extends Component {
         "postId" : idPost
       };
     await this.props.dispatch(getComment(dataComment))
-    // const {Comment} = this.props
-    // this.setState({
-    //   arrayComment: Comment.commentData
-    // })
+  
   }
   showMenu = () => {
     this._menu.show();
@@ -134,7 +131,6 @@ class ContentScreen extends Component {
   }
 
   listComment = (data) => {
-    // console.log(data.Comments)
     return data.Comments.map((data) => {
       return(
          <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
@@ -184,58 +180,63 @@ class ContentScreen extends Component {
     const { Post } = this.props;
     const {Comment} = this.props
 
-    if (Post.isLoading || Post.isLoading == null) {
+    if (Post.isLoading) {
       return (
-        <SafeAreaView style={Externalstyle.container}>
-          <View
-            style={{
-              justifyContent: "flex-start",
-              marginTop: 20,
-              marginHorizontal: 20,
-            }}
-          >
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <FontAwesomeIcon
-                icon={faChevronCircleLeft}
-                size={35}
-                color="white"
-              />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={Externalstyle.text_title_sub}>Content not create</Text>
-          </View>
-          {nameselect == "CreatePost" ? (
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={Visible.visible}
-            >
-              <Createpostscreen
-                navigation={this.props.navigation}
-                lessonId={lessonId}
-                classroomId={classroomId}
-              />
-            </Modal>
-          ) : null}
-          {userOwner ? (
-            <FloatingAction
-              actions={actions}
-              color={Color.background_button_attendance}
-              onPressItem={(name) => {
-                this.setModalVisible(true, name);
-              }}
-            />
-          ) : null}
-        </SafeAreaView>
+       <ActivityIndicator />
       );
-    } else {    
+    } 
+    else if(Post.contentData.Post.title == undefined){
+      return(
+        <SafeAreaView style={Externalstyle.container}>
+        <View
+          style={{
+            justifyContent: "flex-start",
+            marginTop: 20,
+            marginHorizontal: 20,
+          }}
+        >
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <FontAwesomeIcon
+              icon={faChevronCircleLeft}
+              size={35}
+              color="white"
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={Externalstyle.text_title_sub}>Content not create</Text>
+        </View>
+        {nameselect == "CreatePost" ? (
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={Visible.visible}
+          >
+            <Createpostscreen
+              navigation={this.props.navigation}
+              lessonId={lessonId}
+              classroomId={classroomId}
+            />
+          </Modal>
+        ) : null}
+        {userOwner ? (
+          <FloatingAction
+            actions={actions}
+            color={Color.background_button_attendance}
+            onPressItem={(name) => {
+              this.setModalVisible(true, name);
+            }}
+          />
+        ) : null}
+      </SafeAreaView>
+      )
+    }else {    
       return (
         <SafeAreaView style={Externalstyle.container}>
           <ScrollView>

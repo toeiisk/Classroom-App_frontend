@@ -51,6 +51,7 @@ export const getClassroom = () =>{
                 }
               })
               .then((res) =>{
+                  console.log(res.data)
                   dispatch({
                       type : 'CREATE_CLASSROOM_SUCCESS',
                       data : res.data.classrooms
