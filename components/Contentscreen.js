@@ -106,7 +106,10 @@ class ContentScreen extends Component {
         "postId" : idPost
       };
     await this.props.dispatch(getComment(dataComment))
-  
+    // const {Comment} = this.props
+    // this.setState({
+    //   arrayComment: Comment.commentData
+    // })
   }
   showMenu = () => {
     this._menu.show();
@@ -131,6 +134,7 @@ class ContentScreen extends Component {
   }
 
   listComment = (data) => {
+    // console.log(data.Comments)
     return data.Comments.map((data) => {
       return(
          <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
@@ -180,13 +184,9 @@ class ContentScreen extends Component {
     const { Post } = this.props;
     const {Comment} = this.props
 
+
     if (Post.isLoading) {
       return (
-       <ActivityIndicator />
-      );
-    } 
-    else if(Post.contentData.Post.title == undefined){
-      return(
         <SafeAreaView style={Externalstyle.container}>
         <View
           style={{
@@ -195,13 +195,6 @@ class ContentScreen extends Component {
             marginHorizontal: 20,
           }}
         >
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <FontAwesomeIcon
-              icon={faChevronCircleLeft}
-              size={35}
-              color="white"
-            />
-          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -210,7 +203,7 @@ class ContentScreen extends Component {
             alignItems: "center",
           }}
         >
-          <Text style={Externalstyle.text_title_sub}>Content not create</Text>
+          < ActivityIndicator />
         </View>
         {nameselect == "CreatePost" ? (
           <Modal
@@ -236,155 +229,34 @@ class ContentScreen extends Component {
         ) : null}
       </SafeAreaView>
       )
-    }else {    
-      return (
+    } else {
+      if(Post.err){
+        return(
         <SafeAreaView style={Externalstyle.container}>
-          <ScrollView>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                padding: 20,
-              }}
-            >
-              <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                <FontAwesomeIcon
-                  icon={faChevronCircleLeft}
-                  size={35}
-                  color="white"
-                />
-              </TouchableOpacity>
-              <Menu
-                ref={this.setMenuRef}
-                button={
-                  <TouchableOpacity>
-                    <FontAwesomeIcon
-                      icon={faEllipsisV}
-                      size={35}
-                      color="white"
-                      onPress={this.showMenu}
-                    />
-                  </TouchableOpacity>
-                }
-              >
-                <MenuItem
-                  onPress={() => {
-                    this.props.navigation.navigate("Editcontent");
-                  }}
-                >
-                  <Text style={[Externalstyle.chat_title, { color: "black" }]}>
-                    EDIT
-                  </Text>
-                </MenuItem>
-                <MenuDivider />
-                <MenuItem onPress={this.hideMenu}>
-                  <Text style={[Externalstyle.chat_title, { color: "black" }]}>
-                    DELETE
-                  </Text>
-                </MenuItem>
-              </Menu>
-            </View>
-            <View style={{ paddingHorizontal: 20 }}>
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: 20,
-                }}
-              >
-                <Image
-                  resizeMode="cover"
-                  style={[Externalstyle.imgres, { overflow: "visible" , width: '80%'}]}
-                  source={{
-                    uri: `http://103.13.231.22:3000${Post.contentData.Post.image}`
-                  }}
-                />
-              </View>
-              <View style={Externalstyle.title_header}>
-                <Text style={Externalstyle.text_title}>
-                  {Post.contentData.Post.title}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  paddingHorizontal: 20,
-                }}
-              >
-                <Image
-                  source={require("../assets/logo-classroom.png")}
-                  style={{ height: 80, width: 80, borderRadius: 80 / 2 }}
-                />
-                <View style={Externalstyle.text_attendance}>
-                  <Text style={Externalstyle.chat_title}>
-                    Sukrit leelakornkij
-                  </Text>
-                  <Text style={Externalstyle.chat_titlesub}>Author, Sep 5</Text>
-                </View>
-              </View>
-              <View style={{ padding: 20 }}>
-                <Text style={[Externalstyle.chat_title, { lineHeight: 30 }]}>
-                  {Post.contentData.Post.description}
-                </Text>
-              </View>
-            </View>
-            {/* <View style={{ alignItems: "center", marginVertical: 10 }}>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.popToTop()}
-                style={Externalstyle.profile_button_edit}
-              >
-                <Text style={[Externalstyle.title, { color: "white" }]}>
-                  BACK
-                </Text>
-              </TouchableOpacity>
-            </View> */}
-            <View
-              style={{
-                borderBottomColor: "white",
-                borderBottomWidth: 2,
-                margin: 20,
-              }}
-            />
-
-            {/* comments */}
-            
-            <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                }}
-              >
-                <Image
-                  source={require("../assets/logo-classroom.png")}
-                  style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
-                />
-                <View style={{ paddingHorizontal: 20 }}>
-                  <KeyboardAvoidingScrollView>
-                    <View style={Externalstyle.subContainer}>
-                      <TextInput
-                        multiline
-                        placeholder={"Type a comment..."}
-                        value={this.state.message}
-                        onChangeText={(e) => this.setState({
-                          message: e
-                        })}
-                        style={Externalstyle.content_textinput}
-                        
-                      />
-                      <TouchableOpacity onPress = {this.submitComment}> 
-                        <MaterialCommunityIcons
-                          name="send-circle"
-                          size={35}
-                          color="grey"
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </KeyboardAvoidingScrollView>
-                </View>
-              </View>
-            </View>
-            {Comment.isLoading ? <ActivityIndicator /> : this.listComment(Comment.commentData)}
-          </ScrollView>
+          <View
+            style={{
+              justifyContent: "flex-start",
+              marginTop: 20,
+              marginHorizontal: 20,
+            }}
+          >
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+              <FontAwesomeIcon
+                icon={faChevronCircleLeft}
+                size={35}
+                color="white"
+              />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={Externalstyle.text_title_sub}>Content not create</Text>
+          </View>
           {nameselect == "CreatePost" ? (
             <Modal
               animationType="slide"
@@ -408,7 +280,182 @@ class ContentScreen extends Component {
             />
           ) : null}
         </SafeAreaView>
-      );
+        )
+      }else{
+        return (
+          <SafeAreaView style={Externalstyle.container}>
+            <ScrollView>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  padding: 20,
+                }}
+              >
+                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                  <FontAwesomeIcon
+                    icon={faChevronCircleLeft}
+                    size={35}
+                    color="white"
+                  />
+                </TouchableOpacity>
+                <Menu
+                  ref={this.setMenuRef}
+                  button={
+                    <TouchableOpacity>
+                      <FontAwesomeIcon
+                        icon={faEllipsisV}
+                        size={35}
+                        color="white"
+                        onPress={this.showMenu}
+                      />
+                    </TouchableOpacity>
+                  }
+                >
+                  <MenuItem
+                    onPress={() => {
+                      this.props.navigation.navigate("Editcontent");
+                    }}
+                  >
+                    <Text style={[Externalstyle.chat_title, { color: "black" }]}>
+                      EDIT
+                    </Text>
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem onPress={this.hideMenu}>
+                    <Text style={[Externalstyle.chat_title, { color: "black" }]}>
+                      DELETE
+                    </Text>
+                  </MenuItem>
+                </Menu>
+              </View>
+              <View style={{ paddingHorizontal: 20 }}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: 20,
+                  }}
+                >
+                   {Comment.isLoading ? <ActivityIndicator /> : 
+                   <Image
+                    resizeMode="cover"
+                    style={[Externalstyle.imgres, { overflow: "visible" , width: '80%'}]}
+                    source={{
+                      uri: `http://103.13.231.22:3000${Post.contentData.Post.image}`
+                    }}
+                  />}
+                </View>
+                <View style={Externalstyle.title_header}>
+                  <Text style={Externalstyle.text_title}>
+                    {Post.contentData.Post.title}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    paddingHorizontal: 20,
+                  }}
+                >
+                  <Image
+                    source={require("../assets/logo-classroom.png")}
+                    style={{ height: 80, width: 80, borderRadius: 80 / 2 }}
+                  />
+                  <View style={Externalstyle.text_attendance}>
+                    <Text style={Externalstyle.chat_title}>
+                      Sukrit leelakornkij
+                    </Text>
+                    <Text style={Externalstyle.chat_titlesub}>Author, Sep 5</Text>
+                  </View>
+                </View>
+                <View style={{ padding: 20 }}>
+                  <Text style={[Externalstyle.chat_title, { lineHeight: 30 }]}>
+                    {Post.contentData.Post.description}
+                  </Text>
+                </View>
+              </View>
+              {/* <View style={{ alignItems: "center", marginVertical: 10 }}>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.popToTop()}
+                  style={Externalstyle.profile_button_edit}
+                >
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    BACK
+                  </Text>
+                </TouchableOpacity>
+              </View> */}
+              <View
+                style={{
+                  borderBottomColor: "white",
+                  borderBottomWidth: 2,
+                  margin: 20,
+                }}
+              />
+  
+              {/* comments */}
+              
+              <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                  }}
+                >
+                  <Image
+                    source={require("../assets/logo-classroom.png")}
+                    style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
+                  />
+                  <View style={{ paddingHorizontal: 20 }}>
+                    <KeyboardAvoidingScrollView>
+                      <View style={Externalstyle.subContainer}>
+                        <TextInput
+                          multiline
+                          placeholder={"Type a comment..."}
+                          value={this.state.message}
+                          onChangeText={(e) => this.setState({
+                            message: e
+                          })}
+                          style={Externalstyle.content_textinput}
+                          
+                        />
+                        <TouchableOpacity onPress = {this.submitComment}> 
+                          <MaterialCommunityIcons
+                            name="send-circle"
+                            size={35}
+                            color="grey"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </KeyboardAvoidingScrollView>
+                  </View>
+                </View>
+              </View>
+              {Comment.isLoading ? <ActivityIndicator /> : this.listComment(Comment.commentData)}
+            </ScrollView>
+            {nameselect == "CreatePost" ? (
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={Visible.visible}
+              >
+                <Createpostscreen
+                  navigation={this.props.navigation}
+                  lessonId={lessonId}
+                  classroomId={classroomId}
+                />
+              </Modal>
+            ) : null}
+            {userOwner ? (
+              <FloatingAction
+                actions={actions}
+                color={Color.background_button_attendance}
+                onPressItem={(name) => {
+                  this.setModalVisible(true, name);
+                }}
+              />
+            ) : null}
+          </SafeAreaView>
+        );
+      }
     }
   }
 }

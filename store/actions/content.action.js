@@ -42,7 +42,7 @@ export const creteContent = (payload) => {
                 .catch((er) => {
                     dispatch({
                         type: 'CREATE_CONTENT_ERROR',
-                        isLoding : true
+                        isLoding : true,
                     })
                 })
         } catch (err) {
@@ -72,33 +72,38 @@ export const getContent = (payload) => {
               })
               .then((res) =>{
                   if(res.status == 200){
-                    console.log('pass')
+                    console.log('status', res.status)
                     dispatch({
                         type: 'CREATE_CONTENT_SUCCESS',
                         data : res.data,
-                        isLoding : false
+                        isLoding : false,
+                        err: false
     
                     })
                   }else{
                     console.log('not get content')
-                    console.log(res.status)
                     dispatch({
                         type: 'CREATE_CONTENT_ERROR',
                         data : res.data,
-                        isLoding : true
+                        isLoding : true,
+                        err: true
     
                     })
                   }
               }).catch((er) => {
+                console.log('error', er)
                 dispatch({
                     type: 'CREATE_CONTENT_ERROR',
-                    isLoding : true
+                    isLoding : false,
+                    err: true
                 })
               })
-        }catch{
+        }catch(er){
+            console.log(er.message)
             dispatch({
                 type: 'CREATE_CONTENT_ERROR',
-                isLoding : true
+                isLoding : true,
+                err: true
             })
         }
     }
