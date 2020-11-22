@@ -76,14 +76,14 @@ export const getComment = (datacomment) => {
             .catch((er) => {
                 dispatch({
                     type: 'POST_ERROR',
-                    isLoading: false
+                    isLoading: true
                 })
             })
     
         }catch(er){
             dispatch({
                 type: 'POST_ERROR',
-                isLoading: false
+                isLoading: true
             })
         }
     

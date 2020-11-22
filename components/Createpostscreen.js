@@ -147,7 +147,7 @@ export default function createpostscreen(props) {
         <TouchableOpacity style={Externalstyle.create_submit} onPress={handleSubmit}>
           <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={Externalstyle.cansel_submit} onPress={()=> dispatch({type: 'UNVISIBLE'})}>
+        <TouchableOpacity style={Externalstyle.cansel_submit} onPress={()=> {dispatch({type: 'UNVISIBLE'})}}>
           <Text style={[Externalstyle.title, { color: "white" }]}>Cancel</Text>
         </TouchableOpacity>
       </View>

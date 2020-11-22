@@ -33,7 +33,6 @@ const AuthReducer  = (state = {}, action) => {
 
 
 const UserLogin = (state = {}, action) =>{
-
     switch (action.type) {
 
         case "AUTH_LOADING":
@@ -43,6 +42,7 @@ const UserLogin = (state = {}, action) =>{
         case "AUTH_LOGIN_SUCCES":
             return{
                 ...state,
+                image: action.image,
                 isLoggedin: false,
                 isSuccess: true,
                 name: action.dataUser,

@@ -19,14 +19,14 @@ class Profilescreen extends React.Component {
   render() {
     const { UserLogout } = this.props;
     const { UserLogin } = this.props;
+    console.log('data', UserLogin.image)
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>
           <View style={Externalstyle.layout_header}>
             <Image
               source={{
-                uri:
-                  "https://scontent.fbkk12-4.fna.fbcdn.net/v/t31.0-8/18402248_1167842763341854_8112859874758364759_o.jpg?_nc_cat=103&ccb=2&_nc_sid=174925&_nc_eui2=AeHxDo_OLwWJW3jTAZLqpedKJAPitTxNcVYkA-K1PE1xVoVEZnnHYRUvxmDXkVG0l8jRrQUzmGod1YJ9mrIWhnZS&_nc_ohc=7F5SRT90GlIAX-bWOLu&_nc_ht=scontent.fbkk12-4.fna&oh=834c65addd07025c6a2a3695be29b97f&oe=5FBF7B40",
+                uri: `http://103.13.231.22:3000${UserLogin.image}`
               }}
               style={Externalstyle.profile_image}
             />

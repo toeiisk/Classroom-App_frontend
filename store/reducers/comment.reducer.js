@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 const initialState = {
     commentData : [],
+    isLoading: true
 }
 
 const Comment  = (state = initialState, action) =>{
@@ -24,7 +25,7 @@ const Comment  = (state = initialState, action) =>{
                 isLoading: action.isLoading
             }
         default:
-            return {...state, isLoading: true}
+            return {...state}
     }
 }
 

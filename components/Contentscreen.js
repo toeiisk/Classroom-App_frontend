@@ -35,6 +35,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Axios from "axios";
+import Loadingscreen from "./LoadingScreen";
 import moment from "moment";
 class ContentScreen extends Component {
   constructor(props) {
@@ -65,16 +66,7 @@ class ContentScreen extends Component {
     this._menu.hide();
   };
 
-  titleContent = () => {
-    const { Post } = this.props;
-    if (Post.isLoading) {
-      return <ActivityIndicator />;
-    } else {
-      // return(
-      //   <Text>{Post.contentData.Post.title}</Text>
-      // )
-    }
-  };
+ 
 
   desContent = () => {
     const { Post } = this.props;
@@ -105,10 +97,6 @@ class ContentScreen extends Component {
       postId: idPost,
     };
     await this.props.dispatch(getComment(dataComment));
-    // const {Comment} = this.props
-    // this.setState({
-    //   arrayComment: Comment.commentData
-    // })
   }
   showMenu = () => {
     this._menu.show();
@@ -183,7 +171,7 @@ class ContentScreen extends Component {
     const { Visible } = this.props;
     const { Post } = this.props;
     const { Comment } = this.props;
-
+    console.log(Comment.isLoading)
     if (Post.isLoading) {
       return (
         <SafeAreaView style={Externalstyle.container}>
@@ -201,7 +189,7 @@ class ContentScreen extends Component {
               alignItems: "center",
             }}
           >
-            <ActivityIndicator />
+            <ActivityIndicator size="large" color="skyblue"/>
           </View>
           {nameselect == "CreatePost" ? (
             <Modal
@@ -345,7 +333,7 @@ class ContentScreen extends Component {
                   }}
                 >
                   {Comment.isLoading ? (
-                    <ActivityIndicator />
+                    <ActivityIndicator size="large" color="skyblue"/>
                   ) : (
                     <Image
                       resizeMode="contain"
@@ -368,15 +356,17 @@ class ContentScreen extends Component {
                   }}
                 >
                   <Image
-                    source={require("../assets/logo-classroom.png")}
+                   source={{
+                    uri: `http://103.13.231.22:3000${Post.contentData.Post.userOwnerPost.userOwner.img}`,
+                  }}
                     style={{ height: 80, width: 80, borderRadius: 80 / 2 }}
                   />
                   <View style={Externalstyle.text_attendance}>
                     <Text style={Externalstyle.chat_title}>
-                      Sukrit leelakornkij
+                      {Post.contentData.Post.userOwnerPost.nameOwner}
                     </Text>
                     <Text style={Externalstyle.chat_titlesub}>
-                      Author, Sep 5
+                      Author, {moment(Post.contentData.Post.updatedAt).format("L, HH:mm")}
                     </Text>
                   </View>
                 </View>
@@ -446,7 +436,7 @@ class ContentScreen extends Component {
                 </View>
               </View>
               {Comment.isLoading ? (
-                <ActivityIndicator />
+                <ActivityIndicator size="large" color="skyblue"/>
               ) : (
                 this.listComment(Comment.commentData)
               )}

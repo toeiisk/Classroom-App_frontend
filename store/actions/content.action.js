@@ -71,6 +71,7 @@ export const getContent = (payload) => {
                 }
               })
               .then((res) =>{
+                 
                   if(res.status == 200){
                     console.log('status', res.status)
                     dispatch({

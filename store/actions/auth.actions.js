@@ -57,21 +57,28 @@ export const FacebookLogin = (payload) => {
             axios
             .post('http://103.13.231.22:3000/api/auth/facebook', payload)
             .then(async (res) => {
-                if(res.status == 200) {
-                    const token = res.data.accessToken
-                    await AsyncStorage.setItem('token', token)
-                    dispatch({
-                        type: "AUTH_LOGIN_SUCCES",
-                        dataUser: payload.name,
-                        emailUser: payload.email
-                    })
-                }else{
-                    dispatch({
-                        type: "AUTH_LOGIN_FAIL",
-                    })
-                }
+                await AsyncStorage.setItem('token', res.data.accessToken)
+                axios.get('http://103.13.231.22:3000/api/test/user', {
+                    headers: { 'x-access-token': res.data.accessToken}
+                })
+                .then(async(res) => {
+                    if(res.status == 200) {
+                        dispatch({
+                            type: "AUTH_LOGIN_SUCCES",
+                            dataUser: res.data.user.facebookName,
+                            emailUser: res.data.user.facebookName,
+                            image: res.data.user.img
+                        })
+                    }else{
+                        dispatch({
+                            type: "AUTH_LOGIN_FAIL",
+                        })
+                    }
+                })
+                .catch((er) => console.log('er', er))
             })
-            .catch(() => {
+            .catch((er) => {
+                console.log(er)
                 dispatch({
                     type: "AUTH_LOGIN_FAIL"
                 })
