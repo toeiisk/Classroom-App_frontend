@@ -28,21 +28,7 @@ const RootStackScreen = () => (
     <RootStack.Screen
       name="Register"
       component={Registerscreen}
-      options={{
-        title: null,
-        headerLeft: () => (
-          <TouchableOpacity>
-            <Image
-              source={require("../assets/resources/icon/previous.png")}
-              style={{
-                width: 30,
-                height: 30,
-                marginLeft: 30,
-              }}
-            />
-          </TouchableOpacity>
-        ),
-      }}
+      options={{ headerShown: false }}
     />
     <RootStack.Screen
       name="Lessons"

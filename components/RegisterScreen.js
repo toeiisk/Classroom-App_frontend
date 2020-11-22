@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   SafeAreaView,
   ScrollView,
   Alert,
@@ -14,10 +15,14 @@ import {
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createNewUser } from "../store/actions/auth.actions";
-import {reRegister} from '../store/actions/auth.actions'
+import { reRegister } from "../store/actions/auth.actions";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faChevronCircleLeft,
+} from "@fortawesome/free-solid-svg-icons";
 // import {Actions} from 'react-native-router-flux';
 
 class RegisterScreen extends Component {
@@ -86,8 +91,8 @@ class RegisterScreen extends Component {
     });
   };
 
-  componentDidMount(){
-    this.props.dispatch(reRegister())
+  componentDidMount() {
+    this.props.dispatch(reRegister());
   }
 
   onSubmit = () => {
@@ -129,9 +134,8 @@ class RegisterScreen extends Component {
           {
             text: "ตกลง",
             onPress: () => {
-              this.props.dispatch(reRegister())
-              this.props.navigation.navigate("SignInScreen")
-              
+              this.props.dispatch(reRegister());
+              this.props.navigation.navigate("SignInScreen");
             },
             style: "ok",
           },
@@ -141,7 +145,21 @@ class RegisterScreen extends Component {
     }
     return (
       <SafeAreaView style={Externalstyle.register_container}>
-        <StatusBar barStyle="light-content" />
+        <View
+          style={{
+            justifyContent: "flex-start",
+            marginTop: 20,
+            marginHorizontal: 20,
+          }}
+        >
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <FontAwesomeIcon
+              icon={faChevronCircleLeft}
+              size={35}
+              color="black"
+            />
+          </TouchableOpacity>
+        </View>
         <ScrollView>
           <KeyboardAvoidingScrollView>
             <View style={{ marginTop: 20, alignItems: "center" }}>
@@ -235,14 +253,17 @@ class RegisterScreen extends Component {
                 />
               </View>
               <View style={Externalstyle.register_button}>
-                <TouchableOpacity
-                  style={Externalstyle.register_signin}
+                <TouchableHighlight
+                  activeOpacity={0.2}
+                  underlayColor={Color.background_footer}
                   onPress={() => {
                     this.onSubmit();
                   }}
                 >
-                  <Text style={Externalstyle.text_button}>Register</Text>
-                </TouchableOpacity>
+                  <View style={Externalstyle.register_signin}>
+                    <Text style={Externalstyle.text_button}>Register</Text>
+                  </View>
+                </TouchableHighlight>
               </View>
               <View
                 style={{
@@ -258,7 +279,9 @@ class RegisterScreen extends Component {
                   ]}
                 >
                   Already have an account?{"  "}
-                  <TouchableOpacity
+                  <TouchableHighlight
+                    activeOpacity={0.2}
+                    underlayColor={Color.background_footer}
                     onPress={() =>
                       this.props.navigation.navigate("SignInScreen")
                     }
@@ -266,12 +289,12 @@ class RegisterScreen extends Component {
                     <Text
                       style={[
                         Externalstyle.register_text_forgot,
-                        { color: Color.text_forgot_login, },
+                        { color: Color.text_forgot_login },
                       ]}
                     >
                       Login
                     </Text>
-                  </TouchableOpacity>
+                  </TouchableHighlight>
                 </Text>
               </View>
             </View>
@@ -289,8 +312,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     createNewUser: (newUser) => dispatch(createNewUser(newUser)),
-    dispatch
+    dispatch,
   };
 };
 
-export default compose(connect(mapStateToProps, mapDispatchToProps, null)(RegisterScreen));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps, null)(RegisterScreen)
+);

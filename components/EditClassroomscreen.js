@@ -8,6 +8,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   SafeAreaView,
   ScrollView,
   Alert,
@@ -21,7 +22,7 @@ import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 // import {Actions} from 'react-native-router-flux';
-import moment from 'moment'
+import moment from "moment";
 export default function createclassscreen() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -34,9 +35,9 @@ export default function createclassscreen() {
   };
 
   const handleConfirm = (datetime) => {
-    const date = moment(datetime).add(3, 'days').calendar()
+    const date = moment(datetime).add(3, "days").calendar();
     console.warn("A datetime has been picked: ", date);
-    console.log('date', date)
+    console.log("date", date);
     hideDatePicker();
   };
   return (
@@ -57,7 +58,7 @@ export default function createclassscreen() {
               numberOfLines={1}
               placeholderTextColor="black"
             />
-                        <Text
+            <Text
               style={[Externalstyle.creatpost_text_label, { color: "black" }]}
             >
               Description
@@ -72,23 +73,26 @@ export default function createclassscreen() {
             >
               Date - Time
             </Text>
-            <TouchableOpacity
+            <TouchableHighlight
+              activeOpacity={0.2}
+              underlayColor={Color.background_footer}
               onPress={showDatePicker}
-              style={Externalstyle.create_image}
             >
-              <Text style={[Externalstyle.title, { color: "white" }]}>
-                Select Date-Time
-              </Text>
-            </TouchableOpacity>
+              <View style={Externalstyle.create_image}>
+                <Text style={[Externalstyle.title, { color: "white" }]}>
+                  Select Date-Time
+                </Text>
+              </View>
+            </TouchableHighlight>
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               is24Hour={true}
               timeZoneOffsetInMinutes={0}
-              format={'HH:mm'}
+              format={"HH:mm"}
               locale="th_TH"
               mode="datetime"
               textColor="black"
-              pickerContainerStyleIOS={{backgroundColor: "white"}}
+              pickerContainerStyleIOS={{ backgroundColor: "white" }}
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
@@ -107,12 +111,26 @@ export default function createclassscreen() {
         </KeyboardAvoidingScrollView>
       </ScrollView>
       <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
-        <TouchableOpacity style={Externalstyle.create_submit}>
-          <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={Externalstyle.profile_button}>
-          <Text style={[Externalstyle.title, { color: "white" }]}>Cancel</Text>
-        </TouchableOpacity>
+        <TouchableHighlight
+          activeOpacity={0.2}
+          underlayColor={Color.background_footer}
+        >
+          <View style={Externalstyle.create_submit}>
+            <Text style={[Externalstyle.title, { color: "white" }]}>
+              Submit
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.2}
+          underlayColor={Color.background_footer}
+        >
+          <View style={Externalstyle.profile_button}>
+            <Text style={[Externalstyle.title, { color: "white" }]}>
+              Cancel
+            </Text>
+          </View>
+        </TouchableHighlight>
       </View>
     </SafeAreaView>
   );

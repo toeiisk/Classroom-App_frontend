@@ -224,7 +224,7 @@ class LessonScreen extends Component {
                     { fontSize: 16, color: "white", paddingHorizontal: 10 },
                   ]}
                 >
-                  EDITT
+                  EDIT
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity

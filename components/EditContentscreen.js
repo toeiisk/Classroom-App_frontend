@@ -10,6 +10,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   SafeAreaView,
   ScrollView,
   Alert,
@@ -18,21 +19,22 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { Input } from "react-native-elements";
 import { createNewUser } from "../store/actions/auth.actions";
+import Color from "../assets/resources/constants/color";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import Externalstyle from "../style/externalStyle";
-import { useDispatch, useSelector } from 'react-redux'
-import {creteContent} from '../store/actions/content.action'
+import { useDispatch, useSelector } from "react-redux";
+import { creteContent } from "../store/actions/content.action";
 
 // import {Actions} from 'react-native-router-flux';
 
 export default function createpostscreen(props) {
   const [image, setImage] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('')
-  const dispatch = useDispatch()
-  const classroomId = props.classroomId
-  const lessonId = props.lessonId
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const dispatch = useDispatch();
+  const classroomId = props.classroomId;
+  const lessonId = props.lessonId;
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -60,15 +62,15 @@ export default function createpostscreen(props) {
 
   const handleSubmit = () => {
     const data = {
-      'title': title,
-      'description': description,
-      'image' : image,
-      'lessonId' : lessonId,
-      'classroomId' : classroomId
-    }
-    dispatch(creteContent(data))
-    dispatch({type: 'UNVISIBLE'})
-  }
+      title: title,
+      description: description,
+      image: image,
+      lessonId: lessonId,
+      classroomId: classroomId,
+    };
+    dispatch(creteContent(data));
+    dispatch({ type: "UNVISIBLE" });
+  };
 
   return (
     <SafeAreaView style={Externalstyle.register_container}>
@@ -115,14 +117,17 @@ export default function createpostscreen(props) {
                 justifyContent: "center",
               }}
             >
-              <TouchableOpacity
+              <TouchableHighlight
+                activeOpacity={0.2}
+                underlayColor={Color.background_footer}
                 onPress={pickImage}
-                style={Externalstyle.create_image}
               >
-                <Text style={[Externalstyle.title, { color: "white" }]}>
-                  ADD IMAGE
-                </Text>
-              </TouchableOpacity>
+                <View style={Externalstyle.create_image}>
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    ADD IMAGE
+                  </Text>
+                </View>
+              </TouchableHighlight>
               {image && (
                 <Image
                   source={{ uri: image }}
@@ -139,15 +144,25 @@ export default function createpostscreen(props) {
           </View>
         </KeyboardAvoidingScrollView>
       </ScrollView>
-      <View
-        style={{ justifyContent: "flex-end", alignItems: "center" }}
-      >
-        <TouchableOpacity style={Externalstyle.create_submit}>
-          <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={Externalstyle.profile_button}>
+      <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
+        <TouchableHighlight
+          activeOpacity={0.2}
+          underlayColor={Color.background_footer}
+        >
+          <View style={Externalstyle.create_submit}>
+            <Text style={[Externalstyle.title, { color: "white" }]}>
+              Submit
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.2}
+          underlayColor={Color.background_footer}
+        >
+          <View style={Externalstyle.profile_button}>
           <Text style={[Externalstyle.title, { color: "white" }]}>Cancel</Text>
-        </TouchableOpacity>
+          </View>
+        </TouchableHighlight>
       </View>
     </SafeAreaView>
   );

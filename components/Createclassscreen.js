@@ -83,6 +83,7 @@ export default function createclassscreen() {
               </Text>
             </TouchableOpacity>
             <DateTimePickerModal
+            showMonthYearPicker
               isVisible={isDatePickerVisible}
               is24Hour={true}
               timeZoneOffsetInMinutes={0}

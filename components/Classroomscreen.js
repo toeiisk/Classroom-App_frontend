@@ -270,8 +270,9 @@ class classroomnoenroll extends React.Component {
               <View
                 style={{ justifyContent: "flex-end", alignItems: "center" }}
               >
-                <TouchableOpacity
-                  style={Externalstyle.create_submit}
+                <TouchableHighlight
+                  activeOpacity={0.2}
+                  underlayColor={Color.background_footer}
                   onPress={() => {
                     if (
                       this.state.name == "" ||
@@ -299,20 +300,25 @@ class classroomnoenroll extends React.Component {
                     }
                   }}
                 >
-                  <Text style={[Externalstyle.title, { color: "white" }]}>
-                    Submit
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={Externalstyle.cansel_submit}
+                  <View style={Externalstyle.create_submit}>
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      Submit
+                    </Text>
+                  </View>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  activeOpacity={0.2}
+                  underlayColor={Color.background_footer}
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text style={[Externalstyle.title, { color: "white" }]}>
-                    Cancel
-                  </Text>
-                </TouchableOpacity>
+                  <View style={Externalstyle.cansel_submit}>
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      Cancel
+                    </Text>
+                  </View>
+                </TouchableHighlight>
               </View>
             </SafeAreaView>
           </Modal>
@@ -339,29 +345,39 @@ class classroomnoenroll extends React.Component {
                   />
                 </View>
                 <TouchableHighlight
-                  style={{
-                    ...Externalstyle.profile_button_edit,
-                  }}
+                  activeOpacity={0.2}
+                  underlayColor={Color.background_footer}
                   onPress={() => {
                     this.SubmitJoinClassroom();
                     this.setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text style={[Externalstyle.title, { color: "white" }]}>
-                    Join
-                  </Text>
+                  <View
+                    style={{
+                      ...Externalstyle.profile_button_edit,
+                    }}
+                  >
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      Join
+                    </Text>
+                  </View>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  style={{
-                    ...Externalstyle.profile_button,
-                  }}
+                  activeOpacity={0.2}
+                  underlayColor={Color.background_footer}
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text style={[Externalstyle.title, { color: "white" }]}>
-                    Cancle
-                  </Text>
+                  <View
+                    style={{
+                      ...Externalstyle.profile_button,
+                    }}
+                  >
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      Cancle
+                    </Text>
+                  </View>
                 </TouchableHighlight>
               </View>
             </View>

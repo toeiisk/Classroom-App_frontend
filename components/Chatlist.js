@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   ImageBackground,
   SafeAreaView,
   FlatList,
@@ -15,6 +16,7 @@ import {
 } from "react-native";
 import { Card } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
+import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
 export default class attendancescreen extends React.Component {
   state = {

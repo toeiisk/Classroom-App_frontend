@@ -9,6 +9,7 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
+  TouchableHighlight,
   SafeAreaView,
   ScrollView,
   Alert,
@@ -70,13 +71,17 @@ class ChatScreen extends Component {
             backgroundColor: "white",
           }}
         >
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+          <TouchableHighlight
+            activeOpacity={0.2}
+            underlayColor="white"
+            onPress={() => this.props.navigation.goBack()}
+          >
             <FontAwesomeIcon
               icon={faChevronCircleLeft}
               size={35}
               color="black"
             />
-          </TouchableOpacity>
+          </TouchableHighlight>
           <Text
             style={{ fontSize: 22, fontFamily: "kanitBold", letterSpacing: 2 }}
           >
@@ -85,14 +90,17 @@ class ChatScreen extends Component {
           <Menu
             ref={this.setMenuRef}
             button={
-              <TouchableOpacity>
+              <TouchableHighlight
+                activeOpacity={0.2}
+                underlayColor="white"
+              >
                 <FontAwesomeIcon
                   icon={faEllipsisV}
                   size={35}
                   color="black"
                   onPress={this.showMenu}
                 />
-              </TouchableOpacity>
+              </TouchableHighlight>
             }
           >
             <MenuItem onPress={this.hideMenu}>
@@ -177,7 +185,9 @@ class ChatScreen extends Component {
 
         <View style={Externalstyle.chat_Container}>
           <View style={Externalstyle.buttonContainer}>
-            <MaterialCommunityIcons name="image" size={24} color="white" />
+            <TouchableHighlight>
+              <MaterialCommunityIcons name="image" size={24} color="white" />
+            </TouchableHighlight>
           </View>
           <KeyboardAvoidingScrollView>
             <View style={Externalstyle.mainContainer}>
@@ -188,11 +198,13 @@ class ChatScreen extends Component {
                 onChangeText={this.setMessage}
                 style={Externalstyle.chat_textinput}
               />
-              <MaterialCommunityIcons
-                name="send-circle"
-                size={35}
-                color="grey"
-              />
+              <TouchableHighlight>
+                <MaterialCommunityIcons
+                  name="send-circle"
+                  size={35}
+                  color="grey"
+                />
+              </TouchableHighlight>
             </View>
           </KeyboardAvoidingScrollView>
         </View>

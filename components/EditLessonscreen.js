@@ -3,6 +3,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   SafeAreaView,
   ScrollView,
 } from "react-native";
@@ -39,14 +40,26 @@ export default function forgotpassscreen() {
         </KeyboardAvoidingScrollView>
       </ScrollView>
       <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
-        <TouchableOpacity style={Externalstyle.create_submit}>
-          <Text style={[Externalstyle.title, { color: "white" }]}>Submit</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
-        <TouchableOpacity style={Externalstyle.createpost_button}>
-          <Text style={[Externalstyle.title, { color: "white" }]}>Cancle</Text>
-        </TouchableOpacity>
+        <TouchableHighlight
+          activeOpacity={0.2}
+          underlayColor={Color.background_footer}
+        >
+          <View style={Externalstyle.create_submit}>
+            <Text style={[Externalstyle.title, { color: "white" }]}>
+              Submit
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.2}
+          underlayColor={Color.background_footer}
+        >
+          <View style={Externalstyle.profile_button}>
+            <Text style={[Externalstyle.title, { color: "white" }]}>
+              Cancel
+            </Text>
+          </View>
+        </TouchableHighlight>
       </View>
     </SafeAreaView>
   );

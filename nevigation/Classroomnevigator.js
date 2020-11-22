@@ -71,21 +71,7 @@ const ScreenStack = () => (
     <RootScreen.Screen
       name="EditProfile"
       component={EditProfileScreen}
-      options={{
-        title: null,
-        headerLeft: () => (
-          <TouchableOpacity>
-            <Image
-              source={require("../assets/resources/icon/previous.png")}
-              style={{
-                width: 30,
-                height: 30,
-                marginLeft: 30,
-              }}
-            />
-          </TouchableOpacity>
-        ),
-      }}
+      options={{ headerShown: false }}
     />
   </RootScreen.Navigator>
 );

@@ -22,6 +22,8 @@ import { UserLogin } from "../store/actions/auth.actions";
 import { FacebookLogin } from "../store/actions/auth.actions";
 import * as Facebook from "expo-facebook";
 import Externalstyle from "../style/externalStyle";
+import { TouchableHighlight } from "react-native-gesture-handler";
+import Color from "../assets/resources/constants/color";
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -183,27 +185,53 @@ class LoginScreen extends Component {
               ) : null}
             </View>
             <View style={Externalstyle.login_button}>
-              <TouchableOpacity
-                style={[Externalstyle.login_signin, {flexDirection: "row"}]}
+              <TouchableHighlight
+                activeOpacity={0.2}
+                underlayColor={Color.background_footer}
                 onPress={() => {
                   this.onSubmit();
                 }}
               >
-                <FontAwesomeIcon icon={faSignInAlt} size={32} color="white"/>
-                <Text style={[Externalstyle.text_button, {paddingHorizontal: 10}]}>Sign In</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
+                <View
+                  style={[Externalstyle.login_signin, { flexDirection: "row" }]}
+                >
+                  <FontAwesomeIcon icon={faSignInAlt} size={32} color="white" />
+                  <Text
+                    style={[
+                      Externalstyle.text_button,
+                      { paddingHorizontal: 10 },
+                    ]}
+                  >
+                    Sign In
+                  </Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight
+                activeOpacity={0.2}
+                underlayColor={Color.background_footer}
                 onPress={() => this.facebookLogIn()}
-                style={[
-                  Externalstyle.login_signin,
-                  { backgroundColor: "#3A559F", marginTop: 10, flexDirection: "row" },
-                ]}
               >
-                <FontAwesomeIcon icon={faFacebook} size={32} color="white"/>
-                <Text style={[Externalstyle.text_button, {paddingHorizontal: 10}]}>
-                  Login with Facebook
-                </Text>
-              </TouchableOpacity>
+                <View
+                  style={[
+                    Externalstyle.login_signin,
+                    {
+                      backgroundColor: "#3A559F",
+                      marginTop: 10,
+                      flexDirection: "row",
+                    },
+                  ]}
+                >
+                  <FontAwesomeIcon icon={faFacebook} size={32} color="white" />
+                  <Text
+                    style={[
+                      Externalstyle.text_button,
+                      { paddingHorizontal: 10 },
+                    ]}
+                  >
+                    Login with Facebook
+                  </Text>
+                </View>
+              </TouchableHighlight>
             </View>
             <View
               style={{
@@ -213,7 +241,9 @@ class LoginScreen extends Component {
               }}
             />
             <View style={Externalstyle.login_button_forgot}>
-              <TouchableOpacity
+              <TouchableHighlight
+                activeOpacity={0.2}
+                underlayColor={Color.background_footer}
                 onPress={() => this.props.navigation.navigate("Forgotpass")}
               >
                 <Text
@@ -224,8 +254,10 @@ class LoginScreen extends Component {
                 >
                   Forgot Password?
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
+              </TouchableHighlight>
+              <TouchableHighlight
+                activeOpacity={0.2}
+                underlayColor={Color.background_footer}
                 onPress={() => this.props.navigation.navigate("Register")}
               >
                 <Text
@@ -236,7 +268,7 @@ class LoginScreen extends Component {
                 >
                   Register Now?
                 </Text>
-              </TouchableOpacity>
+              </TouchableHighlight>
             </View>
           </KeyboardAvoidingView>
         </Animatable.View>

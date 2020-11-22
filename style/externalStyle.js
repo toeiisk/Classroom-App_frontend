@@ -63,10 +63,17 @@ const externalStyle = StyleSheet.create({
     fontFamily: "MitrMedium",
   },
   imgres: {
-    width: height_logo * 2,
-    height: height_logo,
+    width: height * 0.5,
+    height: height * 0.3,
   },
-
+  avatar_comment: {
+    height: 50,
+    width: 50,
+    borderRadius: 80 / 2,
+    backgroundColor: "#777",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   //Attendance
   card: {
     backgroundColor: Color.background_card,
@@ -237,7 +244,7 @@ const externalStyle = StyleSheet.create({
     fontFamily: "MitrMedium",
   },
   login_signin: {
-    width: "100%",
+    width: height * 0.45,
     paddingVertical: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -278,7 +285,7 @@ const externalStyle = StyleSheet.create({
     margin: 10,
   },
   profile_button: {
-    width: "80%",
+    width: height * 0.4,
     padding: 10,
     margin: 10,
     borderRadius: 25,
@@ -287,9 +294,15 @@ const externalStyle = StyleSheet.create({
     alignItems: "center",
   },
   profile_button_edit: {
-    width: "80%",
+    width: height * 0.4,
     padding: 10,
     margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_signin,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  profile_button_edit_bg: {
     borderRadius: 25,
     backgroundColor: Color.background_button_signin,
     justifyContent: "center",
@@ -343,7 +356,7 @@ const externalStyle = StyleSheet.create({
     marginTop: 15,
   },
   register_signin: {
-    width: "100%",
+    width: height * 0.4,
     padding: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -493,7 +506,7 @@ const externalStyle = StyleSheet.create({
     alignItems: "center",
   },
   create_image: {
-    width: "50%",
+    width: height * 0.3,
     padding: 10,
     margin: 10,
     borderRadius: 25,
@@ -502,7 +515,7 @@ const externalStyle = StyleSheet.create({
     alignItems: "center",
   },
   create_submit: {
-    width: "80%",
+    width: height * 0.4,
     padding: 10,
     margin: 10,
     borderRadius: 25,
@@ -511,7 +524,7 @@ const externalStyle = StyleSheet.create({
     alignItems: "center",
   },
   cansel_submit: {
-    width: "80%",
+    width: height * 0.4,
     padding: 10,
     margin: 10,
     borderRadius: 25,
@@ -578,7 +591,7 @@ const externalStyle = StyleSheet.create({
     backgroundColor: "white",
     padding: 10,
     borderRadius: 10,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   buttonContainer: {
     backgroundColor: Color.background_footer,
@@ -593,8 +606,8 @@ const externalStyle = StyleSheet.create({
     marginHorizontal: 10,
   },
   content_textinput: {
-    width: '70%'
-  }
+    width: "70%",
+  },
 });
 
 export default externalStyle;

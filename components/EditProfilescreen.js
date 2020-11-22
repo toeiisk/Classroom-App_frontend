@@ -16,6 +16,11 @@ import * as ImagePicker from "expo-image-picker";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import { ScrollView } from "react-native-gesture-handler";
+import Color from "../assets/resources/constants/color";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faChevronCircleLeft,
+} from "@fortawesome/free-solid-svg-icons";
 export default function EditProfilescreen() {
   const [image, setImage] = useState(null);
 
@@ -48,6 +53,17 @@ export default function EditProfilescreen() {
   };
   return (
     <SafeAreaView style={Externalstyle.register_container}>
+      <View
+        style={{
+          justifyContent: "flex-start",
+          marginTop: 20,
+          marginHorizontal: 20,
+        }}
+      >
+        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+          <FontAwesomeIcon icon={faChevronCircleLeft} size={35} color="black" />
+        </TouchableOpacity>
+      </View>
       <ScrollView>
         <KeyboardAvoidingScrollView>
           <View style={Externalstyle.layout_header}>
@@ -65,12 +81,15 @@ export default function EditProfilescreen() {
               style={Externalstyle.profile_image}
             />
             <TouchableOpacity
+              activeOpacity={0.2}
+              underlayColor={Color.background_footer}
               onPress={pickImage}
-              style={Externalstyle.create_image}
             >
-              <Text style={[Externalstyle.title, { color: "white" }]}>
-                ADD IMAGE
-              </Text>
+              <View style={Externalstyle.create_image}>
+                <Text style={[Externalstyle.title, { color: "white" }]}>
+                  ADD IMAGE
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
           <View style={{ paddingHorizontal: 40 }}>

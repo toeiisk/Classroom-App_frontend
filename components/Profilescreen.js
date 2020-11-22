@@ -7,12 +7,14 @@ import {
   Text,
   TouchableOpacity,
   SafeAreaView,
+  ColorPropType,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { UserLogout } from "../store/actions/auth.actions";
 import { connect } from "react-redux";
 import Externalstyle from "../style/externalStyle";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
+import Color from "../assets/resources/constants/color";
 class Profilescreen extends React.Component {
   render() {
     const { UserLogout } = this.props;
@@ -62,25 +64,30 @@ class Profilescreen extends React.Component {
               </Text>
             </View>
           </View>
+          <View style={Externalstyle.layout_button}>
+            <TouchableHighlight
+            activeOpacity={0.2}
+              underlayColor={Color.background}
+              onPress={() => {
+                this.props.navigation.navigate("EditProfile");
+              }}
+            >
+              <View style={Externalstyle.profile_button_edit}>
+                <Text style={[Externalstyle.title, { color: "white" }]}>
+                  EDIT
+                </Text>
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={Externalstyle.profile_button}
+              onPress={UserLogout}
+            >
+              <Text style={[Externalstyle.title, { color: "white" }]}>
+                LOGOUT
+              </Text>
+            </TouchableHighlight>
+          </View>
         </ScrollView>
-        <View style={[Externalstyle.layout_button]}>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate("EditProfile");
-            }}
-            style={Externalstyle.profile_button_edit}
-          >
-            <Text style={[Externalstyle.title, { color: "white" }]}>EDIT</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={Externalstyle.profile_button}
-            onPress={UserLogout}
-          >
-            <Text style={[Externalstyle.title, { color: "white" }]}>
-              LOGOUT
-            </Text>
-          </TouchableOpacity>
-        </View>
       </SafeAreaView>
     );
   }
