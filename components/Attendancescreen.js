@@ -18,6 +18,9 @@ import { Overlay } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
+
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+
 export default class attendancescreen extends React.Component {
   state = {
     overlayVisible: false,
@@ -52,6 +55,57 @@ export default class attendancescreen extends React.Component {
           <Text style={Externalstyle.text_title}>My Attendance</Text>
           <View style={Externalstyle.line_title} />
         </View>
+        <Calendar
+          // Handler which gets executed on day press. Default = undefined
+          onDayPress={(day) => { console.log('selected day', day) }}
+          // Handler which gets executed on day long press. Default = undefined
+          onDayLongPress={(day) => { console.log('selected day', day) }}
+          // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+          monthFormat={'yyyy MM'}
+          // Handler which gets executed when visible month changes in calendar. Default = undefined
+          onMonthChange={(month) => { console.log('month changed', month) }}
+          // Hide month navigation arrows. Default = false
+          hideArrows={false}
+          // day from another month that is visible in calendar page. Default = false
+          disableMonthChange={true}
+          // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+          firstDay={1}
+          // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+          onPressArrowLeft={subtractMonth => subtractMonth()}
+          // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+          onPressArrowRight={addMonth => addMonth()}
+          // Disable left arrow. Default = false
+          disableArrowLeft={false}
+          // Disable right arrow. Default = false
+          disableArrowRight={false}
+          // Enable the option to swipe between months. Default = false
+          enableSwipeMonths={true}
+          // Enable horizontal scrolling, default = false
+          horizontal={true}
+          // Enable paging on horizontal, default = false
+          pagingEnabled={true}
+          // Set custom calendarWidth.
+          calendarWidth={200}
+          style={{
+            borderWidth: 1,
+            borderColor: 'gray',
+            borderRadius: 25,
+            height: 450,
+            marginHorizontal: 16
+          }}
+          // Specify theme properties to override specific styles for calendar parts. Default = {}
+          theme={{
+            textSectionTitleColor: '#b6c1cd',
+            textDayFontFamily: 'MitrMedium',
+            textMonthFontFamily: 'MitrMedium',
+            textDayHeaderFontFamily: 'MitrRegular',
+            monthTextColor: 'blue',
+            backgroundColor: '#ffffff',
+            textDayFontSize: 20,
+            textMonthFontSize: 20,
+            textDayHeaderFontSize: 15
+          }}
+        />
         <ScrollView>
           <FlatList
             data={[
