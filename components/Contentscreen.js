@@ -35,6 +35,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Axios from "axios";
+import moment from "moment";
 class ContentScreen extends Component {
   constructor(props) {
     super(props);
@@ -134,8 +135,8 @@ class ContentScreen extends Component {
   }
 
   listComment = (data) => {
-    // console.log(data.Comments)
     return data.Comments.map((data) => {
+      let date = moment(data.createdAt).format('L, HH:mm')
       return(
          <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
                 <View
@@ -151,7 +152,7 @@ class ContentScreen extends Component {
                     <Text style={Externalstyle.comments_title}>
                       Sukrit leelakornkij{"  "}
                       <Text style={Externalstyle.comments_titlesub}>
-                        5/11/2563 15:14
+                        {date}
                       </Text>
                     </Text>
                     <View style={{ paddingRight: 20 }}>
