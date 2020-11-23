@@ -35,7 +35,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Axios from "axios";
-import Loadingscreen from "./LoadingScreen";
+import Loadingscreen from "./LoadingTestscreen";
 import moment from "moment";
 class ContentScreen extends Component {
   constructor(props) {

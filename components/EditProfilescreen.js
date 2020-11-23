@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect} from "react";
 import {
   View,
   StyleSheet,
@@ -6,12 +6,11 @@ import {
   TextInput,
   Image,
   Text,
+  TouchableHighlight,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { UserLogout } from "../store/actions/auth.actions";
-import { connect } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Externalstyle from "../style/externalStyle";
@@ -21,9 +20,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faChevronCircleLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import color from "../assets/resources/constants/color";
+import {EditUser} from '../store/actions/auth.actions'
 export default function EditProfilescreen(props) {
   const [image, setImage] = useState(null);
+  const [firsname, setFirstname] = useState('')
+  const [lastname, setLastname] = useState('')
+  const [phone, setPhone] = useState('')
+  const [idstudent, setIdstudent] = useState('')
+  const dispatch = useDispatch()
+  
 
+
+
+
+
+  const data  = useSelector(state => state.authReducer.UserLogin)
+  
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -35,6 +49,9 @@ export default function EditProfilescreen(props) {
         }
       }
     })();
+
+
+
   }, []);
 
   const pickImage = async () => {
@@ -45,12 +62,23 @@ export default function EditProfilescreen(props) {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
+
+  const Submit = () => {
+    const data = {
+      firstname: firsname,
+      lastname: lastname,
+      phone: phone,
+      idstudent: idstudent,
+      image: image
+    }
+    dispatch(EditUser(data))
+  }
+
+
   return (
     <SafeAreaView style={Externalstyle.register_container}>
       <View
@@ -67,19 +95,19 @@ export default function EditProfilescreen(props) {
       <ScrollView>
         <KeyboardAvoidingScrollView>
           <View style={Externalstyle.layout_header}>
-            {image && (
+            {image == null ? 
+               <Image
+               source={{
+                 uri:`http://103.13.231.22:3000${data.image}`
+               }}
+               style={Externalstyle.profile_image}
+             />
+             :
               <Image
                 source={{ uri: image }}
                 style={Externalstyle.profile_image}
               />
-            )}
-            <Image
-              source={{
-                uri:
-                  "https://scontent.fbkk12-4.fna.fbcdn.net/v/t31.0-8/18402248_1167842763341854_8112859874758364759_o.jpg?_nc_cat=103&ccb=2&_nc_sid=174925&_nc_eui2=AeHxDo_OLwWJW3jTAZLqpedKJAPitTxNcVYkA-K1PE1xVoVEZnnHYRUvxmDXkVG0l8jRrQUzmGod1YJ9mrIWhnZS&_nc_ohc=7F5SRT90GlIAX-bWOLu&_nc_ht=scontent.fbkk12-4.fna&oh=834c65addd07025c6a2a3695be29b97f&oe=5FBF7B40",
-              }}
-              style={Externalstyle.profile_image}
-            />
+            }
             <TouchableOpacity
               activeOpacity={0.2}
               underlayColor={Color.background_footer}
@@ -95,19 +123,19 @@ export default function EditProfilescreen(props) {
           <View style={{ paddingHorizontal: 40 }}>
             <Text style={Externalstyle.login_text_label}>Firstname</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} />
+              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.name.split(' ')[0]} placeholderTextColor="#fff" onChangeText={(e) => setFirstname(e)}/>
             </View>
             <Text style={Externalstyle.login_text_label}>Lastname</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} />
+              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.name.split(' ')[1]} placeholderTextColor="#fff"  onChangeText={(e) => setLastname(e)}/>
             </View>
             <Text style={Externalstyle.login_text_label}>Phone</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} />
+              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.phonenumber} placeholderTextColor="#fff"  onChangeText={(e) => setPhone(e)}/>
             </View>
             <Text style={Externalstyle.login_text_label}>StudentID</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} />
+              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.stuid} placeholderTextColor="#fff"  onChangeText={(e) => setIdstudent(e)}/>
             </View>
             <Text style={Externalstyle.login_text_label}>New Password</Text>
             <View style={Externalstyle.inputContainer}>
@@ -126,11 +154,11 @@ export default function EditProfilescreen(props) {
             </View>
           </View>
           <View style={Externalstyle.layout_button}>
-            <TouchableOpacity style={Externalstyle.profile_button_edit}>
+            <TouchableHighlight style={Externalstyle.profile_button_edit} onPress={Submit}>
               <Text style={[Externalstyle.title, { color: "white" }]}>
                 SUBMIT
               </Text>
-            </TouchableOpacity>
+            </TouchableHighlight>
             <TouchableOpacity
               style={Externalstyle.profile_button}
               onPress={() =>  props.navigation.navigate("Profile")}

@@ -91,6 +91,42 @@ export const FacebookLogin = (payload) => {
         }
     }
 }
+
+export const EditUser = (payload) => {
+    console.log(payload)
+    return async (dispatch) => {
+        var token = await AsyncStorage.getItem('token')
+        let formData = new FormData();
+        formData.append('firstname', payload.firstname);
+        formData.append('lastname', payload.lastname);
+        formData.append('phone', payload.phone);
+        formData.append('idstudent', payload.idstudent);
+        formData.append('img', {
+            uri: payload.image,
+            type: 'image/jpeg',
+            name: 'test.jpg'
+        });
+        try{
+            await axios({
+                method: 'PATCH',
+                url: 'http://103.13.231.22:3000/api/user/edituser',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'x-access-token': token
+                }
+            })
+            .then((res) => console.log('pass'))
+            .catch((er) => console.log('not pass1',er.response.data))
+
+        }catch(er){
+            console.log('not pass2',er.response.data)
+        }
+    }
+}
+
+
+
 export const UserLogin = (payload) => {
     return async (dispatch) =>{
         try{

@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 import { AsyncStorage } from 'react-native';
 
+// const initialstate = {
+//   datauser: []
+// }
+
 
 const AuthReducer  = (state = {}, action) => {
     switch (action.type) {
