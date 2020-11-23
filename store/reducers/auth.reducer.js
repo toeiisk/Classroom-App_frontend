@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import { AsyncStorage } from 'react-native';
 
-// const initialstate = {
-//   datauser: []
-// }
+const initialstate = {
+  datauser: [],
+  isSuccess: false,
+  isLoggedin: false
+}
 
 
-const AuthReducer  = (state = {}, action) => {
+const AuthReducer  = (state = initialstate, action) => {
     switch (action.type) {
 
         case "CREATE_USER_LOADING":
@@ -31,14 +33,13 @@ const AuthReducer  = (state = {}, action) => {
           }
 
       default:
-        return state;
+        return {...state};
     }
 }
 
 
-const UserLogin = (state = {}, action) =>{
+const UserLogin = (state = initialstate, action) =>{
     switch (action.type) {
-
         case "AUTH_LOADING":
             return{
                 isSuccess: false,
@@ -46,13 +47,9 @@ const UserLogin = (state = {}, action) =>{
         case "AUTH_LOGIN_SUCCES":
             return{
                 ...state,
-                image: action.image,
-                isLoggedin: false,
-                isSuccess: true,
-                name: action.dataUser,
-                email: action.emailUser,
-                phonenumber : 'Unavaliable',
-                stuid : 'Unavaliable',
+                datauser: action.dataUser,
+                isSuccess: true
+
             }
         case "AUTH_LOGIN_FAIL":
           console.log('loginfail')
@@ -73,7 +70,7 @@ const UserLogin = (state = {}, action) =>{
               logErr: action.err
             }
         default:
-            return state
+            return{ ...state}
     }
 }
 

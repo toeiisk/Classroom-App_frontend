@@ -19,25 +19,36 @@ class Profilescreen extends React.Component {
   render() {
     const { UserLogout } = this.props;
     const { UserLogin } = this.props;
-    console.log('data', UserLogin.image)
+    console.log('data', UserLogin.datauser)
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>
           <View style={Externalstyle.layout_header}>
             <Image
               source={{
-                uri: `http://103.13.231.22:3000${UserLogin.image}`
+                uri: `http://103.13.231.22:3000${UserLogin.datauser.img}`
               }}
               style={Externalstyle.profile_image}
             />
-            <Text
-              style={[
-                Externalstyle.text_title,
-                { textAlign: "center", padding: 20 },
-              ]}
-            >
-              {UserLogin.name}
-            </Text>
+            {UserLogin.datauser.facebookName != null ? 
+           <Text
+           style={[
+             Externalstyle.text_title,
+             { textAlign: "center", padding: 20 },
+           ]}
+         > 
+           {UserLogin.datauser.facebookName}
+         </Text>:
+
+         <Text
+         style={[
+           Externalstyle.text_title,
+           { textAlign: "center", padding: 20 },
+         ]}
+       > 
+         {UserLogin.datauser.firstname} {UserLogin.datauser.lastname}
+       </Text> 
+          }
           </View>
           <View style={Externalstyle.layout_detail}>
             <View style={{ flexDirection: "row", paddingVertical: 20 }}>
@@ -45,23 +56,32 @@ class Profilescreen extends React.Component {
                 source={require("../assets/resources/icon/email.png")}
                 style={Externalstyle.profile_logo}
               />
-              <Text style={Externalstyle.profile_title}>{UserLogin.email}</Text>
+              <Text style={Externalstyle.profile_title}>{UserLogin.datauser.email}</Text>
             </View>
             <View style={{ flexDirection: "row", paddingVertical: 20 }}>
               <Image
                 source={require("../assets/resources/icon/man.png")}
                 style={Externalstyle.profile_logo}
               />
-              <Text style={Externalstyle.profile_title}>{UserLogin.stuid}</Text>
+              {UserLogin.datauser.stuid != null ? 
+              <Text style={Externalstyle.profile_title}>{UserLogin.datauser.stuid}</Text>
+              :
+              <Text style={Externalstyle.profile_title}>Unavailable</Text> 
+            }
             </View>
             <View style={{ flexDirection: "row", paddingVertical: 20 }}>
               <Image
                 source={require("../assets/resources/icon/phone.png")}
                 style={Externalstyle.profile_logo}
               />
-              <Text style={Externalstyle.profile_title}>
-                {UserLogin.phonenumber}
+              {UserLogin.datauser.phonenumber != null ?
+                <Text style={Externalstyle.profile_title}>
+                  {UserLogin.datauser.phonenumber}
+                </Text>:
+                <Text style={Externalstyle.profile_title}>
+                Unavailable
               </Text>
+              }
             </View>
           </View>
           <View style={Externalstyle.layout_button}>

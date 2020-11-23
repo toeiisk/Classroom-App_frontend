@@ -65,9 +65,7 @@ export const FacebookLogin = (payload) => {
                     if(res.status == 200) {
                         dispatch({
                             type: "AUTH_LOGIN_SUCCES",
-                            dataUser: res.data.user.facebookName,
-                            emailUser: res.data.user.facebookName,
-                            image: res.data.user.img
+                            dataUser: res.data.user
                         })
                     }else{
                         dispatch({
@@ -93,7 +91,6 @@ export const FacebookLogin = (payload) => {
 }
 
 export const EditUser = (payload) => {
-    console.log(payload)
     return async (dispatch) => {
         var token = await AsyncStorage.getItem('token')
         let formData = new FormData();
@@ -116,11 +113,31 @@ export const EditUser = (payload) => {
                     'x-access-token': token
                 }
             })
-            .then((res) => console.log('pass'))
-            .catch((er) => console.log('not pass1',er.response.data))
-
+            .then(async () => {
+                await axios.get('http://103.13.231.22:3000/api/test/user', {
+                    headers: { 'x-access-token': token}
+                })
+                .then((res) =>{
+                    dispatch({
+                        type: "AUTH_LOGIN_SUCCES",
+                        dataUser: res.data.user
+                    })
+                })
+                .catch(() => {
+                    dispatch({
+                        type: "AUTH_LOGIN_FAIL"
+                    })
+                })
+            })
+            .catch((er) => {
+                dispatch({
+                    type: "AUTH_LOGIN_FAIL"
+                })
+            })
         }catch(er){
-            console.log('not pass2',er.response.data)
+            dispatch({
+                type: "AUTH_LOGIN_FAIL"
+            })
         }
     }
 }
@@ -145,10 +162,7 @@ export const UserLogin = (payload) => {
                     })
                     .then((res) => {
                         if(res.status == 200){
-                            const name = res.data.user.firstname
-                            const lastname = res.data.user.lastname
-                            const result = name.concat(' ', lastname)
-                            dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : result, emailUser: res.data.user.email})
+                            dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user})
                         }else{
                           dispatch({type : 'AUTH_LOGIN_FAIL'})
                         }

@@ -37,6 +37,7 @@ export default function EditProfilescreen(props) {
 
 
   const data  = useSelector(state => state.authReducer.UserLogin)
+  console.log(data)
   
   useEffect(() => {
     (async () => {

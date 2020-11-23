@@ -23,15 +23,11 @@ const RootApp = (props) => {
       }
     })
     .then((res) => {
-      console.log('resss',res.data)
       if(res.status == 200){
         if(res.data.user.facebookName == null){
-          const name = res.data.user.firstname
-          const lastname = res.data.user.lastname
-          const result = name.concat(' ', lastname)
-          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : result, emailUser: res.data.user.email})
+          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user})
         }else{
-          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user.facebookName, emailUser : res.data.user.email})
+          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user})
         }
       }else{
         dispatch({type : 'AUTH_LOGIN_FAIL'})
