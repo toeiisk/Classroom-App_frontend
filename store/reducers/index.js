@@ -9,6 +9,7 @@ import modalReducer from './modal.reducer'
 import lessonReducer from './lesson.reducer'
 import contentReducer from './content.reducer'
 import commentReducer from './comment.reducer'
+import chatReducer from './chat.reducer'
 
 
 
@@ -18,8 +19,8 @@ const reducers = {
     modalReducer,
     lessonReducer,
     contentReducer,
-    commentReducer
-
+    commentReducer,
+    chatReducer
 };
 
 const appReducer = combineReducers(reducers);

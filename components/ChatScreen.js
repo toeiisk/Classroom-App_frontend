@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -28,39 +28,63 @@ import {
   faChevronCircleLeft,
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
+import { AsyncStorage } from 'react-native';
+import { connect } from "react-redux";
+import { compose } from "redux";
 
-class ChatScreen extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      message: "",
-    };
 
-    this.setMessage = this.setMessage.bind(this);
-  }
 
-  setMessage = (inputText) => {
-    this.setState({
-      message: inputText,
-    });
+
+
+
+export default function ChatScreen (props) {
+
+
+  const [getmessage, setMessage] = useState([])
+  
+  const PubNub = require('pubnub');
+  const pubnub = new PubNub({
+      publishKey: "pub-c-d0ea43cd-e94b-46e2-9f75-00e9e6a658b2",
+      subscribeKey: "sub-c-6a62607c-2d9b-11eb-ae78-c6faad964e01",
+      uuid: "sec-c-MjE2MmVmMTgtMTZlYy00ZTE4LWE3MzYtYjZjNjIxOTVjZmEz",
+  });
+  let i = 0;
+  useEffect(() => {
+    pubnub.addListener({
+      status: function (statusEvent) {
+          if (statusEvent.category === "PNConnectedCategory") {
+          }
+      },
+      message: function (messageEvent) {
+          const objmessage= {
+            message : messageEvent.message.description
+          }
+          i++
+          setMessage(prev =>[...prev, i])
+        
+      },
+      });
+    pubnub.subscribe({
+      channels: ["Classroom01", "Classroom02", "Classroom03"],
+      });
+    
+  }, [])
+
+
+  var _menu = null;
+
+  const setMenuRef = (ref) => {
+    _menu = ref;
   };
 
-  _menu = null;
-
-  setMenuRef = (ref) => {
-    this._menu = ref;
+  const hideMenu = () => {
+    _menu.hide();
   };
 
-  hideMenu = () => {
-    this._menu.hide();
+  const showMenu = () => {
+    _menu.show();
   };
-
-  showMenu = () => {
-    this._menu.show();
-  };
-
-  render() {
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View
@@ -88,7 +112,7 @@ class ChatScreen extends Component {
             CLASSROOM 01
           </Text>
           <Menu
-            ref={this.setMenuRef}
+            ref={setMenuRef}
             button={
               <TouchableHighlight
                 activeOpacity={0.2}
@@ -98,12 +122,12 @@ class ChatScreen extends Component {
                   icon={faEllipsisV}
                   size={35}
                   color="black"
-                  onPress={this.showMenu}
+                  onPress={showMenu}
                 />
               </TouchableHighlight>
             }
           >
-            <MenuItem onPress={this.hideMenu}>
+            <MenuItem onPress={hideMenu}>
               <Text style={[Externalstyle.chat_title, { color: "black" }]}>
                 LEAVE
               </Text>
@@ -113,89 +137,34 @@ class ChatScreen extends Component {
         <ScrollView>
           <View style={{ paddingHorizontal: 20 }}>
             <FlatList
-              data={[
-                {
-                  id: "1",
-                  content: "Helloooooooooooooooooo",
-                  createdAt: "2020-11-03T14:48:00.000Z",
-                  user: {
-                    id: "u1",
-                    name: "Sukrit",
-                  },
-                },
-                {
-                  id: "2",
-                  content: "Hi!",
-                  createdAt: "2020-11-03T14:48:00.000Z",
-                  user: {
-                    id: "u2",
-                    name: "Jakkapat",
-                  },
-                },
-                {
-                  id: "3",
-                  content: "What is your name ?",
-                  createdAt: "2020-11-03T14:48:00.000Z",
-                  user: {
-                    id: "u1",
-                    name: "Sukrit",
-                  },
-                },
-                {
-                  id: "4",
-                  content: "My name is Ong. And you ?",
-                  createdAt: "2020-11-03T14:48:00.000Z",
-                  user: {
-                    id: "u2",
-                    name: "Jakkapat",
-                  },
-                },
-              ]}
+              data={getmessage}
               renderItem={({ item }) => (
                 <View style={Externalstyle.messages_container}>
                   <View
                     style={[
                       Externalstyle.messagesbox,
                       {
-                        backgroundColor:
-                          item.user.id === "u1"
-                            ? Color.background_footer
-                            : "white",
-                        marginLeft: item.user.id === "u1" ? 50 : 0,
-                        marginRight: item.user.id === "u1" ? 0 : 50,
+                        backgroundColor: Color.background_footer,
+                        marginRight: 50
+
                       },
                     ]}
                   >
-                    {item.user.id != "u1" && (
-                      <Text style={Externalstyle.messages_name}>
-                        {item.user.name}
-                      </Text>
-                    )}
-                    <Text style={Externalstyle.titlesub}>{item.content}</Text>
-                    <Text style={Externalstyle.messages_time}>
-                      {moment(item.createdAt).fromNow()}
-                    </Text>
-                  </View>
+                    <Text style={Externalstyle.titlesub}>{item.message}</Text>
+                  </View> 
                 </View>
               )}
-              ItemSeparatorComponent={this.renderSeparator}
+              // ItemSeparatorComponent={this.renderSeparator}
             />
           </View>
         </ScrollView>
 
         <View style={Externalstyle.chat_Container}>
-          <View style={Externalstyle.buttonContainer}>
-            <TouchableHighlight>
-              <MaterialCommunityIcons name="image" size={24} color="white" />
-            </TouchableHighlight>
-          </View>
           <KeyboardAvoidingScrollView>
             <View style={Externalstyle.mainContainer}>
               <TextInput
                 multiline
                 placeholder={"Type a message..."}
-                value={this.state.message}
-                onChangeText={this.setMessage}
                 style={Externalstyle.chat_textinput}
               />
               <TouchableHighlight>
@@ -211,5 +180,5 @@ class ChatScreen extends Component {
       </SafeAreaView>
     );
   }
-}
-export default ChatScreen;
+
+
