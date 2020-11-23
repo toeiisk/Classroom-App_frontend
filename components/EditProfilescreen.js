@@ -9,6 +9,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   SafeAreaView,
+  Alert
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import * as ImagePicker from "expo-image-picker";
@@ -37,7 +38,7 @@ export default function EditProfilescreen(props) {
 
 
   const data  = useSelector(state => state.authReducer.UserLogin)
-  console.log(data)
+ 
   
   useEffect(() => {
     (async () => {
@@ -68,19 +69,53 @@ export default function EditProfilescreen(props) {
     }
   };
 
-  const Submit = () => {
-    const data = {
+  const Submit = async () => {
+    const senddata = {
       firstname: firsname,
       lastname: lastname,
       phone: phone,
       idstudent: idstudent,
       image: image
     }
-    dispatch(EditUser(data))
+    await dispatch(EditUser(senddata))
+
+    if(!data.editSuccess){
+      Alert.alert(
+        "แก้ไขข้อมูลสำเร็จ",
+        "ยืนยัน",
+        [
+          {
+            text: "ตกลง",
+            onPress: () => {
+              props.navigation.navigate("Profile");
+            },
+            style: "ok",
+          },
+        ],
+        { cancelable: false }
+      );
+    }else{
+        Alert.alert(
+          "แก้ไขข้อมูลไม่สำเร็จ",
+          "ยืนยัน",
+          [
+            {
+              text: "ตกลง",
+              onPress: () => {
+                props.navigation.navigate("Profile");
+              },
+              style: "ok",
+            },
+          ],
+          { cancelable: false }
+        );
+    }
+    
   }
 
 
   return (
+    
     <SafeAreaView style={Externalstyle.register_container}>
       <View
         style={{
@@ -99,7 +134,7 @@ export default function EditProfilescreen(props) {
             {image == null ? 
                <Image
                source={{
-                 uri:`http://103.13.231.22:3000${data.image}`
+                 uri:`http://103.13.231.22:3000${data.datauser.img}`
                }}
                style={Externalstyle.profile_image}
              />
@@ -124,19 +159,28 @@ export default function EditProfilescreen(props) {
           <View style={{ paddingHorizontal: 40 }}>
             <Text style={Externalstyle.login_text_label}>Firstname</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.name.split(' ')[0]} placeholderTextColor="#fff" onChangeText={(e) => setFirstname(e)}/>
+              {data.datauser.facebookName != null ? 
+                 <TextInput style={Externalstyle.login_input} numberOfLines={1}  placeholder={data.datauser.facebookName.split(' ')[0]} placeholderTextColor="#fff" onChangeText={(e) => setFirstname(e)}/>
+                 :
+                 <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.datauser.firstname} placeholderTextColor="#fff" onChangeText={(e) => setFirstname(e)}/>
+              }
+        
             </View>
             <Text style={Externalstyle.login_text_label}>Lastname</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.name.split(' ')[1]} placeholderTextColor="#fff"  onChangeText={(e) => setLastname(e)}/>
+            {data.datauser.facebookName != null ? 
+                 <TextInput style={Externalstyle.login_input} numberOfLines={1}  placeholder={data.datauser.facebookName.split(' ')[1]} placeholderTextColor="#fff" onChangeText={(e) => setFirstname(e)}/>
+                 :
+                 <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.datauser.lastname} placeholderTextColor="#fff" onChangeText={(e) => setFirstname(e)}/>
+              }
             </View>
             <Text style={Externalstyle.login_text_label}>Phone</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.phonenumber} placeholderTextColor="#fff"  onChangeText={(e) => setPhone(e)}/>
+              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.datauser.phonenumber} placeholderTextColor="#fff"  onChangeText={(e) => setPhone(e)}/>
             </View>
             <Text style={Externalstyle.login_text_label}>StudentID</Text>
             <View style={Externalstyle.inputContainer}>
-              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.stuid} placeholderTextColor="#fff"  onChangeText={(e) => setIdstudent(e)}/>
+              <TextInput style={Externalstyle.login_input} numberOfLines={1} placeholder={data.datauser.stuid} placeholderTextColor="#fff"  onChangeText={(e) => setIdstudent(e)}/>
             </View>
             <Text style={Externalstyle.login_text_label}>New Password</Text>
             <View style={Externalstyle.inputContainer}>

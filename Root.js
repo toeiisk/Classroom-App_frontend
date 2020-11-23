@@ -25,12 +25,12 @@ const RootApp = (props) => {
     .then((res) => {
       if(res.status == 200){
         if(res.data.user.facebookName == null){
-          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user})
+          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user, isSuccess: true})
         }else{
-          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user})
+          dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user, isSuccess: false})
         }
       }else{
-        dispatch({type : 'AUTH_LOGIN_FAIL'})
+        dispatch({type : 'AUTH_LOGIN_FAIL', isSuccess: false})
       }
     })
     .catch((er) => console.log(er.message))

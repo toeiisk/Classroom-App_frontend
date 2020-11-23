@@ -4,7 +4,8 @@ import { AsyncStorage } from 'react-native';
 const initialstate = {
   datauser: [],
   isSuccess: false,
-  isLoggedin: false
+  isLoggedin: false,
+  editSuccess: false
 }
 
 
@@ -48,7 +49,8 @@ const UserLogin = (state = initialstate, action) =>{
             return{
                 ...state,
                 datauser: action.dataUser,
-                isSuccess: true
+                isSuccess: true,
+                editSuccess: action.editSuccess
 
             }
         case "AUTH_LOGIN_FAIL":
@@ -57,6 +59,7 @@ const UserLogin = (state = initialstate, action) =>{
                 ...state,
                 isLoggedin: false,
                 isSuccess: false,
+                editSuccess: action.editSuccess
             }
         case "LOGOUT_SUCCESS":
             return{

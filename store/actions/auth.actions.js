@@ -5,7 +5,9 @@ import { AsyncStorage } from 'react-native';
 export const reRegister = () =>{
     return async (dispatch) =>{
         dispatch({
-            type : "CREAT_USER_FAIL"
+            type : "CREAT_USER_FAIL",
+            isSuccess: false
+
         })
     }
 }
@@ -65,7 +67,8 @@ export const FacebookLogin = (payload) => {
                     if(res.status == 200) {
                         dispatch({
                             type: "AUTH_LOGIN_SUCCES",
-                            dataUser: res.data.user
+                            dataUser: res.data.user,
+                            isSuccess: true
                         })
                     }else{
                         dispatch({
@@ -94,15 +97,22 @@ export const EditUser = (payload) => {
     return async (dispatch) => {
         var token = await AsyncStorage.getItem('token')
         let formData = new FormData();
-        formData.append('firstname', payload.firstname);
-        formData.append('lastname', payload.lastname);
-        formData.append('phone', payload.phone);
-        formData.append('idstudent', payload.idstudent);
-        formData.append('img', {
-            uri: payload.image,
-            type: 'image/jpeg',
-            name: 'test.jpg'
+        if(payload.image == null){
+            formData.append('firstname', payload.firstname);
+            formData.append('lastname', payload.lastname);
+            formData.append('phone', payload.phone);
+            formData.append('idstudent', payload.idstudent);
+        }else{
+            formData.append('firstname', payload.firstname);
+            formData.append('lastname', payload.lastname);
+            formData.append('phone', payload.phone);
+            formData.append('idstudent', payload.idstudent);
+            formData.append('img', {
+                uri: payload.image,
+                type: 'image/jpeg',
+                name: 'test.jpg'
         });
+        }
         try{
             await axios({
                 method: 'PATCH',
@@ -120,23 +130,36 @@ export const EditUser = (payload) => {
                 .then((res) =>{
                     dispatch({
                         type: "AUTH_LOGIN_SUCCES",
-                        dataUser: res.data.user
+                        dataUser: res.data.user,
+                        isSuccess: true,
+                        editSuccess: true
+
                     })
                 })
-                .catch(() => {
+                .catch((er) => {
+                    console.log(er)
                     dispatch({
-                        type: "AUTH_LOGIN_FAIL"
+                        type: "AUTH_LOGIN_FAIL",
+                        isSuccess: false,
+                        editSuccess: false
                     })
                 })
             })
             .catch((er) => {
+                console.log(er)
                 dispatch({
-                    type: "AUTH_LOGIN_FAIL"
+                    type: "AUTH_LOGIN_FAIL",
+                    isSuccess: false,
+                    editSuccess: false
+
                 })
             })
         }catch(er){
+            console.log(er)
             dispatch({
-                type: "AUTH_LOGIN_FAIL"
+                type: "AUTH_LOGIN_FAIL",
+                isSuccess: false
+
             })
         }
     }
@@ -153,7 +176,6 @@ export const UserLogin = (payload) => {
                 if(res.status == 200) {
                     const token = res.data.accessToken
                     await AsyncStorage.setItem('token', token)
-
                     var token2 = await AsyncStorage.getItem('token')
                     await axios.get('http://103.13.231.22:3000/api/test/user/', {
                       headers: {
@@ -162,7 +184,7 @@ export const UserLogin = (payload) => {
                     })
                     .then((res) => {
                         if(res.status == 200){
-                            dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user})
+                            dispatch({type : 'AUTH_LOGIN_SUCCES', dataUser : res.data.user,  isSuccess: true})
                         }else{
                           dispatch({type : 'AUTH_LOGIN_FAIL'})
                         }
