@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faChevronCircleLeft,
 } from "@fortawesome/free-solid-svg-icons";
-export default function EditProfilescreen() {
+export default function EditProfilescreen(props) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function EditProfilescreen() {
           marginHorizontal: 20,
         }}
       >
-        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Profile")}>
           <FontAwesomeIcon icon={faChevronCircleLeft} size={35} color="black" />
         </TouchableOpacity>
       </View>
@@ -133,7 +133,7 @@ export default function EditProfilescreen() {
             </TouchableOpacity>
             <TouchableOpacity
               style={Externalstyle.profile_button}
-              onPress={() => this.props.navigation.popToTop()}
+              onPress={() =>  props.navigation.navigate("Profile")}
             >
               <Text style={[Externalstyle.title, { color: "white" }]}>
                 CANCLE

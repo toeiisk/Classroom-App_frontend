@@ -11,6 +11,7 @@ import Chat from "../components/Chatlist";
 import { Image } from "react-native";
 import ScreenStack from "./Classroomnevigator";
 import ChatStack from "./Chatnavigation";
+import EditProfile from "./Profilenevigator"
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -88,7 +89,7 @@ const Usernavigator = () => (
     />
     <Tab.Screen
       name="Profile"
-      component={Profile}
+      component={EditProfile}
       options={{
         tabBarIcon: ({ focused }) => (
           <Image
