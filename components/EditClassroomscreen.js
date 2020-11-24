@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { Input } from "react-native-elements";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -91,6 +91,22 @@ export default function createclassscreen() {
                 </Text>
               </View>
             </TouchableHighlight>
+            <Text
+              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
+            >
+              จำนวนชั่วโมงเรียน
+            </Text>
+            <Input
+              style={Externalstyle.creatpost_input}
+              keyboardType="numeric"
+              maxLength={2}
+              numberOfLines={1}
+              placeholder={"Hours here..."}
+              placeholderTextColor="black"
+              onChangeText={(e) => {
+                this.setState({ name: e });
+              }}
+            />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               is24Hour={true}

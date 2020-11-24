@@ -78,19 +78,16 @@ class classroomnoenroll extends React.Component {
       isDatePickerVisible: date,
     });
   };
- 
-  
-
 
   hideDatePicker = () => {
     this.setState({
-      isDatePickerVisible: false
+      isDatePickerVisible: false,
     });
   };
 
   handleConfirm = (datetime) => {
     const selectdate = moment(datetime, "h:mm:ss A").format("dddd HH:mm");
-    console.log('startTime', selectdate)
+    console.log("startTime", selectdate);
     this.setState({
       data: selectdate,
     });
@@ -102,9 +99,9 @@ class classroomnoenroll extends React.Component {
       name: this.state.name,
       description: this.state.description,
       datetime: this.state.data,
-      endTime: this.state.end
+      endTime: this.state.end,
     };
-    console.log(data)
+    console.log(data);
     this.creatClassroom(data);
     this.setState({
       name: "",
@@ -270,6 +267,25 @@ class classroomnoenroll extends React.Component {
                       Select Date-Time
                     </Text>
                   </TouchableOpacity>
+                  <Text
+                    style={[
+                      Externalstyle.creatpost_text_label,
+                      { color: "black" },
+                    ]}
+                  >
+                  จำนวนชั่วโมงเรียน
+                  </Text>
+                  <Input
+                    style={Externalstyle.creatpost_input}
+                    keyboardType='numeric'
+                    maxLength={2}
+                    numberOfLines={1}
+                    placeholder={"Hours here..."}
+                    placeholderTextColor="black"
+                    onChangeText={(e) => {
+                      this.setState({ name: e });
+                    }}
+                  />
                   <DateTimePickerModal
                     isVisible={this.state.isDatePickerVisible}
                     is24Hour={true}
@@ -280,7 +296,6 @@ class classroomnoenroll extends React.Component {
                     onConfirm={this.handleConfirm}
                     onCancel={this.hideDatePicker}
                   />
-                 
                 </View>
               </KeyboardAwareScrollView>
               <View
