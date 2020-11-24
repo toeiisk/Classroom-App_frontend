@@ -620,11 +620,15 @@ const externalStyle = StyleSheet.create({
     alignItems: "center",
   },
   chat_textinput: {
+    fontFamily: "MitrLight",
+    fontSize: 15,
     height: 50,
     flex: 1,
     marginHorizontal: 10,
   },
   content_textinput: {
+    fontFamily: "MitrLight",
+    fontSize: 14,
     width: "70%",
   },
 });
