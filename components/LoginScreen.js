@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import {
   View,
-  StyleSheet,
   StatusBar,
-  Dimensions,
   Text,
   TextInput,
-  TouchableOpacity,
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";

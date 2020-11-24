@@ -32,16 +32,10 @@ export default class attendancescreen extends React.Component {
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
           <Text style={Externalstyle.text_title}>CHATS</Text>
-          <View style={Externalstyle.chat_inputContainer}>
-            <TextInput
-              style={Externalstyle.chat_login_input}
-              numberOfLines={1}
-              placeholder="Type text"
-            />
-          </View>
+          <View style={Externalstyle.line_title} />
         </View>
         <ScrollView>
-          <Card containerStyle={{paddingHorizontal: 20, borderRadius: 10}}>
+          <Card containerStyle={{ paddingHorizontal: 20, borderRadius: 10 }}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Chatroom");
@@ -53,51 +47,15 @@ export default class attendancescreen extends React.Component {
                 style={{ height: 70, width: 70 }}
               />
               <View style={Externalstyle.text_attendance}>
-                <Text style={[Externalstyle.chat_title, {color: "black"}]}>Classroom001</Text>
-                <Text style={[Externalstyle.chat_titlesub, {color: "black"}]}>
+                <Text style={[Externalstyle.chat_title, { color: "black" }]}>
+                  Classroom001
+                </Text>
+                <Text style={[Externalstyle.chat_titlesub, { color: "black" }]}>
                   Lorem Ipsum is simply dummy
                 </Text>
               </View>
             </TouchableOpacity>
           </Card>
-          {/* <View style={{ alignItems: "flex-start", paddingHorizontal: 30 }}>
-            <View style={{ flexDirection: "row", padding:10 }}>
-              <Image
-                source={require("../assets/resources/icon/email.png")}
-                style={Externalstyle.profile_logo}
-              />
-              <Text style={Externalstyle.profile_title}>
-                61070121@gmail.com
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row", padding:10 }}>
-              <Image
-                source={require("../assets/resources/icon/email.png")}
-                style={Externalstyle.profile_logo}
-              />
-              <Text style={Externalstyle.profile_title}>
-                61070121@gmail.com
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row", padding:10 }}>
-              <Image
-                source={require("../assets/resources/icon/email.png")}
-                style={Externalstyle.profile_logo}
-              />
-              <Text style={Externalstyle.profile_title}>
-                61070121@gmail.com
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row", padding:10 }}>
-              <Image
-                source={require("../assets/resources/icon/email.png")}
-                style={Externalstyle.profile_logo}
-              />
-              <Text style={Externalstyle.profile_title}>
-                61070121@gmail.com
-              </Text>
-            </View>
-          </View> */}
         </ScrollView>
       </SafeAreaView>
     );

@@ -293,6 +293,24 @@ const externalStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  modal_profile_button: {
+    width: height * 0.25,
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_logout,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modal_profile_button_edit: {
+    width: height * 0.25,
+    padding: 10,
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: Color.background_button_signin,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   profile_button_edit: {
     width: height * 0.4,
     padding: 10,
@@ -602,6 +620,7 @@ const externalStyle = StyleSheet.create({
     alignItems: "center",
   },
   chat_textinput: {
+    height: 50,
     flex: 1,
     marginHorizontal: 10,
   },

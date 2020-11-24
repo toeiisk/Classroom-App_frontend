@@ -1,26 +1,15 @@
 import React, { useState } from "react";
 import {
   View,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
-  Platform,
   Text,
-  TextInput,
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  Alert,
 } from "react-native";
-import { connect } from "react-redux";
-import { compose } from "redux";
 import { Input } from "react-native-elements";
-import { createNewUser } from "../store/actions/auth.actions";
-import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Externalstyle from "../style/externalStyle";
-import Color from "../assets/resources/constants/color";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import {Actions} from 'react-native-router-flux';
 import moment from 'moment'
 export default function createclassscreen() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -42,7 +31,7 @@ export default function createclassscreen() {
   return (
     <SafeAreaView style={Externalstyle.register_container}>
       <ScrollView>
-        <KeyboardAvoidingScrollView>
+        <KeyboardAwareScrollView>
           <View style={{ marginTop: 20, alignItems: "center" }}>
             <Text style={Externalstyle.text_title_primary}>CREATE CLASS</Text>
           </View>
@@ -107,7 +96,7 @@ export default function createclassscreen() {
               placeholderTextColor="black"
             />
           </View>
-        </KeyboardAvoidingScrollView>
+        </KeyboardAwareScrollView>
       </ScrollView>
       <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
         <TouchableOpacity style={Externalstyle.create_submit}>

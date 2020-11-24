@@ -1,20 +1,16 @@
 import React from "react";
 import {
   View,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
   TextInput,
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
   FlatList,
-  ScrollView,
   Modal,
   TouchableHighlight,
   Alert,
 } from "react-native";
-import { Text } from "react-native-elements";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FloatingAction } from "react-native-floating-action";
@@ -25,8 +21,7 @@ import { compose } from "redux";
 import { getClassroom } from "../store/actions/classroom.action";
 import { createClassroom } from "../store/actions/classroom.action";
 import { joinClassroom } from "../store/actions/classroom.action";
-import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
-import { Overlay, Button, Input } from "react-native-elements";
+import { Overlay, Button, Input, Text } from "react-native-elements";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 
@@ -146,49 +141,47 @@ class classroomnoenroll extends React.Component {
           <Text style={Externalstyle.text_title}>Classroom</Text>
           <View style={Externalstyle.line_title} />
         </View>
-        <ScrollView>
-          <FlatList
-            data={Classroom}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onLongPress={() => this.openModal()}
-                delayLongPress={600}
-                onPress={() => {
-                  this.props.navigation.navigate("Lessons", {
-                    idClassroom: item.id,
-                    userOwner: item.userIsOwner,
-                  });
+        <FlatList
+          data={Classroom}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onLongPress={() => this.openModal()}
+              delayLongPress={600}
+              onPress={() => {
+                this.props.navigation.navigate("Lessons", {
+                  idClassroom: item.id,
+                  userOwner: item.userIsOwner,
+                });
+              }}
+            >
+              <ImageBackground
+                source={{
+                  uri:
+                    "https://media4.manhattan-institute.org/sites/cj/files/woke-classrooms.jpg",
                 }}
+                imageStyle={{ borderRadius: 15 }}
+                opacity={0.2}
+                style={Externalstyle.classroom_card}
               >
-                <ImageBackground
-                  source={{
-                    uri:
-                      "https://media4.manhattan-institute.org/sites/cj/files/woke-classrooms.jpg",
-                  }}
-                  imageStyle={{ borderRadius: 15 }}
-                  opacity={0.2}
-                  style={Externalstyle.classroom_card}
-                >
-                  <Text style={Externalstyle.classroom_title}>
-                    SUBJECT: {item.name}
-                  </Text>
-                  <Text style={Externalstyle.classroom_date}>
-                    DATE-TIME: {item.day} {item.time}
-                  </Text>
+                <Text style={Externalstyle.classroom_title}>
+                  SUBJECT: {item.name}
+                </Text>
+                <Text style={Externalstyle.classroom_date}>
+                  DATE-TIME: {item.day} {item.time}
+                </Text>
+                <Text style={Externalstyle.classroom_author}>
+                  OWNER: {item.nameOwner}
+                </Text>
+                {item.userIsOwner ? (
                   <Text style={Externalstyle.classroom_author}>
-                    OWNER: {item.nameOwner}
+                    CODE: {item.code}
                   </Text>
-                  {item.userIsOwner ? (
-                    <Text style={Externalstyle.classroom_author}>
-                      CODE: {item.code}
-                    </Text>
-                  ) : null}
-                </ImageBackground>
-              </TouchableOpacity>
-            )}
-            ItemSeparatorComponent={this.renderSeparator}
-          />
-        </ScrollView>
+                ) : null}
+              </ImageBackground>
+            </TouchableOpacity>
+          )}
+          ItemSeparatorComponent={this.renderSeparator}
+        />
         {nameselect == "CreateClass" ? (
           <Modal
             animationType="slide"
@@ -196,77 +189,75 @@ class classroomnoenroll extends React.Component {
             visible={modalVisible}
           >
             <SafeAreaView style={Externalstyle.register_container}>
-              <ScrollView>
-                <KeyboardAvoidingScrollView>
-                  <View style={{ marginTop: 20, alignItems: "center" }}>
-                    <Text style={Externalstyle.text_title_primary}>
-                      CREATE CLASS
+              <KeyboardAwareScrollView>
+                <View style={{ marginTop: 20, alignItems: "center" }}>
+                  <Text style={Externalstyle.text_title_primary}>
+                    CREATE CLASS
+                  </Text>
+                </View>
+                <View style={Externalstyle.register_content}>
+                  <Text
+                    style={[
+                      Externalstyle.creatpost_text_label,
+                      { color: "black" },
+                    ]}
+                  >
+                    Name class
+                  </Text>
+                  <Input
+                    style={Externalstyle.creatpost_input}
+                    numberOfLines={1}
+                    placeholder={"Text here..."}
+                    placeholderTextColor="black"
+                    onChangeText={(e) => {
+                      this.setState({ name: e });
+                    }}
+                  />
+                  <Text
+                    style={[
+                      Externalstyle.creatpost_text_label,
+                      { color: "black" },
+                    ]}
+                  >
+                    Description
+                  </Text>
+                  <Input
+                    style={Externalstyle.creatpost_input}
+                    numberOfLines={1}
+                    placeholder={"Text here..."}
+                    placeholderTextColor="black"
+                    onChangeText={(e) => {
+                      this.setState({ description: e });
+                    }}
+                  />
+                  <Text
+                    style={[
+                      Externalstyle.creatpost_text_label,
+                      { color: "black" },
+                    ]}
+                  >
+                    Date - Time
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => this.showDatePicker(true)}
+                    style={Externalstyle.create_image}
+                  >
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      Select Date-Time
                     </Text>
-                  </View>
-                  <View style={Externalstyle.register_content}>
-                    <Text
-                      style={[
-                        Externalstyle.creatpost_text_label,
-                        { color: "black" },
-                      ]}
-                    >
-                      Name class
-                    </Text>
-                    <Input
-                      style={Externalstyle.creatpost_input}
-                      numberOfLines={1}
-                      placeholder={"Text here..."}
-                      placeholderTextColor="black"
-                      onChangeText={(e) => {
-                        this.setState({ name: e });
-                      }}
-                    />
-                    <Text
-                      style={[
-                        Externalstyle.creatpost_text_label,
-                        { color: "black" },
-                      ]}
-                    >
-                      Description
-                    </Text>
-                    <Input
-                      style={Externalstyle.creatpost_input}
-                      numberOfLines={1}
-                      placeholder={"Text here..."}
-                      placeholderTextColor="black"
-                      onChangeText={(e) => {
-                        this.setState({ description: e });
-                      }}
-                    />
-                    <Text
-                      style={[
-                        Externalstyle.creatpost_text_label,
-                        { color: "black" },
-                      ]}
-                    >
-                      Date - Time
-                    </Text>
-                    <TouchableOpacity
-                      onPress={() => this.showDatePicker(true)}
-                      style={Externalstyle.create_image}
-                    >
-                      <Text style={[Externalstyle.title, { color: "white" }]}>
-                        Select Date-Time
-                      </Text>
-                    </TouchableOpacity>
-                    <DateTimePickerModal
-                      isVisible={this.state.isDatePickerVisible}
-                      is24Hour={true}
-                      format={"HH:mm"}
-                      mode="datetime"
-                      pickerContainerStyleIOS={{ backgroundColor: "white" }}
-                      textColor="black"
-                      onConfirm={this.handleConfirm}
-                      onCancel={this.hideDatePicker}
-                    />
-                  </View>
-                </KeyboardAvoidingScrollView>
-              </ScrollView>
+                  </TouchableOpacity>
+                  <DateTimePickerModal
+                    isVisible={this.state.isDatePickerVisible}
+                    is24Hour={true}
+                    format={"HH:mm"}
+                    mode="datetime"
+                    pickerContainerStyleIOS={{ backgroundColor: "white" }}
+                    textColor="black"
+                    onConfirm={this.handleConfirm}
+                    onCancel={this.hideDatePicker}
+                  />
+                </View>
+              </KeyboardAwareScrollView>
               <View
                 style={{ justifyContent: "flex-end", alignItems: "center" }}
               >
@@ -354,7 +345,7 @@ class classroomnoenroll extends React.Component {
                 >
                   <View
                     style={{
-                      ...Externalstyle.profile_button_edit,
+                      ...Externalstyle.modal_profile_button_edit,
                     }}
                   >
                     <Text style={[Externalstyle.title, { color: "white" }]}>
@@ -371,7 +362,7 @@ class classroomnoenroll extends React.Component {
                 >
                   <View
                     style={{
-                      ...Externalstyle.profile_button,
+                      ...Externalstyle.modal_profile_button,
                     }}
                   >
                     <Text style={[Externalstyle.title, { color: "white" }]}>

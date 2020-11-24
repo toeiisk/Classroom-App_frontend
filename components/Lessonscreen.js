@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import {
   View,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
-  Text,
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
   SafeAreaView,
   FlatList,
   Modal,
-  Image,
-  ScrollView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { FloatingAction } from "react-native-floating-action";
@@ -25,7 +19,7 @@ import { getLesson } from "../store/actions/lesson.action";
 import Loadingscreen from "./LoadingScreen";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Overlay, Button, Input } from "react-native-elements";
+import { Overlay, Text } from "react-native-elements";
 
 class LessonScreen extends Component {
   constructor(props) {
@@ -54,7 +48,6 @@ class LessonScreen extends Component {
     const red = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
-
     return `rgb(${red}, ${green}, ${blue})`;
   };
 
@@ -105,41 +98,39 @@ class LessonScreen extends Component {
           <Text style={Externalstyle.text_title}>LESSONS</Text>
           <View style={Externalstyle.line_title} />
         </View>
-        <ScrollView>
-          <View style={{ paddingHorizontal: 20 }}>
-            <FlatList
-              numColumns={2}
-              data={Lesson.LessonmUser}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onLongPress={() => this.openModal()}
-                  delayLongPress={600}
-                  onPress={() => {
-                    this.props.navigation.navigate("Contentclass", {
-                      LessonId: item.id,
-                      Owner: userOwner,
-                      classroomId: idClassroom,
-                    });
-                  }}
-                  style={Externalstyle.gridItem}
+        <View style={{ paddingHorizontal: 20 }}>
+          <FlatList
+            numColumns={2}
+            data={Lesson.LessonmUser}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onLongPress={() => this.openModal()}
+                delayLongPress={600}
+                onPress={() => {
+                  this.props.navigation.navigate("Contentclass", {
+                    LessonId: item.id,
+                    Owner: userOwner,
+                    classroomId: idClassroom,
+                  });
+                }}
+                style={Externalstyle.gridItem}
+              >
+                {this.ChangeColor}
+                <View
+                  style={[
+                    Externalstyle.lesson_card,
+                    { backgroundColor: this.randomRGB() },
+                  ]}
                 >
-                  {this.ChangeColor}
-                  <View
-                    style={[
-                      Externalstyle.lesson_card,
-                      { backgroundColor: this.randomRGB() },
-                    ]}
-                  >
-                    <Text style={[Externalstyle.title, { color: "white" }]}>
-                      {item.name}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-              ItemSeparatorComponent={this.renderSeparator}
-            />
-          </View>
-        </ScrollView>
+                  <Text style={[Externalstyle.title, { color: "white" }]}>
+                    {item.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            ItemSeparatorComponent={this.renderSeparator}
+          />
+        </View>
         {nameselect == "CreateLesson" ? (
           <Modal transparent={true} visible={modalVisible}>
             <View style={Externalstyle.classroom_centeredView}>
@@ -148,8 +139,8 @@ class LessonScreen extends Component {
                 duration={2000}
                 style={Externalstyle.lesson_modalView}
               >
-                <Text h4 style={Externalstyle.classroom_modalText}>
-                  Create Lesson
+                <Text h2 style={Externalstyle.classroom_modalText}>
+                  Lesson
                 </Text>
                 <View style={Externalstyle.inputContainer}>
                   <TextInput
@@ -164,7 +155,7 @@ class LessonScreen extends Component {
                 </View>
                 <TouchableHighlight
                   style={{
-                    ...Externalstyle.profile_button_edit,
+                    ...Externalstyle.modal_profile_button_edit,
                   }}
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
@@ -177,7 +168,7 @@ class LessonScreen extends Component {
                 </TouchableHighlight>
                 <TouchableHighlight
                   style={{
-                    ...Externalstyle.profile_button,
+                    ...Externalstyle.modal_profile_button,
                   }}
                   onPress={() => {
                     this.setModalVisible(!modalVisible);

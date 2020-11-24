@@ -17,7 +17,7 @@ import {
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { FloatingAction } from "react-native-floating-action";
-import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 import Createpostscreen from "./Createpostscreen";
@@ -272,7 +272,7 @@ class ContentScreen extends Component {
       } else {
         return (
           <SafeAreaView style={Externalstyle.container}>
-            <ScrollView>
+            <KeyboardAwareScrollView>
               <View
                 style={{
                   flexDirection: "row",
@@ -410,7 +410,7 @@ class ContentScreen extends Component {
                     <FontAwesomeIcon icon={faUser} size={25} color="white" />
                   </View>
                   <View style={{ paddingHorizontal: 20 }}>
-                    <KeyboardAvoidingScrollView>
+                    <KeyboardAwareScrollView>
                       <View style={Externalstyle.subContainer}>
                         <TextInput
                           multiline
@@ -431,7 +431,7 @@ class ContentScreen extends Component {
                           />
                         </TouchableOpacity>
                       </View>
-                    </KeyboardAvoidingScrollView>
+                    </KeyboardAwareScrollView>
                   </View>
                 </View>
               </View>
@@ -440,7 +440,7 @@ class ContentScreen extends Component {
               ) : (
                 this.listComment(Comment.commentData)
               )}
-            </ScrollView>
+            </KeyboardAwareScrollView>
             {nameselect == "CreatePost" ? (
               <Modal
                 animationType="slide"

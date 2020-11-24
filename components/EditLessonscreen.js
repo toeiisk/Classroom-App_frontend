@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   TouchableHighlight,
   SafeAreaView,
   ScrollView,
 } from "react-native";
 import { Input } from "react-native-elements";
-import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 
@@ -16,7 +15,7 @@ export default function forgotpassscreen() {
   return (
     <SafeAreaView style={Externalstyle.resetpass_container}>
       <ScrollView>
-        <KeyboardAvoidingScrollView>
+        <KeyboardAwareScrollView>
           <View style={{ marginTop: 20, alignItems: "center" }}>
             <Text style={Externalstyle.text_title_primary}>EDIT LESSON</Text>
           </View>
@@ -37,7 +36,7 @@ export default function forgotpassscreen() {
               placeholderTextColor="black"
             />
           </View>
-        </KeyboardAvoidingScrollView>
+        </KeyboardAwareScrollView>
       </ScrollView>
       <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
         <TouchableHighlight

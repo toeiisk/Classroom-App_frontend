@@ -1,32 +1,21 @@
 import React, { Component, useState, useEffect } from "react";
 import {
   View,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
   Platform,
-  Button,
   Image,
   Text,
   TextInput,
-  TouchableOpacity,
   TouchableHighlight,
   SafeAreaView,
-  ScrollView,
-  Alert,
 } from "react-native";
-import { connect } from "react-redux";
-import { compose } from "redux";
 import { Input } from "react-native-elements";
-import { createNewUser } from "../store/actions/auth.actions";
 import Color from "../assets/resources/constants/color";
-import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from "expo-image-picker";
 import Externalstyle from "../style/externalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { creteContent } from "../store/actions/content.action";
 
-// import {Actions} from 'react-native-router-flux';
 
 export default function createpostscreen(props) {
   const [image, setImage] = useState(null);
@@ -74,8 +63,8 @@ export default function createpostscreen(props) {
 
   return (
     <SafeAreaView style={Externalstyle.register_container}>
-      <ScrollView>
-        <KeyboardAvoidingScrollView>
+      <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView>
           <View style={{ marginTop: 20, alignItems: "center" }}>
             <Text style={Externalstyle.text_title_primary}>EDIT CONTENT</Text>
           </View>
@@ -96,7 +85,7 @@ export default function createpostscreen(props) {
             >
               Description
             </Text>
-            <KeyboardAvoidingScrollView>
+            <KeyboardAwareScrollView>
               <TextInput
                 style={Externalstyle.creatpost_textarea}
                 underlineColorAndroid="transparent"
@@ -105,7 +94,7 @@ export default function createpostscreen(props) {
                 multiline={true}
                 onChangeText={(e) => setDescription(e)}
               />
-            </KeyboardAvoidingScrollView>
+            </KeyboardAwareScrollView>
             <Text
               style={[Externalstyle.creatpost_text_label, { color: "black" }]}
             >
@@ -142,8 +131,8 @@ export default function createpostscreen(props) {
               )}
             </View>
           </View>
-        </KeyboardAvoidingScrollView>
-      </ScrollView>
+        </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
       <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
         <TouchableHighlight
           activeOpacity={0.2}

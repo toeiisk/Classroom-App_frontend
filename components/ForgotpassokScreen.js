@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import { Input } from "react-native-elements";
-import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 
@@ -15,7 +9,7 @@ export default function forgotpasscodescreen() {
   return (
     <SafeAreaView style={Externalstyle.resetpass_container}>
       <ScrollView>
-        <KeyboardAvoidingScrollView>
+        <KeyboardAwareScrollView>
           <View style={{ marginTop: 20, alignItems: "center" }}>
             <Text style={Externalstyle.text_title_primary}>RESET PASSWORD</Text>
           </View>
@@ -23,7 +17,7 @@ export default function forgotpasscodescreen() {
             <Text
               style={[Externalstyle.resetpass_text_label, { color: "black" }]}
             >
-              Successfully verified. Input    a new password.
+              Successfully verified. Input a new password.
             </Text>
             <Text
               style={[Externalstyle.creatpost_text_label, { color: "black" }]}
@@ -38,7 +32,7 @@ export default function forgotpasscodescreen() {
               placeholderTextColor="black"
             />
           </View>
-        </KeyboardAvoidingScrollView>
+        </KeyboardAwareScrollView>
       </ScrollView>
       <View style={{ justifyContent: "flex-end", alignItems: "center" }}>
         <TouchableHighlight
