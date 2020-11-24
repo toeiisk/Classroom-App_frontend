@@ -37,7 +37,7 @@ class attendancescreen extends React.Component {
       dataArray: []
     };
   }
-
+ 
   
   
   componentDidMount(){
