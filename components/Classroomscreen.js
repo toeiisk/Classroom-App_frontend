@@ -101,7 +101,6 @@ class classroomnoenroll extends React.Component {
       datetime: this.state.data,
       endTime: this.state.end,
     };
-    console.log(data);
     this.creatClassroom(data);
     this.setState({
       name: "",
@@ -257,22 +256,6 @@ class classroomnoenroll extends React.Component {
                       { color: "black" },
                     ]}
                   >
-                    Date-Time - End
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => this.showDatePicker2(true)}
-                    style={Externalstyle.create_image}
-                  >
-                    <Text style={[Externalstyle.title, { color: "white" }]}>
-                      Select Date-Time
-                    </Text>
-                  </TouchableOpacity>
-                  <Text
-                    style={[
-                      Externalstyle.creatpost_text_label,
-                      { color: "black" },
-                    ]}
-                  >
                   จำนวนชั่วโมงเรียน
                   </Text>
                   <Input
@@ -283,7 +266,7 @@ class classroomnoenroll extends React.Component {
                     placeholder={"Hours here..."}
                     placeholderTextColor="black"
                     onChangeText={(e) => {
-                      this.setState({ name: e });
+                      this.setState({ end: e });
                     }}
                   />
                   <DateTimePickerModal
