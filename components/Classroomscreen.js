@@ -237,7 +237,23 @@ class classroomnoenroll extends React.Component {
                       { color: "black" },
                     ]}
                   >
-                    Date - Time
+                    Date-Time - Start
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => this.showDatePicker(true)}
+                    style={Externalstyle.create_image}
+                  >
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      Select Date-Time
+                    </Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      Externalstyle.creatpost_text_label,
+                      { color: "black" },
+                    ]}
+                  >
+                    Date-Time - End
                   </Text>
                   <TouchableOpacity
                     onPress={() => this.showDatePicker(true)}

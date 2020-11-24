@@ -62,7 +62,23 @@ export default function createclassscreen() {
             <Text
               style={[Externalstyle.creatpost_text_label, { color: "black" }]}
             >
-              Date - Time
+              Date-Time - Start
+            </Text>
+            <TouchableHighlight
+              activeOpacity={0.2}
+              underlayColor={Color.background_footer}
+              onPress={showDatePicker}
+            >
+              <View style={Externalstyle.create_image}>
+                <Text style={[Externalstyle.title, { color: "white" }]}>
+                  Select Date-Time
+                </Text>
+              </View>
+            </TouchableHighlight>
+            <Text
+              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
+            >
+              Date-Time - End
             </Text>
             <TouchableHighlight
               activeOpacity={0.2}
@@ -87,17 +103,6 @@ export default function createclassscreen() {
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
             />
-            {/* <Text
-              style={[Externalstyle.creatpost_text_label, { color: "black" }]}
-            >
-              Author
-            </Text>
-            <Input
-              style={Externalstyle.creatpost_input}
-              numberOfLines={1}
-              placeholder={"Text here..."}
-              placeholderTextColor="black"
-            /> */}
           </View>
         </KeyboardAwareScrollView>
       </ScrollView>

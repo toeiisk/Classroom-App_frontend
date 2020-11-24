@@ -51,10 +51,9 @@ export default class attendancescreen extends React.Component {
   };
 
   onEventPress = (evt) => {
-    const strTime = moment(evt.startTime).format('dddd h:mm')
-    const datTime = moment(evt.endTime).format('dddd h:mm')   
-  
-    
+    const strTime = moment(evt.startTime).format("dddd h:mm");
+    const datTime = moment(evt.endTime).format("dddd h:mm");
+
     this.setState({
       message: evt.title,
       startTime: strTime,
@@ -100,12 +99,33 @@ export default class attendancescreen extends React.Component {
           onBackdropPress={() => this.setState({ modalVisible: false })}
         >
           <Card>
-            <Card.Title><Text style={{fontWeight: "bold"}}>SUBJECT:</Text> {this.state.message}</Card.Title>
+            <Card.Title style={{ fontSize: 18, fontFamily: "MitrBold" }}>
+              SUBJECT:{" "}
+              <Text style={{ fontFamily: "MitrLight" }}>
+                {this.state.message}
+              </Text>
+            </Card.Title>
             <Card.Divider />
-            <Card.Title>AUTHOR: {this.state.extradescriptions}</Card.Title>
-            <Card.Title>START: {this.state.startTime}</Card.Title>
-            <Card.Title>END: {this.state.endTime}</Card.Title>
+            <Card.Title style={{ fontSize: 18, fontFamily: "MitrBold" }}>
+              START:{" "}
+              <Text style={{ fontFamily: "MitrLight" }}>
+                {this.state.startTime}
+              </Text>
+            </Card.Title>
             <Card.Divider />
+            <Card.Title style={{ fontSize: 18, fontFamily: "MitrBold" }}>
+              END:{" "}
+              <Text style={{ fontFamily: "MitrLight" }}>
+                {this.state.endTime}
+              </Text>
+            </Card.Title>
+            <Card.Divider />
+            <Card.Title style={{ fontSize: 18, fontFamily: "MitrBold" }}>
+              AUTHOR:{" "}
+              <Text style={{ fontFamily: "MitrLight" }}>
+                {this.state.extradescriptions}
+              </Text>
+            </Card.Title>
           </Card>
         </Overlay>
       </SafeAreaView>
