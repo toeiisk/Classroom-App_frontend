@@ -10,7 +10,8 @@ import {
   TouchableHighlight,
   Alert,
 } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import * as Animatable from "react-native-animatable";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FloatingAction } from "react-native-floating-action";
@@ -319,7 +320,11 @@ class classroomnoenroll extends React.Component {
             transparent={true}
             visible={modalVisible}
           >
-            <View style={Externalstyle.classroom_centeredView}>
+            <Animatable.View
+              animation="zoomIn"
+              duration={2000}
+              style={Externalstyle.classroom_centeredView}
+            >
               <View style={Externalstyle.classroom_modalView}>
                 <Text h4 style={Externalstyle.classroom_modalText}>
                   Join Classroom
@@ -371,7 +376,7 @@ class classroomnoenroll extends React.Component {
                   </View>
                 </TouchableHighlight>
               </View>
-            </View>
+            </Animatable.View>
           </Modal>
         ) : null}
         <FloatingAction
