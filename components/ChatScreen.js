@@ -24,10 +24,10 @@ import {
 import { AsyncStorage } from "react-native";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { usePubNub } from "pubnub-react";
+const PubNub = require("pubnub");
 
 LogBox.ignoreAllLogs();
-
-const PubNub = require("pubnub");
 
 const pubnub = new PubNub({
   publishKey: "pub-c-d0ea43cd-e94b-46e2-9f75-00e9e6a658b2",
@@ -41,22 +41,45 @@ pubnub.subscribe({
 
 let i = 0;
 export default function ChatScreen(props) {
-  const [getMessage, setMessage] = useState([]);
-  const arr = [];
+  const [input, setInput] = useState("");
+  const [getMessage, setMessage] = useState([])
 
-  pubnub.addListener({
-    status: function (statusEvent) {
-      if (statusEvent.category === "PNConnectedCategory") {
-      }
-    },
-    message: function async(messageEvent) {
-      // const objmessage = {
-      //   message: messageEvent.message.description
-      // }
-      // setMessage(messageEvent.message.description)
-      setMessage([...getMessage, messageEvent.message]);
-    },
-  });
+  const pubnub = usePubNub();
+
+  useEffect(() => {
+    // We need to make sure that PubNub is defined
+    if (pubnub) {
+
+      // Create a listener that will push new messages to our `messages` variable
+      // using the `setMessages` function.
+      const listener = {
+        message: envelope => {
+          setMessage(msgs => [
+            ...msgs,
+            {
+              id: envelope.message.id,
+              author: envelope.message.author,
+              content: envelope.message.content,
+              code: envelope.message.code,
+              timetoken: envelope.timetoken
+            }
+          ]);
+        }
+      };
+
+      // Add the listener to pubnub instance and subscribe to `chat` channel.
+      pubnub.addListener(listener);
+      pubnub.subscribe({
+        channels: ["Classroom01", "Classroom02", "Classroom03"],
+      });
+
+      // We need to return a function that will handle unsubscription on unmount
+      return () => {
+        pubnub.removeListener(listener);
+        pubnub.unsubscribeAll();
+      };
+    }
+  }, [pubnub]);
   var _menu = null;
 
   const setMenuRef = (ref) => {
