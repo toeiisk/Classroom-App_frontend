@@ -1,54 +1,71 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   StyleSheet,
-  StatusBar,
-  Dimensions,
   Text,
-  TextInput,
-  Image,
-  TouchableOpacity,
-  ImageBackground,
   SafeAreaView,
-  FlatList,
   ScrollView,
+  TouchableHighlight,
+  Alert,
+  Modal,
 } from "react-native";
 import { FloatingAction } from "react-native-floating-action";
-import { Overlay } from "react-native-elements";
+import { Overlay, Card } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
+import TimeTableView, { genTimeBlock } from "react-native-timetable";
+import moment from "moment";
 
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+const events_data = [
+  {
+    title: "SE",
+    startTime: genTimeBlock("MON", 8, 45),
+    endTime: genTimeBlock("MON", 11, 45),
+    extra_descriptions: ["Sukrit leelakornkij"],
+  },
+  {
+    title: "SE2",
+    startTime: genTimeBlock("MON", 9, 45),
+    endTime: genTimeBlock("MON", 13, 45),
+    extra_descriptions: ["Sukrit leelakornkij"],
+  },
+];
 
 export default class attendancescreen extends React.Component {
-  state = {
-    overlayVisible: false,
-    nameselect: "",
-    name: "",
+  constructor(props) {
+    super(props);
+    this.numOfDays = 5;
+    this.pivotDate = genTimeBlock("mon");
+    this.state = {
+      message: "",
+      startTime: "",
+      endTime: "",
+      extradescriptions: "",
+      modalVisible: false,
+    };
+  }
+
+  scrollViewRef = (ref) => {
+    this.timetableRef = ref;
   };
-  setOverlayVisible = (visible, name) => {
+
+  onEventPress = (evt) => {
     this.setState({
-      overlayVisible: visible,
-      nameselect: name,
+      message: evt.title,
+      startTime: evt.startTime,
+      endTime: evt.endTime,
+      extradescriptions: evt.extra_descriptions,
     });
+    this.setModalVisible(true);
   };
+
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  };
+
   render() {
-    const { overlayVisible, nameselect } = this.state;
-    const actions = [
-      {
-        text: "Manage Attend",
-        icon: require("../assets/logo.png"),
-        name: "ManageAttend",
-        position: 2,
-      },
-      {
-        text: "Attend",
-        icon: require("../assets/logo.png"),
-        name: "Attend",
-        position: 1,
-      },
-    ];
+    const { modalVisible } = this.state;
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
@@ -56,75 +73,47 @@ export default class attendancescreen extends React.Component {
           <View style={Externalstyle.line_title} />
         </View>
         <ScrollView>
-          <View style={{ marginHorizontal: 20 }}>
-            <Calendar
-              // Handler which gets executed on day press. Default = undefined
-              onDayPress={(day) => {
-                console.log("selected day", day);
-              }}
-              // Handler which gets executed on day long press. Default = undefined
-              onDayLongPress={(day) => {
-                console.log("selected day", day);
-              }}
-              // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-              monthFormat={"yyyy MM"}
-              // Handler which gets executed when visible month changes in calendar. Default = undefined
-              onMonthChange={(month) => {
-                console.log("month changed", month);
-              }}
-              // Hide month navigation arrows. Default = false
-              hideArrows={false}
-              // day from another month that is visible in calendar page. Default = false
-              disableMonthChange={true}
-              // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
-              firstDay={1}
-              // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-              onPressArrowLeft={(subtractMonth) => subtractMonth()}
-              // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-              onPressArrowRight={(addMonth) => addMonth()}
-              // Disable left arrow. Default = false
-              disableArrowLeft={false}
-              // Disable right arrow. Default = false
-              disableArrowRight={false}
-              // Enable the option to swipe between months. Default = false
-              enableSwipeMonths={true}
-              // Enable horizontal scrolling, default = false
-              horizontal={true}
-              // Enable paging on horizontal, default = false
-              pagingEnabled={true}
-              // Set custom calendarWidth.
-              calendarWidth={200}
-              style={{
-                height: "100%",
-              }}
-              // Specify theme properties to override specific styles for calendar parts. Default = {}
-              theme={{
-                textSectionTitleColor: "#b6c1cd",
-                textDayFontFamily: "MitrMedium",
-                textMonthFontFamily: "MitrMedium",
-                textDayHeaderFontFamily: "MitrRegular",
-                monthTextColor: "blue",
-                backgroundColor: "#ffffff",
-                textDayFontSize: 20,
-                textMonthFontSize: 20,
-                textDayHeaderFontSize: 15,
-                "stylesheet.day.header": {
-                  marginVertical: 20
-                },
-                "stylesheet.day.basic": {
-                  base: {
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginVertical: 20,
-                    borderRadius: 50
-                  },
-                },
-              }}
+          <View style={styles.container}>
+            <TimeTableView
+              scrollViewRef={this.scrollViewRef}
+              events={events_data}
+              pivotTime={8}
+              pivotEndTime={20}
+              pivotDate={this.pivotDate}
+              numberOfDays={this.numOfDays}
+              onEventPress={this.onEventPress}
+              headerStyle={styles.headerStyle}
+              formatDateHeader="dddd"
+              locale="th"
             />
           </View>
         </ScrollView>
+        <Overlay
+          overlayStyle={{ marginHorizontal: 20 }}
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onBackdropPress={() => this.setState({ modalVisible: false })}
+        >
+          <Card>
+            <Card.Title><Text style={{fontWeight: "bold"}}>SUBJECT:</Text> {this.state.message}</Card.Title>
+            <Card.Divider />
+            <Card.Title>AUTHOR: {this.state.extradescriptions}</Card.Title>
+            <Card.Divider />
+          </Card>
+        </Overlay>
       </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: "#81E1B8",
+  },
+  container: {
+    flex: 1,
+    marginHorizontal: 20,
+    backgroundColor: "#F8F8F8",
+  },
+});
