@@ -51,10 +51,14 @@ export default class attendancescreen extends React.Component {
   };
 
   onEventPress = (evt) => {
+    const strTime = moment(evt.startTime).format('dddd h:mm')
+    const datTime = moment(evt.endTime).format('dddd h:mm')   
+  
+    
     this.setState({
       message: evt.title,
-      startTime: evt.startTime,
-      endTime: evt.endTime,
+      startTime: strTime,
+      endTime: datTime,
       extradescriptions: evt.extra_descriptions,
     });
     this.setModalVisible(true);
@@ -99,6 +103,8 @@ export default class attendancescreen extends React.Component {
             <Card.Title><Text style={{fontWeight: "bold"}}>SUBJECT:</Text> {this.state.message}</Card.Title>
             <Card.Divider />
             <Card.Title>AUTHOR: {this.state.extradescriptions}</Card.Title>
+            <Card.Title>START: {this.state.startTime}</Card.Title>
+            <Card.Title>END: {this.state.endTime}</Card.Title>
             <Card.Divider />
           </Card>
         </Overlay>
