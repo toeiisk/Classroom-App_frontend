@@ -78,26 +78,8 @@ class classroomnoenroll extends React.Component {
       isDatePickerVisible: date,
     });
   };
-  showDatePicker2 = (date) => {
-    this.setState({
-      isDatePickerVisible2: date,
-    });
-  };
-
-  hideDatePicker2 = () => {
-    this.setState({
-      isDatePickerVisible2: false    
-    });
-  };
-
-  handleConfirm2 = (datetime) => {
-    const selectdate = moment(datetime, "h:mm:ss A").format("dddd HH:mm");
-    console.log('endTime', selectdate)
-    this.setState({
-      end: selectdate,
-    });
-    this.hideDatePicker2();
-  };
+ 
+  
 
 
   hideDatePicker = () => {
@@ -298,16 +280,7 @@ class classroomnoenroll extends React.Component {
                     onConfirm={this.handleConfirm}
                     onCancel={this.hideDatePicker}
                   />
-                   <DateTimePickerModal
-                    isVisible={this.state.isDatePickerVisible2}
-                    is24Hour={true}
-                    format={"HH:mm"}
-                    mode="datetime"
-                    pickerContainerStyleIOS={{ backgroundColor: "white" }}
-                    textColor="black"
-                    onConfirm={this.handleConfirm2}
-                    onCancel={this.hideDatePicker2}
-                  />
+                 
                 </View>
               </KeyboardAwareScrollView>
               <View
