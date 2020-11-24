@@ -16,23 +16,14 @@ import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
 import TimeTableView, { genTimeBlock } from "react-native-timetable";
 import moment from "moment";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import {getClassroom} from '../store/actions/auth.actions'
 
-const events_data = [
-  {
-    title: "SE",
-    startTime: genTimeBlock("MON", 8, 45),
-    endTime: genTimeBlock("MON", 11, 45),
-    extra_descriptions: ["Sukrit leelakornkij"],
-  },
-  {
-    title: "SE2",
-    startTime: genTimeBlock("MON", 9, 45),
-    endTime: genTimeBlock("MON", 13, 45),
-    extra_descriptions: ["Sukrit leelakornkij"],
-  },
-];
 
-export default class attendancescreen extends React.Component {
+
+
+class attendancescreen extends React.Component {
   constructor(props) {
     super(props);
     this.numOfDays = 5;
@@ -43,8 +34,30 @@ export default class attendancescreen extends React.Component {
       endTime: "",
       extradescriptions: "",
       modalVisible: false,
+      dataArray: []
     };
   }
+
+  
+  
+  componentDidMount(){
+    const { Classroom } = this.props;
+    const newarray = []
+    Classroom.map((item) => {
+      const data = {
+        title : item.name,
+        startTime: genTimeBlock(item.day.slice(0, 3).toUpperCase(), item.time.split(":")[0], item.time.split(":")[1]),
+        endTime: genTimeBlock(item.day.slice(0, 3).toUpperCase(), item.endClassTime.split(":")[0], item.endClassTime.split(":")[1]),
+        extradescriptions: item.nameOwner
+      }
+      newarray.push(data)
+    })
+    this.setState({
+      dataArray: newarray
+    })
+
+  }
+
 
   scrollViewRef = (ref) => {
     this.timetableRef = ref;
@@ -53,12 +66,11 @@ export default class attendancescreen extends React.Component {
   onEventPress = (evt) => {
     const strTime = moment(evt.startTime).format("dddd h:mm");
     const datTime = moment(evt.endTime).format("dddd h:mm");
-
     this.setState({
       message: evt.title,
       startTime: strTime,
       endTime: datTime,
-      extradescriptions: evt.extra_descriptions,
+      extradescriptions: evt.extradescriptions,
     });
     this.setModalVisible(true);
   };
@@ -67,8 +79,25 @@ export default class attendancescreen extends React.Component {
     this.setState({ modalVisible: visible });
   };
 
+
+  rensetTable = () => {
+    return(
+      <TimeTableView
+        scrollViewRef={this.scrollViewRef}
+        events={this.state.dataArray}
+        pivotTime={8}
+        pivotEndTime={20}
+        numberOfDays={this.numOfDays}
+        onEventPress={this.onEventPress}
+        headerStyle={styles.headerStyle}
+        formatDateHeader="dddd"
+        locale="th"
+    />
+    )
+  }
   render() {
     const { modalVisible } = this.state;
+
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
@@ -77,18 +106,7 @@ export default class attendancescreen extends React.Component {
         </View>
         <ScrollView>
           <View style={styles.container}>
-            <TimeTableView
-              scrollViewRef={this.scrollViewRef}
-              events={events_data}
-              pivotTime={8}
-              pivotEndTime={20}
-              pivotDate={this.pivotDate}
-              numberOfDays={this.numOfDays}
-              onEventPress={this.onEventPress}
-              headerStyle={styles.headerStyle}
-              formatDateHeader="dddd"
-              locale="th"
-            />
+           {this.rensetTable()}
           </View>
         </ScrollView>
         <Overlay
@@ -143,3 +161,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#F8F8F8",
   },
 });
+
+
+const mapStateToProps = (state) => ({
+  Classroom: state.classReducer.Classroom.classroomUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+});
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps, null)(attendancescreen)
+);
