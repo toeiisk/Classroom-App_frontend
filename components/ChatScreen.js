@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
-  Platform,
   Text,
   TextInput,
   FlatList,
-  TouchableOpacity,
   TouchableHighlight,
   SafeAreaView,
   ScrollView,
-  Alert,
 } from "react-native";
 import moment from "moment";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Input } from "react-native-elements";
+import { LogBox } from "react-native";
 import Externalstyle from "../style/externalStyle";
-import Color from "../assets/resources/constants/color";
 import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scroll-view";
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -28,11 +21,13 @@ import {
   faChevronCircleLeft,
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage } from "react-native";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-const PubNub = require('pubnub');
+LogBox.ignoreAllLogs();
+
+const PubNub = require("pubnub");
 
 const pubnub = new PubNub({
   publishKey: "pub-c-d0ea43cd-e94b-46e2-9f75-00e9e6a658b2",
@@ -46,7 +41,7 @@ pubnub.subscribe({
 
 let i = 0;
 export default function ChatScreen(props) {
-  const [getMessage, setMessage] = useState([])
+  const [getMessage, setMessage] = useState([]);
   const arr = [];
 
   pubnub.addListener({
@@ -54,12 +49,12 @@ export default function ChatScreen(props) {
       if (statusEvent.category === "PNConnectedCategory") {
       }
     },
-    message: function async (messageEvent) {
+    message: function async(messageEvent) {
       // const objmessage = {
       //   message: messageEvent.message.description
       // }
       // setMessage(messageEvent.message.description)
-      setMessage([...getMessage, messageEvent.message])
+      setMessage([...getMessage, messageEvent.message]);
     },
   });
   var _menu = null;
@@ -90,24 +85,17 @@ export default function ChatScreen(props) {
           underlayColor="white"
           onPress={() => this.props.navigation.goBack()}
         >
-          <FontAwesomeIcon
-            icon={faChevronCircleLeft}
-            size={35}
-            color="black"
-          />
+          <FontAwesomeIcon icon={faChevronCircleLeft} size={35} color="black" />
         </TouchableHighlight>
         <Text
           style={{ fontSize: 22, fontFamily: "kanitBold", letterSpacing: 2 }}
         >
           CLASSROOM 01
-          </Text>
+        </Text>
         <Menu
           ref={setMenuRef}
           button={
-            <TouchableHighlight
-              activeOpacity={0.2}
-              underlayColor="white"
-            >
+            <TouchableHighlight activeOpacity={0.2} underlayColor="white">
               <FontAwesomeIcon
                 icon={faEllipsisV}
                 size={35}
@@ -120,7 +108,7 @@ export default function ChatScreen(props) {
           <MenuItem onPress={hideMenu}>
             <Text style={[Externalstyle.chat_title, { color: "black" }]}>
               LEAVE
-              </Text>
+            </Text>
           </MenuItem>
         </Menu>
       </View>
@@ -135,8 +123,7 @@ export default function ChatScreen(props) {
                     Externalstyle.messagesbox,
                     {
                       backgroundColor: Color.background_footer,
-                      marginRight: 50
-
+                      marginRight: 50,
                     },
                   ]}
                 >
@@ -144,7 +131,7 @@ export default function ChatScreen(props) {
                 </View>
               </View>
             )}
-          // ItemSeparatorComponent={this.renderSeparator}
+            // ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
       </ScrollView>
@@ -158,11 +145,19 @@ export default function ChatScreen(props) {
               style={Externalstyle.chat_textinput}
             />
             <TouchableHighlight>
-              <MaterialCommunityIcons
-                name="send-circle"
-                size={35}
-                color="grey"
-              />
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="send-circle"
+                  size={35}
+                  color="grey"
+                />
+              </View>
             </TouchableHighlight>
           </View>
         </KeyboardAvoidingScrollView>
@@ -170,5 +165,3 @@ export default function ChatScreen(props) {
     </SafeAreaView>
   );
 }
-
-
