@@ -121,6 +121,7 @@ class ContentScreen extends Component {
   };
 
   listComment = (data) => {
+    console.log(data)
     return data.Comments.map((data) => {
       let date = moment(data.createdAt).format("L, HH:mm");
       return (
@@ -171,7 +172,9 @@ class ContentScreen extends Component {
     const { Visible } = this.props;
     const { Post } = this.props;
     const { Comment } = this.props;
-    console.log(Comment.isLoading)
+    const { User } = this.props;
+
+    console.log(User)
     if (Post.isLoading) {
       return (
         <SafeAreaView style={Externalstyle.container}>
@@ -356,7 +359,7 @@ class ContentScreen extends Component {
                   }}
                 >
                   <Image
-                   source={{
+                  source={{
                     uri: `http://103.13.231.22:3000${Post.contentData.Post.userOwnerPost.userOwner.img}`,
                   }}
                     style={{ height: 80, width: 80, borderRadius: 80 / 2 }}
@@ -376,16 +379,6 @@ class ContentScreen extends Component {
                   </Text>
                 </View>
               </View>
-              {/* <View style={{ alignItems: "center", marginVertical: 10 }}>
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.popToTop()}
-                  style={Externalstyle.profile_button_edit}
-                >
-                  <Text style={[Externalstyle.title, { color: "white" }]}>
-                    BACK
-                  </Text>
-                </TouchableOpacity>
-              </View> */}
               <View
                 style={{
                   borderBottomColor: "white",
@@ -402,12 +395,13 @@ class ContentScreen extends Component {
                     flexDirection: "row",
                   }}
                 >
-                  {/* <Image
-                    source={require("../assets/logo-classroom.png")}
-                    style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
-                  /> */}
                   <View style={Externalstyle.avatar_comment}>
-                    <FontAwesomeIcon icon={faUser} size={25} color="white" />
+                    <Image
+                    source={{
+                      uri: `http://103.13.231.22:3000${User.img}`,
+                    }}
+                      style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
+                    />
                   </View>
                   <View style={{ paddingHorizontal: 20 }}>
                     <KeyboardAwareScrollView>
@@ -474,6 +468,7 @@ const mapStateToProps = (state) => ({
   Visible: state.modalReducer.Modal,
   Post: state.contentReducer.Content,
   Comment: state.commentReducer.Comment,
+  User: state.authReducer.UserLogin.datauser
 });
 
 const mapDispatchToProps = (dispatch) => {
