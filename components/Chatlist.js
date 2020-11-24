@@ -21,17 +21,16 @@ import Externalstyle from "../style/externalStyle";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-
 class attendancescreen extends React.Component {
-  
-  constructor(props){
+  constructor(props) {
     super(props);
   }
-  
+
   renderChatlist = (data) => {
     return data.map((item) => {
       return (
-         <Card containerStyle={{ paddingHorizontal: 20, borderRadius: 10 }}>
+        <Animatable.View animation="fadeInUpBig" duration={2000}>
+          <Card containerStyle={{ paddingHorizontal: 20, borderRadius: 10 }}>
             <TouchableOpacity
               onPress={() => {
                 this.props.navigation.navigate("Chatroom");
@@ -52,21 +51,20 @@ class attendancescreen extends React.Component {
               </View>
             </TouchableOpacity>
           </Card>
-      )
-    })
-  }
+        </Animatable.View>
+      );
+    });
+  };
 
   render() {
-    const {Classroom} = this.props
+    const { Classroom } = this.props;
     return (
       <SafeAreaView style={Externalstyle.container}>
         <View style={Externalstyle.title_header}>
           <Text style={Externalstyle.text_title}>CHATS</Text>
           <View style={Externalstyle.line_title} />
         </View>
-        <ScrollView>
-          {this.renderChatlist(Classroom)}
-        </ScrollView>
+        <ScrollView>{this.renderChatlist(Classroom)}</ScrollView>
       </SafeAreaView>
     );
   }
