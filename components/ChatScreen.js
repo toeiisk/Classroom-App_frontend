@@ -22,9 +22,10 @@ import {
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
 import { AsyncStorage } from "react-native";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { compose } from "redux";
 import { usePubNub } from "pubnub-react";
+import Color from "../assets/resources/constants/color";
 const PubNub = require("pubnub");
 
 LogBox.ignoreAllLogs();
@@ -41,10 +42,12 @@ pubnub.subscribe({
 
 let i = 0;
 export default function ChatScreen(props) {
-  const [input, setInput] = useState("");
+  const [getInput, setInput] = useState("");
   const [getMessage, setMessage] = useState([])
-  console.log(props)
   const pubnub = usePubNub();
+  const user = useSelector(state => state.authReducer.UserLogin.datauser)
+
+  // console.log('data', user, user.roles[0].user_roles.userId)
 
   useEffect(() => {
     if (pubnub) {
@@ -55,6 +58,7 @@ export default function ChatScreen(props) {
             {
               id: envelope.message.id,
               author: envelope.message.author,
+              user: envelope.message.user,
               content: envelope.message.content,
               code: envelope.message.code,
               timetoken: envelope.timetoken
@@ -85,6 +89,26 @@ export default function ChatScreen(props) {
 
   const showMenu = () => {
     _menu.show();
+  };
+
+  const handleSubmit = () => {
+    // Clear the input field.
+    setInput("");
+
+    // Create the message with random `id`.
+    const message = {
+      content: getInput,
+      user: {
+        id: user.roles[0].user_roles.userId,
+        name: user.facebookName || user.firstname + " " + user.lastname
+      },
+      id: Math.random()
+        .toString(16)
+        .substr(2)
+    };
+
+    // Publish our message to the channel `chat`
+    pubnub.publish({ channel: "Classroom01", message });
   };
   return (
     <SafeAreaView style={Externalstyle.container}>
@@ -138,24 +162,28 @@ export default function ChatScreen(props) {
                   style={[
                     Externalstyle.messagesbox,
                     {
-                      backgroundColor: Color.background_footer,
-                      marginRight: 50,
+                      backgroundColor:
+                        item.user.id === user.roles[0].user_roles.userId
+                          ? Color.background_footer
+                          : "white",
+                      marginLeft: item.user.id === user.roles[0].user_roles.userId ? 50 : 0,
+                      marginRight: item.user.id === user.roles[0].user_roles.userId ? 0 : 50,
                     },
                   ]}
                 >
-                  {item.user.id != "u1" && (
+                  {item.user.id != user.roles[0].user_roles.userId && (
                     <Text style={Externalstyle.messages_name}>
                       {item.user.name}
                     </Text>
                   )}
-                  <Text style={Externalstyle.titlesub}>{item.message}</Text>
+                  <Text style={Externalstyle.titlesub}>{item.content}</Text>
                   <Text style={Externalstyle.messages_time}>
-                      {moment(item.createdAt).fromNow()}
-                    </Text>
+                    {moment(item.createdAt).fromNow()}
+                  </Text>
                 </View>
               </View>
             )}
-          ItemSeparatorComponent={this.renderSeparator}
+          // ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
       </ScrollView>
@@ -164,11 +192,14 @@ export default function ChatScreen(props) {
         <KeyboardAvoidingScrollView>
           <View style={Externalstyle.mainContainer}>
             <TextInput
+              value={getInput}
+              onChangeText={(e) => setInput(e)}
               multiline
               placeholder={"Type a message..."}
               style={Externalstyle.chat_textinput}
             />
-            <TouchableHighlight>
+            <TouchableHighlight
+              onPress={handleSubmit}>
               <View
                 style={{
                   flex: 1,
