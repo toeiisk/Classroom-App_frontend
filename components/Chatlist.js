@@ -18,23 +18,18 @@ import { Card } from "react-native-elements";
 import * as Animatable from "react-native-animatable";
 import Color from "../assets/resources/constants/color";
 import Externalstyle from "../style/externalStyle";
-export default class attendancescreen extends React.Component {
-  state = {
-    search: "",
-  };
+import { connect } from "react-redux";
+import { compose } from "redux";
 
-  updateSearch = (search) => {
-    this.setState({ search });
-  };
-  render() {
-    const { search } = this.state;
-    return (
-      <SafeAreaView style={Externalstyle.container}>
-        <View style={Externalstyle.title_header}>
-          <Text style={Externalstyle.text_title}>CHATS</Text>
-          <View style={Externalstyle.line_title} />
-        </View>
-        <ScrollView>
+class attendancescreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  renderChatlist = (data) => {
+    return data.map((item) => {
+      return (
+        <Animatable.View animation="fadeInUpBig" duration={2000}>
           <Card containerStyle={{ paddingHorizontal: 20, borderRadius: 10 }}>
             <TouchableOpacity
               onPress={() => {
@@ -48,16 +43,41 @@ export default class attendancescreen extends React.Component {
               />
               <View style={Externalstyle.text_attendance}>
                 <Text style={[Externalstyle.chat_title, { color: "black" }]}>
-                  Classroom001
+                  {item.name}
                 </Text>
                 <Text style={[Externalstyle.chat_titlesub, { color: "black" }]}>
-                  Lorem Ipsum is simply dummy
+                  {item.tile}
                 </Text>
               </View>
             </TouchableOpacity>
           </Card>
-        </ScrollView>
+        </Animatable.View>
+      );
+    });
+  };
+
+  render() {
+    const { Classroom } = this.props;
+    return (
+      <SafeAreaView style={Externalstyle.container}>
+        <View style={Externalstyle.title_header}>
+          <Text style={Externalstyle.text_title}>CHATS</Text>
+          <View style={Externalstyle.line_title} />
+        </View>
+        <ScrollView>{this.renderChatlist(Classroom)}</ScrollView>
       </SafeAreaView>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  Classroom: state.classReducer.Classroom.classroomUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+});
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps, null)(attendancescreen)
+);

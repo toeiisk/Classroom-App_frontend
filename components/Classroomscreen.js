@@ -36,7 +36,9 @@ class classroomnoenroll extends React.Component {
       name: "",
       code: "",
       isDatePickerVisible: false,
+      isDatePickerVisible2: false,
       data: "",
+      end: "",
       isModalVisible: false,
     };
   }
@@ -85,7 +87,7 @@ class classroomnoenroll extends React.Component {
 
   handleConfirm = (datetime) => {
     const selectdate = moment(datetime, "h:mm:ss A").format("dddd HH:mm");
-
+    console.log("startTime", selectdate);
     this.setState({
       data: selectdate,
     });
@@ -97,6 +99,7 @@ class classroomnoenroll extends React.Component {
       name: this.state.name,
       description: this.state.description,
       datetime: this.state.data,
+      endTime: this.state.end,
     };
     this.creatClassroom(data);
     this.setState({
@@ -142,47 +145,49 @@ class classroomnoenroll extends React.Component {
           <Text style={Externalstyle.text_title}>Classroom</Text>
           <View style={Externalstyle.line_title} />
         </View>
-        <FlatList
-          data={Classroom}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onLongPress={() => this.openModal()}
-              delayLongPress={600}
-              onPress={() => {
-                this.props.navigation.navigate("Lessons", {
-                  idClassroom: item.id,
-                  userOwner: item.userIsOwner,
-                });
-              }}
-            >
-              <ImageBackground
-                source={{
-                  uri:
-                    "https://media4.manhattan-institute.org/sites/cj/files/woke-classrooms.jpg",
+        <Animatable.View animation="fadeInUpBig" duration={2000}>
+          <FlatList
+            data={Classroom}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onLongPress={() => this.openModal()}
+                delayLongPress={600}
+                onPress={() => {
+                  this.props.navigation.navigate("Lessons", {
+                    idClassroom: item.id,
+                    userOwner: item.userIsOwner,
+                  });
                 }}
-                imageStyle={{ borderRadius: 15 }}
-                opacity={0.2}
-                style={Externalstyle.classroom_card}
               >
-                <Text style={Externalstyle.classroom_title}>
-                  SUBJECT: {item.name}
-                </Text>
-                <Text style={Externalstyle.classroom_date}>
-                  DATE-TIME: {item.day} {item.time}
-                </Text>
-                <Text style={Externalstyle.classroom_author}>
-                  OWNER: {item.nameOwner}
-                </Text>
-                {item.userIsOwner ? (
-                  <Text style={Externalstyle.classroom_author}>
-                    CODE: {item.code}
+                <ImageBackground
+                  source={{
+                    uri:
+                      "https://media4.manhattan-institute.org/sites/cj/files/woke-classrooms.jpg",
+                  }}
+                  imageStyle={{ borderRadius: 15 }}
+                  opacity={0.2}
+                  style={Externalstyle.classroom_card}
+                >
+                  <Text style={Externalstyle.classroom_title}>
+                    SUBJECT: {item.name}
                   </Text>
-                ) : null}
-              </ImageBackground>
-            </TouchableOpacity>
-          )}
-          ItemSeparatorComponent={this.renderSeparator}
-        />
+                  <Text style={Externalstyle.classroom_date}>
+                    DATE-TIME: {item.day} {item.time}
+                  </Text>
+                  <Text style={Externalstyle.classroom_author}>
+                    OWNER: {item.nameOwner}
+                  </Text>
+                  {item.userIsOwner ? (
+                    <Text style={Externalstyle.classroom_author}>
+                      CODE: {item.code}
+                    </Text>
+                  ) : null}
+                </ImageBackground>
+              </TouchableOpacity>
+            )}
+            ItemSeparatorComponent={this.renderSeparator}
+          />
+        </Animatable.View>
         {nameselect == "CreateClass" ? (
           <Modal
             animationType="slide"
@@ -253,16 +258,19 @@ class classroomnoenroll extends React.Component {
                       { color: "black" },
                     ]}
                   >
-                    Date-Time - End
+                    จำนวนชั่วโมงเรียน
                   </Text>
-                  <TouchableOpacity
-                    onPress={() => this.showDatePicker(true)}
-                    style={Externalstyle.create_image}
-                  >
-                    <Text style={[Externalstyle.title, { color: "white" }]}>
-                      Select Date-Time
-                    </Text>
-                  </TouchableOpacity>
+                  <Input
+                    style={Externalstyle.creatpost_input}
+                    keyboardType="numeric"
+                    maxLength={2}
+                    numberOfLines={1}
+                    placeholder={"Hours here..."}
+                    placeholderTextColor="black"
+                    onChangeText={(e) => {
+                      this.setState({ end: e });
+                    }}
+                  />
                   <DateTimePickerModal
                     isVisible={this.state.isDatePickerVisible}
                     is24Hour={true}
