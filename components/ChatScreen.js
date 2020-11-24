@@ -143,11 +143,19 @@ export default function ChatScreen(props) {
                     },
                   ]}
                 >
-                  <Text style={Externalstyle.titlesub}>{item.code}</Text>
+                  {item.user.id != "u1" && (
+                    <Text style={Externalstyle.messages_name}>
+                      {item.user.name}
+                    </Text>
+                  )}
+                  <Text style={Externalstyle.titlesub}>{item.message}</Text>
+                  <Text style={Externalstyle.messages_time}>
+                      {moment(item.createdAt).fromNow()}
+                    </Text>
                 </View>
               </View>
             )}
-            // ItemSeparatorComponent={this.renderSeparator}
+          ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
       </ScrollView>
