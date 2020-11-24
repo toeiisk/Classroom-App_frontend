@@ -36,7 +36,9 @@ class classroomnoenroll extends React.Component {
       name: "",
       code: "",
       isDatePickerVisible: false,
+      isDatePickerVisible2: false,
       data: "",
+      end: "",
       isModalVisible: false,
     };
   }
@@ -76,16 +78,37 @@ class classroomnoenroll extends React.Component {
       isDatePickerVisible: date,
     });
   };
+  showDatePicker2 = (date) => {
+    this.setState({
+      isDatePickerVisible2: date,
+    });
+  };
+
+  hideDatePicker2 = () => {
+    this.setState({
+      isDatePickerVisible2: false    
+    });
+  };
+
+  handleConfirm2 = (datetime) => {
+    const selectdate = moment(datetime, "h:mm:ss A").format("dddd HH:mm");
+    console.log('endTime', selectdate)
+    this.setState({
+      end: selectdate,
+    });
+    this.hideDatePicker2();
+  };
+
 
   hideDatePicker = () => {
     this.setState({
-      isDatePickerVisible: false,
+      isDatePickerVisible: false
     });
   };
 
   handleConfirm = (datetime) => {
     const selectdate = moment(datetime, "h:mm:ss A").format("dddd HH:mm");
-
+    console.log('startTime', selectdate)
     this.setState({
       data: selectdate,
     });
@@ -97,7 +120,9 @@ class classroomnoenroll extends React.Component {
       name: this.state.name,
       description: this.state.description,
       datetime: this.state.data,
+      endTime: this.state.end
     };
+    console.log(data)
     this.creatClassroom(data);
     this.setState({
       name: "",
@@ -256,7 +281,7 @@ class classroomnoenroll extends React.Component {
                     Date-Time - End
                   </Text>
                   <TouchableOpacity
-                    onPress={() => this.showDatePicker(true)}
+                    onPress={() => this.showDatePicker2(true)}
                     style={Externalstyle.create_image}
                   >
                     <Text style={[Externalstyle.title, { color: "white" }]}>
@@ -272,6 +297,16 @@ class classroomnoenroll extends React.Component {
                     textColor="black"
                     onConfirm={this.handleConfirm}
                     onCancel={this.hideDatePicker}
+                  />
+                   <DateTimePickerModal
+                    isVisible={this.state.isDatePickerVisible2}
+                    is24Hour={true}
+                    format={"HH:mm"}
+                    mode="datetime"
+                    pickerContainerStyleIOS={{ backgroundColor: "white" }}
+                    textColor="black"
+                    onConfirm={this.handleConfirm2}
+                    onCancel={this.hideDatePicker2}
                   />
                 </View>
               </KeyboardAwareScrollView>
