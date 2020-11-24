@@ -43,15 +43,11 @@ let i = 0;
 export default function ChatScreen(props) {
   const [input, setInput] = useState("");
   const [getMessage, setMessage] = useState([])
-
+  console.log(props)
   const pubnub = usePubNub();
 
   useEffect(() => {
-    // We need to make sure that PubNub is defined
     if (pubnub) {
-
-      // Create a listener that will push new messages to our `messages` variable
-      // using the `setMessages` function.
       const listener = {
         message: envelope => {
           setMessage(msgs => [
@@ -66,14 +62,11 @@ export default function ChatScreen(props) {
           ]);
         }
       };
-
-      // Add the listener to pubnub instance and subscribe to `chat` channel.
       pubnub.addListener(listener);
       pubnub.subscribe({
         channels: ["Classroom01", "Classroom02", "Classroom03"],
       });
 
-      // We need to return a function that will handle unsubscription on unmount
       return () => {
         pubnub.removeListener(listener);
         pubnub.unsubscribeAll();
@@ -106,7 +99,7 @@ export default function ChatScreen(props) {
         <TouchableHighlight
           activeOpacity={0.2}
           underlayColor="white"
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => props.navigation.goBack()}
         >
           <FontAwesomeIcon icon={faChevronCircleLeft} size={35} color="black" />
         </TouchableHighlight>

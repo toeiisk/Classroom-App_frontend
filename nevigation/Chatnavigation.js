@@ -1,7 +1,8 @@
 import React from "react";
 import Chatlist from "../components/Chatlist";
-import Chatroom from "../components/ChatScreen";
 import { Image } from "react-native";
+import Chatroom from "../components/ChatScreen";
+
 import { createStackNavigator } from "@react-navigation/stack";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Color from "../assets/resources/constants/color";
@@ -22,26 +23,6 @@ const ChatStack = () => (
       name="Chatroom"
       component={Chatroom}
       options={{ headerShown: false }}
-      // options={{
-      //   title: "CLASSROOM001",
-      //   headerTitleStyle:{
-      //     fontFamily: "MitrMedium",
-      //     fontSize: 22,
-      //     letterSpacing: 2
-      //   },
-      //   headerLeft: () => (
-      //     <TouchableOpacity>
-      //       <Image
-      //         source={require("../assets/resources/icon/previous.png")}
-      //         style={{
-      //           width: 30,
-      //           height: 30,
-      //           marginLeft: 30,
-      //         }}
-      //       />
-      //     </TouchableOpacity>
-      //   ),
-      // }}
     />
   </RootScreen.Navigator>
 );
