@@ -25,7 +25,7 @@ const Comment  = (state = initialState, action) =>{
                 isLoading: action.isLoading
             }
         default:
-            return {...state}
+            return {...state, isLoading:false}
     }
 }
 

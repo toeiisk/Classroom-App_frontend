@@ -28,7 +28,8 @@ export const Postcomment = (datacomment) => {
                 .then((res) => {
                     dispatch({
                         type: 'POST_SUCCESS',
-                        data: res.data
+                        data: res.data,
+                        isLoading: false
                     })
                 })
                 .catch((er) => {
