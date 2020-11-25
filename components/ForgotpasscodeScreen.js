@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, TouchableHighlight } from "react-native";
 import { Input } from "react-native-elements";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
 
-export default function forgotpasscodescreen() {
+export default function forgotpasscodescreen(props) {
   return (
     <SafeAreaView style={Externalstyle.resetpass_container}>
       <ScrollView>
@@ -37,6 +37,7 @@ export default function forgotpasscodescreen() {
         <TouchableHighlight
           activeOpacity={0.2}
           underlayColor={Color.background_footer}
+          onPress={() => props.navigation.navigate("ForgotpassokScreen")}
         >
           <View style={Externalstyle.create_submit}>
             <Text style={[Externalstyle.title, { color: "white" }]}>

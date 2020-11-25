@@ -12,6 +12,7 @@ import Chatroom from "../components/ChatScreen";
 import { Image } from "react-native";
 import Color from "../assets/resources/constants/color";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Forgotpass from './Forgotpassnevigator'
 
 const RootStack = createStackNavigator();
 
@@ -76,7 +77,7 @@ const RootStackScreen = () => (
     /> */}
     <RootStack.Screen
       name="Forgotpass"
-      component={ForgotpassScreen}
+      component={Forgotpass}
       options={{
         title: null,
         headerLeft: () => (
