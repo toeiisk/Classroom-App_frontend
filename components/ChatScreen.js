@@ -16,6 +16,7 @@ import { KeyboardAvoidingScrollView } from "react-native-keyboard-avoiding-scrol
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
+  faAngry,
   faBackspace,
   faBackward,
   faChevronCircleLeft,
@@ -151,25 +152,7 @@ export default function ChatScreen(props) {
         >
           {props.route.params.classroom.name}
         </Text>
-        <Menu
-          ref={setMenuRef}
-          button={
-            <TouchableHighlight activeOpacity={0.2} underlayColor="white">
-              <FontAwesomeIcon
-                icon={faEllipsisV}
-                size={35}
-                color="black"
-                onPress={showMenu}
-              />
-            </TouchableHighlight>
-          }
-        >
-          <MenuItem onPress={hideMenu}>
-            <Text style={[Externalstyle.chat_title, { color: "black" }]}>
-              LEAVE
-            </Text>
-          </MenuItem>
-        </Menu>
+        <FontAwesomeIcon icon={faAngry} size={30} color="black" />
       </View>
       <ScrollView>
         <View style={{ paddingHorizontal: 20 }}>
