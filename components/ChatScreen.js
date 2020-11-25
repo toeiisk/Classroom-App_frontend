@@ -22,11 +22,12 @@ import {
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
 import { AsyncStorage } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { compose } from "redux";
 import { usePubNub } from "pubnub-react";
 import Color from "../assets/resources/constants/color";
 import axios from 'axios'
+import {sendMessage} from '../store/actions/classroom.action'
 const PubNub = require("pubnub");
 
 LogBox.ignoreAllLogs();
@@ -42,6 +43,7 @@ export default function ChatScreen(props) {
   const [getMessage, setMessage] = useState([])
   const pubnub = usePubNub();
   const user = useSelector(state => state.authReducer.UserLogin.datauser)
+  const dispatch = useDispatch()
   
   // setMessage(props.route.params.classroom.chats)
   const classroom = {
@@ -54,8 +56,6 @@ export default function ChatScreen(props) {
 
   useEffect(() => {
     setMessage(props.route.params.classroom.chats)
-  // console.log(getMessage)
-
     if (pubnub) {
       const listener = {
         message: envelope => {
@@ -99,17 +99,15 @@ export default function ChatScreen(props) {
   const handleSubmit = useCallback ( async () => {
     // Clear the input field.
     const data = {
-      text : getInput
+      text : getInput,
+      roomid : props.route.params.classroom.id
     }
-    var token = await AsyncStorage.getItem('token')
-    axios.post(`http://103.13.231.22:3000/api/classroom/${props.route.params.classroom.id}/chat/` ,data , {
-      headers: {'x-access-token': token }
-    })
-    .then(() => console.log('pass'))
-    .catch((er)=> console.log(er))
-    // Create the message with random `id`.
+    // axios.post(`http://103.13.231.22:3000/api/classroom/${props.route.params.classroom.id}/chat/` ,data , {
+    //   headers: {'x-access-token': token }
+    // })
+    // .then(() => dispatch(getClassroom()))
+    // .catch((er)=> console.log(er))
     setInput("");
-
     const message = {
       content: getInput,
       user: {
@@ -123,6 +121,9 @@ export default function ChatScreen(props) {
 
     // Publish our message to the channel `chat`
     pubnub.publish({ channel: classroom.name, message });
+    dispatch(sendMessage(data))
+
+
   });
 
   

@@ -65,6 +65,51 @@ export const getClassroom = () =>{
     }
 }
 
+export const sendMessage = (payload) =>{
+    console.log(payload.text)
+    const data = {
+        'text' : payload.text
+    }
+    return async (dispatch) =>{
+        var token = await AsyncStorage.getItem('token')
+        try{
+            await axios.post(`http://103.13.231.22:3000/api/classroom/${payload.roomid}/chat/` ,data , {
+                headers: {'x-access-token': token }
+              })
+            .then(() =>{
+                axios.get('http://103.13.231.22:3000/api/classroom/get/all/classroombyuser', 
+                {headers: {
+                    'x-access-token': token
+                }})
+                .then((res) =>{
+                    dispatch({
+                        type: 'CREATE_CLASSROOM_SUCCESS',
+                        data : res.data.classrooms,
+                    })
+                })
+                .catch((er) => {
+                    dispatch({
+                        type: 'CREATE_CLASSROOM_ERROR'
+                    })
+                })
+                
+            })
+            .catch((er) => {
+                dispatch({
+                    type: "CREATE_CLASSROOM_ERROR"
+                })
+            })
+        }catch{
+            dispatch({
+                type: "CREATE_CLASSROOM_ERROR"
+            })
+        }
+    }
+}
+
+
+
+
 export const joinClassroom = (payload) =>{
     return async (dispatch) =>{
         var token = await AsyncStorage.getItem('token')
