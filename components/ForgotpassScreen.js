@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, ScrollView, TouchableHighlight } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, TouchableHighlight,  Alert, } from "react-native";
 import { Input } from "react-native-elements";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Externalstyle from "../style/externalStyle";
 import Color from "../assets/resources/constants/color";
+import axios from "axios";
+
 
 export default function forgotpassscreen(props) {
   
+  const [username, setUsername] = useState('')
+  
+  const checkUsername = async () => {
+    const data = {
+      username : username
+    }
+    await axios.post('http://103.13.231.22:3000/api/auth/forgotpassword', data)
+    .then((res) => console.log('pass'))
+    .catch((er) => console.log(er.message))
+    // props.navigation.navigate("ForgotpasscodeScreen")
+  }
+
+
   return (
     <SafeAreaView style={Externalstyle.resetpass_container}>
       <ScrollView>
@@ -18,19 +33,20 @@ export default function forgotpassscreen(props) {
             <Text
               style={[Externalstyle.resetpass_text_label, { color: "black" }]}
             >
-              Enter your email address and we'll send you a code to reset your
+              Enter your Username and we'll send you a code to reset your
               password.
             </Text>
             <Text
               style={[Externalstyle.creatpost_text_label, { color: "black" }]}
             >
-              Email Address
+              Username
             </Text>
             <Input
               style={Externalstyle.creatpost_input}
               numberOfLines={1}
               placeholder={"Text here..."}
               placeholderTextColor="black"
+              onChangeText={(e) => setUsername(e)}
             />
           </View>
         </KeyboardAwareScrollView>
@@ -39,7 +55,7 @@ export default function forgotpassscreen(props) {
         <TouchableHighlight
           activeOpacity={0.2}
           underlayColor={Color.background_footer}
-          onPress={() => props.navigation.navigate("ForgotpasscodeScreen")}
+          onPress={() => checkUsername()}
         >
           <View style={Externalstyle.create_submit}>
             <Text style={[Externalstyle.title, { color: "white" }]}>
@@ -50,6 +66,7 @@ export default function forgotpassscreen(props) {
         <TouchableHighlight
           activeOpacity={0.2}
           underlayColor={Color.background_footer}
+          onPress={() => props.navigation.goBack()}
         >
           <View style={Externalstyle.profile_button}>
             <Text style={[Externalstyle.title, { color: "white" }]}>

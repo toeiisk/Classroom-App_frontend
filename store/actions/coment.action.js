@@ -68,6 +68,7 @@ export const getComment = (datacomment) => {
                 }
             })
             .then(async (res) => {
+                console.warn(res.data)
                 dispatch({
                     type: 'POST_SUCCESS',
                     data: res.data,

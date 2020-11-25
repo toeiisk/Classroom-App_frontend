@@ -34,7 +34,7 @@ class attendancescreen extends React.Component {
           <Card containerStyle={{ paddingHorizontal: 20, borderRadius: 10 }}>
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate("Chatroom", {nameclassroom: item.name});
+                this.props.navigation.navigate("Chatroom", {classroom: item});
               }}
               style={{ flexDirection: "row", paddingVertical: 10 }}
             >

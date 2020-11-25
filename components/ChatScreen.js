@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 import { compose } from "redux";
 import { usePubNub } from "pubnub-react";
 import Color from "../assets/resources/constants/color";
+import axios from 'axios'
 const PubNub = require("pubnub");
 
 LogBox.ignoreAllLogs();
@@ -43,9 +44,10 @@ export default function ChatScreen(props) {
   const user = useSelector(state => state.authReducer.UserLogin.datauser)
   // const classroom = useSelector(state => state.classReducer.Classroom.classroomUser)
   const classroom = {
-    "name": props.route.params.nameclassroom
+    "name": props.route.params.classroom.name
   }
 
+  
   useEffect(() => {
     if (pubnub) {
       const listener = {
@@ -57,7 +59,6 @@ export default function ChatScreen(props) {
               author: envelope.message.author,
               user: envelope.message.user,
               content: envelope.message.content,
-              code: envelope.message.code,
               timetoken: envelope.timetoken
             }
           ]);
@@ -88,11 +89,20 @@ export default function ChatScreen(props) {
     _menu.show();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Clear the input field.
+    const data = {
+      text : getInput
+    }
+    var token = await AsyncStorage.getItem('token')
+    axios.post(`http://103.13.231.22:3000/api/classroom/${props.route.params.classroom.id}/chat/` ,data , {
+      headers: {'x-access-token': token }
+    })
+    .then(() => console.log('pass'))
+    .catch((er)=> console.log(er))
+    // Create the message with random `id`.
     setInput("");
 
-    // Create the message with random `id`.
     const message = {
       content: getInput,
       user: {
@@ -107,6 +117,19 @@ export default function ChatScreen(props) {
     // Publish our message to the channel `chat`
     pubnub.publish({ channel: classroom.name, message });
   };
+
+  async function getData(){
+    var token = await AsyncStorage.getItem('token')
+    await axios.get(`http://103.13.231.22:3000/api/classroom/${props.route.params.classroom.id}/chat/`, {
+      headers: {'x-access-token': token }
+    }).then((res) => {
+      setMessage(res.data)
+      console.log(res.data)
+    })
+    .catch((er) => console.log(er))
+  }
+
+
   return (
     <SafeAreaView style={Externalstyle.container}>
       <View
@@ -127,7 +150,7 @@ export default function ChatScreen(props) {
         <Text
           style={{ fontSize: 22, fontFamily: "kanitBold", letterSpacing: 2 }}
         >
-          CLASSROOM 01
+          {props.route.params.classroom.name}
         </Text>
         <Menu
           ref={setMenuRef}
@@ -160,20 +183,20 @@ export default function ChatScreen(props) {
                     Externalstyle.messagesbox,
                     {
                       backgroundColor:
-                        item.user.id === user.roles[0].user_roles.userId
+                        (item.user.id || item.ownerId) === user.roles[0].user_roles.userId
                           ? Color.background_footer
                           : "white",
-                      marginLeft: item.user.id === user.roles[0].user_roles.userId ? 50 : 0,
-                      marginRight: item.user.id === user.roles[0].user_roles.userId ? 0 : 50,
+                      marginLeft: (item.user.id || item.ownerId) === user.roles[0].user_roles.userId ? 50 : 0,
+                      marginRight: (item.user.id || item.ownerId) === user.roles[0].user_roles.userId ? 0 : 50,
                     },
                   ]}
                 >
-                  {item.user.id != user.roles[0].user_roles.userId && (
+                  {(item.user.id || item.ownerId) != user.roles[0].user_roles.userId && (
                     <Text style={Externalstyle.messages_name}>
-                      {item.user.name}
+                      {item.user.name || item.nameOfuser}
                     </Text>
                   )}
-                  <Text style={Externalstyle.titlesub}>{item.content}</Text>
+                  <Text style={Externalstyle.titlesub}>{item.content || item.text}</Text>
                   <Text style={Externalstyle.messages_time}>
                     {moment(item.createdAt).fromNow()}
                   </Text>

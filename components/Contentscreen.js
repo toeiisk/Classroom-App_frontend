@@ -121,7 +121,6 @@ class ContentScreen extends Component {
   };
 
   listComment = (data) => {
-    console.log(data)
     return data.Comments.map((data) => {
       let date = moment(data.createdAt).format("L, HH:mm");
       return (
@@ -131,16 +130,18 @@ class ContentScreen extends Component {
               flexDirection: "row",
             }}
           >
-            {/* <Image
-              source={require("../assets/logo-classroom.png")}
-              style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
-            /> */}
+            
             <View style={Externalstyle.avatar_comment}>
-              <FontAwesomeIcon icon={faUser} size={25} color="white" />
+              <Image
+                source={{
+                  uri: `http://103.13.231.22:3000${data.user.img}`,
+                }}
+              style={{ height: 50, width: 50, borderRadius: 80 / 2 }}
+              />
             </View>
             <View style={Externalstyle.text_contents}>
               <Text style={Externalstyle.comments_title}>
-                Sukrit leelakornkij{"  "}
+                {data.user.facebookName || (data.user.firstname + ' ' + data.user.lastname)}{' '}
                 <Text style={Externalstyle.comments_titlesub}>{date}</Text>
               </Text>
               <View style={{ paddingRight: 20 }}>
