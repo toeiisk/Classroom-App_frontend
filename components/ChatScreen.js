@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -42,13 +42,20 @@ export default function ChatScreen(props) {
   const [getMessage, setMessage] = useState([])
   const pubnub = usePubNub();
   const user = useSelector(state => state.authReducer.UserLogin.datauser)
-  // const classroom = useSelector(state => state.classReducer.Classroom.classroomUser)
+  
+  // setMessage(props.route.params.classroom.chats)
   const classroom = {
     "name": props.route.params.classroom.name
   }
+  // setMessage(props.route.params.classroom.chats)
+  // console.log(getMessage)
 
-  
+
+
   useEffect(() => {
+    setMessage(props.route.params.classroom.chats)
+  // console.log(getMessage)
+
     if (pubnub) {
       const listener = {
         message: envelope => {
@@ -89,7 +96,7 @@ export default function ChatScreen(props) {
     _menu.show();
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback ( async () => {
     // Clear the input field.
     const data = {
       text : getInput
@@ -116,18 +123,9 @@ export default function ChatScreen(props) {
 
     // Publish our message to the channel `chat`
     pubnub.publish({ channel: classroom.name, message });
-  };
+  });
 
-  async function getData(){
-    var token = await AsyncStorage.getItem('token')
-    await axios.get(`http://103.13.231.22:3000/api/classroom/${props.route.params.classroom.id}/chat/`, {
-      headers: {'x-access-token': token }
-    }).then((res) => {
-      setMessage(res.data)
-      console.log(res.data)
-    })
-    .catch((er) => console.log(er))
-  }
+  
 
 
   return (
@@ -183,17 +181,17 @@ export default function ChatScreen(props) {
                     Externalstyle.messagesbox,
                     {
                       backgroundColor:
-                        (item.user.id || item.ownerId) === user.roles[0].user_roles.userId
+                        (item.ownerId || item.user.id ) === user.roles[0].user_roles.userId
                           ? Color.background_footer
                           : "white",
-                      marginLeft: (item.user.id || item.ownerId) === user.roles[0].user_roles.userId ? 50 : 0,
-                      marginRight: (item.user.id || item.ownerId) === user.roles[0].user_roles.userId ? 0 : 50,
+                      marginLeft: (item.ownerId  || item.user.id) === user.roles[0].user_roles.userId ? 50 : 0,
+                      marginRight: (item.ownerId || item.user.id) === user.roles[0].user_roles.userId ? 0 : 50,
                     },
                   ]}
                 >
-                  {(item.user.id || item.ownerId) != user.roles[0].user_roles.userId && (
+                  {(item.ownerId || item.user.id) != user.roles[0].user_roles.userId && (
                     <Text style={Externalstyle.messages_name}>
-                      {item.user.name || item.nameOfuser}
+                      { item.nameOfuser || item.user.name }
                     </Text>
                   )}
                   <Text style={Externalstyle.titlesub}>{item.content || item.text}</Text>
