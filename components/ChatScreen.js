@@ -36,18 +36,15 @@ const pubnub = new PubNub({
   uuid: "sec-c-MjE2MmVmMTgtMTZlYy00ZTE4LWE3MzYtYjZjNjIxOTVjZmEz",
 });
 
-pubnub.subscribe({
-  channels: ["Classroom01", "Classroom02", "Classroom03"],
-});
-
-let i = 0;
 export default function ChatScreen(props) {
   const [getInput, setInput] = useState("");
   const [getMessage, setMessage] = useState([])
   const pubnub = usePubNub();
   const user = useSelector(state => state.authReducer.UserLogin.datauser)
-
-  // console.log('data', user, user.roles[0].user_roles.userId)
+  // const classroom = useSelector(state => state.classReducer.Classroom.classroomUser)
+  const classroom = {
+    "name": props.route.params.nameclassroom
+  }
 
   useEffect(() => {
     if (pubnub) {
@@ -68,7 +65,7 @@ export default function ChatScreen(props) {
       };
       pubnub.addListener(listener);
       pubnub.subscribe({
-        channels: ["Classroom01", "Classroom02", "Classroom03"],
+        channels: [classroom.name],
       });
 
       return () => {
@@ -108,7 +105,7 @@ export default function ChatScreen(props) {
     };
 
     // Publish our message to the channel `chat`
-    pubnub.publish({ channel: "Classroom01", message });
+    pubnub.publish({ channel: classroom.name, message });
   };
   return (
     <SafeAreaView style={Externalstyle.container}>

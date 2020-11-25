@@ -27,13 +27,14 @@ class attendancescreen extends React.Component {
   }
 
   renderChatlist = (data) => {
+    console.log(data)
     return data.map((item) => {
       return (
         <Animatable.View animation="fadeInUpBig" duration={2000}>
           <Card containerStyle={{ paddingHorizontal: 20, borderRadius: 10 }}>
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate("Chatroom");
+                this.props.navigation.navigate("Chatroom", {nameclassroom: item.name});
               }}
               style={{ flexDirection: "row", paddingVertical: 10 }}
             >
