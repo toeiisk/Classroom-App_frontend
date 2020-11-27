@@ -99,37 +99,39 @@ class LessonScreen extends Component {
           <View style={Externalstyle.line_title} />
         </View>
         <View style={{ paddingHorizontal: 20 }}>
-          <FlatList
-            numColumns={2}
-            data={Lesson.LessonmUser}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onLongPress={() => this.openModal()}
-                delayLongPress={600}
-                onPress={() => {
-                  this.props.navigation.navigate("Contentclass", {
-                    LessonId: item.id,
-                    Owner: userOwner,
-                    classroomId: idClassroom,
-                  });
-                }}
-                style={Externalstyle.gridItem}
-              >
-                {this.ChangeColor}
-                <View
-                  style={[
-                    Externalstyle.lesson_card,
-                    { backgroundColor: this.randomRGB() },
-                  ]}
+          <ScrollView>
+            <FlatList
+              numColumns={2}
+              data={Lesson.LessonmUser}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onLongPress={() => this.openModal()}
+                  delayLongPress={600}
+                  onPress={() => {
+                    this.props.navigation.navigate("Contentclass", {
+                      LessonId: item.id,
+                      Owner: userOwner,
+                      classroomId: idClassroom,
+                    });
+                  }}
+                  style={Externalstyle.gridItem}
                 >
-                  <Text style={[Externalstyle.title, { color: "white" }]}>
-                    {item.name}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-            ItemSeparatorComponent={this.renderSeparator}
-          />
+                  {this.ChangeColor}
+                  <View
+                    style={[
+                      Externalstyle.lesson_card,
+                      { backgroundColor: this.randomRGB() },
+                    ]}
+                  >
+                    <Text style={[Externalstyle.title, { color: "white" }]}>
+                      {item.name}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              ItemSeparatorComponent={this.renderSeparator}
+            />
+          </ScrollView>
         </View>
         {nameselect == "CreateLesson" ? (
           <Modal transparent={true} visible={modalVisible}>

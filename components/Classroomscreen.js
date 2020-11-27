@@ -146,47 +146,49 @@ class classroomnoenroll extends React.Component {
           <View style={Externalstyle.line_title} />
         </View>
         <Animatable.View animation="fadeInUpBig" duration={2000}>
-          <FlatList
-            data={Classroom}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onLongPress={() => this.openModal()}
-                delayLongPress={600}
-                onPress={() => {
-                  this.props.navigation.navigate("Lessons", {
-                    idClassroom: item.id,
-                    userOwner: item.userIsOwner,
-                  });
-                }}
-              >
-                <ImageBackground
-                  source={{
-                    uri:
-                      "https://media4.manhattan-institute.org/sites/cj/files/woke-classrooms.jpg",
+          <ScrollView>
+            <FlatList
+              data={Classroom}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onLongPress={() => this.openModal()}
+                  delayLongPress={600}
+                  onPress={() => {
+                    this.props.navigation.navigate("Lessons", {
+                      idClassroom: item.id,
+                      userOwner: item.userIsOwner,
+                    });
                   }}
-                  imageStyle={{ borderRadius: 15 }}
-                  opacity={0.2}
-                  style={Externalstyle.classroom_card}
                 >
-                  <Text style={Externalstyle.classroom_title}>
-                    SUBJECT: {item.name}
-                  </Text>
-                  <Text style={Externalstyle.classroom_date}>
-                    DATE-TIME: {item.day} {item.time}
-                  </Text>
-                  <Text style={Externalstyle.classroom_author}>
-                    OWNER: {item.nameOwner}
-                  </Text>
-                  {item.userIsOwner ? (
-                    <Text style={Externalstyle.classroom_author}>
-                      CODE: {item.code}
+                  <ImageBackground
+                    source={{
+                      uri:
+                        "https://media4.manhattan-institute.org/sites/cj/files/woke-classrooms.jpg",
+                    }}
+                    imageStyle={{ borderRadius: 15 }}
+                    opacity={0.2}
+                    style={Externalstyle.classroom_card}
+                  >
+                    <Text style={Externalstyle.classroom_title}>
+                      SUBJECT: {item.name}
                     </Text>
-                  ) : null}
-                </ImageBackground>
-              </TouchableOpacity>
-            )}
-            ItemSeparatorComponent={this.renderSeparator}
-          />
+                    <Text style={Externalstyle.classroom_date}>
+                      DATE-TIME: {item.day} {item.time}
+                    </Text>
+                    <Text style={Externalstyle.classroom_author}>
+                      OWNER: {item.nameOwner}
+                    </Text>
+                    {item.userIsOwner ? (
+                      <Text style={Externalstyle.classroom_author}>
+                        CODE: {item.code}
+                      </Text>
+                    ) : null}
+                  </ImageBackground>
+                </TouchableOpacity>
+              )}
+              ItemSeparatorComponent={this.renderSeparator}
+            />
+          </ScrollView>
         </Animatable.View>
         {nameselect == "CreateClass" ? (
           <Modal
