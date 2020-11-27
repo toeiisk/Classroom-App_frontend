@@ -119,7 +119,7 @@ class RegisterScreen extends Component {
   };
   render() {
     const { AuthReducer } = this.props;
-    console.log(AuthReducer.isSuccess);
+    // console.log(AuthReducer.isSuccess);
     if (AuthReducer.isSuccess && !AuthReducer.isError) {
       Alert.alert(
         "สมัครข้อมูลสำเร็จ",

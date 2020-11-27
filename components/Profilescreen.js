@@ -19,7 +19,7 @@ class Profilescreen extends React.Component {
   render() {
     const { UserLogout } = this.props;
     const { UserLogin } = this.props;
-    console.log('data', UserLogin.datauser)
+    // console.log('data', UserLogin.datauser)
     return (
       <SafeAreaView style={Externalstyle.container}>
         <ScrollView>

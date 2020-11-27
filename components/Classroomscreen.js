@@ -9,6 +9,7 @@ import {
   Modal,
   TouchableHighlight,
   Alert,
+  ScrollView
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -87,7 +88,7 @@ class classroomnoenroll extends React.Component {
 
   handleConfirm = (datetime) => {
     const selectdate = moment(datetime, "h:mm:ss A").format("dddd HH:mm");
-    console.log("startTime", selectdate);
+    // console.log("startTime", selectdate);
     this.setState({
       data: selectdate,
     });

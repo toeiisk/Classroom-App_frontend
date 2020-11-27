@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux';
 
-const Modal = (state={}, action) =>{
-    switch(action.type){
+const Modal = (state = {}, action) => {
+    switch (action.type) {
         case "VISIBLE":
-            return{
+            return {
                 ...state,
-                visible : action.condition
+                visible: action.condition
             }
         case "UNVISIBLE":
-            return{
+            return {
                 ...state,
-                visible : false
+                visible: false
             }
         default:
-            return {...state}
+            return { ...state }
     }
 }
 

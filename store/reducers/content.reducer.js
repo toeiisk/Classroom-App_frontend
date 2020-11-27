@@ -1,38 +1,34 @@
-import { isLoading } from 'expo-font';
 import { combineReducers } from 'redux';
 const initialState = {
-    contentData : [],
+    contentData: [],
     isLoading: true
 }
 
-
-const Content  = (state = initialState, action) =>{
-    switch(action.type){
+const Content = (state = initialState, action) => {
+    switch (action.type) {
         case "CREATE_CONTENT_SUCCESS":
             return {
                 ...state,
-                contentData : action.data,
-                isLoading : action.isLoding,
+                contentData: action.data,
+                isLoading: action.isLoding,
                 err: action.err
             }
         case 'LOAD_CONTENT':
-            return{
+            return {
                 ...state,
-                isLoading : action.isLoding
+                isLoading: action.isLoding
             }
 
         case "CREATE_CONTENT_ERROR":
-            return{
+            return {
                 ...state,
-                isLoading : action.isLoding,
+                isLoading: action.isLoding,
                 err: action.err
             }
         default:
-            return {...state}
+            return { ...state }
     }
 }
-
-
 
 export default combineReducers({
     Content

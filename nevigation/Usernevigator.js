@@ -1,13 +1,6 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import React from "react";
-import Classroom from "../components/Classroomscreen";
 import Attendance from "../components/Attendancescreen";
-// import Attendance from "../components/ViewAttendscreen";
-import Contents from "../components/Contentscreen";
-import Lessons from "../components/Lessonscreen";
-import Creatpost from "../components/Createpostscreen";
-import Profile from "../components/Profilescreen";
-import Chat from "../components/Chatlist";
 import { Image } from "react-native";
 import ScreenStack from "./Classroomnevigator";
 import ChatStack from "./Chatnavigation";

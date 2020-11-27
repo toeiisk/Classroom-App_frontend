@@ -27,7 +27,6 @@ class attendancescreen extends React.Component {
   }
 
   renderChatlist = (data) => {
-    console.log(data)
     return data.map((item) => {
       return (
         <Animatable.View animation="fadeInUpBig" duration={2000}>

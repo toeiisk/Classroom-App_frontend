@@ -2,7 +2,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Lessons from "../components/Lessonscreen";
 import Classroom from "../components/Classroomscreen";
 import Createpost from "../components/Createpostscreen";
-// import Createclass from "../components/Createclassscreen";
 import EditProfileScreen from "../components/EditProfilescreen";
 import Contentclass from "../components/Contentscreen";
 import Editcontent from "../components/EditContentscreen";

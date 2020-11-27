@@ -1,7 +1,6 @@
 import axios from "axios";
 import { AsyncStorage } from 'react-native';
 
-
 export const createClassroom = (payload) =>{
     return async (dispatch) =>{
         var token = await AsyncStorage.getItem('token')
@@ -40,7 +39,6 @@ export const createClassroom = (payload) =>{
     }
 }
 
-
 export const getClassroom = () =>{
     return async (dispatch) =>{
         var token = await AsyncStorage.getItem('token')
@@ -51,7 +49,7 @@ export const getClassroom = () =>{
                 }
               })
               .then((res) =>{
-                  console.log(res.data)
+                //   console.log(res.data)
                   dispatch({
                       type : 'CREATE_CLASSROOM_SUCCESS',
                       data : res.data.classrooms
@@ -66,7 +64,7 @@ export const getClassroom = () =>{
 }
 
 export const sendMessage = (payload) =>{
-    console.log(payload.text)
+    // console.log(payload.text)
     const data = {
         'text' : payload.text
     }
@@ -107,9 +105,6 @@ export const sendMessage = (payload) =>{
     }
 }
 
-
-
-
 export const joinClassroom = (payload) =>{
     return async (dispatch) =>{
         var token = await AsyncStorage.getItem('token')
@@ -149,6 +144,4 @@ export const joinClassroom = (payload) =>{
             })
         }
     }
-
-
 }

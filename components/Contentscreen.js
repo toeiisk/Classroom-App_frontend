@@ -71,9 +71,9 @@ class ContentScreen extends Component {
   desContent = () => {
     const { Post } = this.props;
     if (Post.isLoading || Post.isLoading == null) {
-      console.log("1");
+      // console.log("1");
     } else {
-      console.log(Post.contentData.Post.title);
+      // console.log(Post.contentData.Post.title);
     }
   };
 
@@ -175,7 +175,7 @@ class ContentScreen extends Component {
     const { Comment } = this.props;
     const { User } = this.props;
 
-    console.log(User)
+    // console.log(User)
     if (Post.isLoading) {
       return (
         <SafeAreaView style={Externalstyle.container}>

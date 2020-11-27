@@ -16,7 +16,7 @@ export default function forgotpassscreen(props) {
       username : username
     }
     await axios.post('http://103.13.231.22:3000/api/auth/forgotpassword', data)
-    .then((res) => console.log('pass'))
+    .then((res) => console.log('forgotpassword pass'))
     .catch((er) => console.log(er.message))
     // props.navigation.navigate("ForgotpasscodeScreen")
   }

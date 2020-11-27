@@ -1,27 +1,24 @@
 import { combineReducers } from 'redux';
 const initialState = {
-    classroomUser : []
+    classroomUser: []
 }
 
-
-const Classroom  = (state = initialState, action) =>{
-    switch(action.type){
-        case "CREATE_CLASSROOM_SUCCESS":            
+const Classroom = (state = initialState, action) => {
+    switch (action.type) {
+        case "CREATE_CLASSROOM_SUCCESS":
             return {
                 ...state,
-                classroomUser : action.data
+                classroomUser: action.data
             }
-        
+
         case "CREATE_CLASSROOM_ERROR":
-            return{
+            return {
                 ...state
             }
         default:
-            return {...state}
+            return { ...state }
     }
 }
-
-
 
 export default combineReducers({
     Classroom

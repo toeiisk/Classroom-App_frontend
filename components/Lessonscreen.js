@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   FlatList,
   Modal,
+  ScrollView
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { FloatingAction } from "react-native-floating-action";

@@ -4,9 +4,7 @@ import EditProfile from "../components/EditProfilescreen";
 import React from "react";
 import Color from "../assets/resources/constants/color";
 
-
 const RootScreen = createStackNavigator();
-
 
 const EditStack = () => (
     <RootScreen.Navigator

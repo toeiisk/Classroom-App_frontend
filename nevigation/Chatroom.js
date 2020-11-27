@@ -1,8 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Chatroom from "../components/ChatScreen";
-import Chatlist from "../components/Chatlist";
-
 
 const RootScreen = createStackNavigator();
 
@@ -19,6 +17,4 @@ const Chat = () => {
     />
   </RootScreen.Navigator>
 }
-
-
 export default Chat

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-
 const initialState = {
     commentData : [],
     isLoading: true
@@ -28,8 +27,6 @@ const Comment  = (state = initialState, action) =>{
             return {...state}
     }
 }
-
-
 
 export default combineReducers({
     Comment

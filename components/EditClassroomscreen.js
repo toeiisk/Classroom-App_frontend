@@ -28,7 +28,7 @@ export default function createclassscreen() {
   const handleConfirm = (datetime) => {
     const date = moment(datetime).add(3, "days").calendar();
     console.warn("A datetime has been picked: ", date);
-    console.log("date", date);
+    // console.log("date", date);
     hideDatePicker();
   };
   return (

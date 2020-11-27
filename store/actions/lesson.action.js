@@ -1,7 +1,6 @@
 import axios from "axios";
 import { AsyncStorage } from 'react-native';
 
-
 export const createLesson = (payload) =>{
     return async (dispatch) => {
         var token = await AsyncStorage.getItem('token')
@@ -42,8 +41,6 @@ export const createLesson = (payload) =>{
     }
 }
 
-
-
 export const getLesson = (payload) => {
     return async (dispatch) =>{
         var token = await AsyncStorage.getItem('token')
@@ -77,4 +74,3 @@ export const getLesson = (payload) => {
         }
     }
 }
-

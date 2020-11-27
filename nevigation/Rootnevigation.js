@@ -1,14 +1,11 @@
 import {
   createStackNavigator,
-  HeaderBackButton,
 } from "@react-navigation/stack";
 import React from "react";
 import Signinscreen from "../components/LoginScreen";
 import Registerscreen from "../components/RegisterScreen";
 import LessonScreen from "../components/Lessonscreen";
-import ForgotpassScreen from "../components/ForgotpassScreen";
 import Loadingtest from "../components/LoadingTestscreen";
-import Chatroom from "../components/ChatScreen";
 import { Image } from "react-native";
 import Color from "../assets/resources/constants/color";
 import { TouchableOpacity } from "react-native-gesture-handler";
